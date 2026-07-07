@@ -108,6 +108,7 @@ function qrSuccess(code){
 
 function guiDiemDanh(maso){
 
+alert("Mã gửi đi: [" + maso + "]");
 
 fetch(API_URL,{
 
