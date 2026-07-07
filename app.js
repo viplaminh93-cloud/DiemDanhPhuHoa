@@ -166,6 +166,18 @@ function hienThi(data){
     document.getElementById("overlayPhoto").style.display = "none";
     document.getElementById("overlayClass").style.display = "none";
 
+
+    if(data.student.lop){
+
+    document.getElementById("overlayClass").innerHTML =
+    data.student.lop;
+
+    document.getElementById("overlayClass").style.display="block";
+
+    }
+
+    
+    
     if(data.success){
 
         overlay.classList.add("success");
