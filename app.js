@@ -157,64 +157,72 @@ fetch(API_URL,{
 
 
 
-
-
 function hienThi(data){
 
+    const overlay = document.getElementById("overlay");
 
-    document.getElementById("result")
-    .style.display="block";
+    overlay.className = "";
 
+    document.getElementById("overlayPhoto").style.display = "none";
+    document.getElementById("overlayClass").style.display = "none";
+
+    if(data.success){
+
+        overlay.classList.add("success");
+
+        document.getElementById("overlayIcon").innerHTML = "✅";
+        document.getElementById("overlayTitle").innerHTML = "ĐIỂM DANH THÀNH CÔNG";
+
+    }
+    else if(data.duplicate){
+
+        overlay.classList.add("warning");
+
+        document.getElementById("overlayIcon").innerHTML = "⚠️";
+        document.getElementById("overlayTitle").innerHTML = "ĐÃ ĐIỂM DANH";
+
+    }
+    else{
+
+        overlay.classList.add("error");
+
+        document.getElementById("overlayIcon").innerHTML = "❌";
+        document.getElementById("overlayTitle").innerHTML = "KHÔNG TÌM THẤY";
+
+    }
 
 
     if(data.student){
 
+        document.getElementById("overlayPhoto").src = data.student.hinh;
+        document.getElementById("overlayPhoto").style.display = "block";
 
-        document.getElementById("photo")
-        .src=data.student.hinh;
+        document.getElementById("overlayName").innerHTML = data.student.hoten;
 
+        document.getElementById("overlayCode").innerHTML = data.student.maso;
 
-
-        document.getElementById("name")
-        .innerHTML =
-        data.student.hoten;
-
-
-    }
-
-
-
-    if(data.success){
-    
-        document.getElementById("message").innerHTML =
-        "✅ " + data.message;
-    
-    }else if(data.duplicate){
-    
-        document.getElementById("message").innerHTML =
-        "⚠️ " + data.message;
-    
     }else{
-    
-        document.getElementById("message").innerHTML =
-        "❌ " + data.message;
-    
+
+        document.getElementById("overlayName").innerHTML = "";
+
+        document.getElementById("overlayCode").innerHTML = "";
+
     }
 
 
-
-    setTimeout(()=>{
-    
-        document.getElementById("result").style.display="none";
-    
-        daQuet = false;
-    
-        try{
-            scanner.resume();
-        }catch(e){}
-    
-    },2500);
-
-
+    overlay.classList.remove("hidden");
 
 }
+
+
+document.getElementById("overlay").addEventListener("click", function(){
+
+    this.classList.add("hidden");
+
+    daQuet = false;
+
+    try{
+        scanner.resume();
+    }catch(e){}
+
+});
