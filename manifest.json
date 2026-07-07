@@ -1,0 +1,9 @@
+{
+  "name": "Điểm danh Thiếu Nhi",
+  "short_name": "Điểm danh",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1565c0",
+  "orientation": "portrait"
+}
