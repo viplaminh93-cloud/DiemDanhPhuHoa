@@ -1,7 +1,7 @@
 let loaiDiemDanh = "";
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbz7x2jsJRKa4XRaObD5YfyH55_lnZi3fGyrF-h1t6I6pSYVrxC1uQR0uXb0_enEXOW0bQ/exec";
+"https://script.google.com/macros/s/AKfycbzOTHHF58Ru41WPz9vvVaUCkdUUeQAfgiMBX75h5DLUJ5ttlc65_4EoP7ViQ9rCTFsclA/exec";
 
 
 let scanner = null;
@@ -100,6 +100,7 @@ function qrSuccess(code){
 
     guiDiemDanh(code);
 
+
 }
 
 
@@ -108,8 +109,6 @@ function qrSuccess(code){
 
 
 function guiDiemDanh(maso){
-
-alert("Mã gửi đi: [" + maso + "]");
 
 fetch(API_URL,{
 
@@ -141,9 +140,13 @@ fetch(API_URL,{
 
 .catch(err=>{
 
+    alert("Lỗi kết nối: " + err);
 
-    alert(err);
+    daQuet = false;
 
+    try{
+        scanner.resume();
+    }catch(e){}
 
 });
 
@@ -181,25 +184,35 @@ function hienThi(data){
 
 
 
-    document.getElementById("message")
-    .innerHTML =
-    data.message;
+    if(data.success){
+    
+        document.getElementById("message").innerHTML =
+        "✅ " + data.message;
+    
+    }else if(data.duplicate){
+    
+        document.getElementById("message").innerHTML =
+        "⚠️ " + data.message;
+    
+    }else{
+    
+        document.getElementById("message").innerHTML =
+        "❌ " + data.message;
+    
+    }
 
 
 
     setTimeout(()=>{
-
-
-        document.getElementById("result")
-        .style.display="none";
-
-
-        daQuet=false;
-
-
-        scanner.resume();
-
-
+    
+        document.getElementById("result").style.display="none";
+    
+        daQuet = false;
+    
+        try{
+            scanner.resume();
+        }catch(e){}
+    
     },2500);
 
 
