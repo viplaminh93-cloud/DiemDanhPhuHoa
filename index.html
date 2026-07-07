@@ -1,1 +1,88 @@
-<h1>Điểm danh Thiếu Nhi</h1>
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Điểm danh Thiếu Nhi</title>
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h1>ĐIỂM DANH THIẾU NHI</h1>
+
+
+<h2>Chọn loại điểm danh</h2>
+
+
+<button onclick="startApp('Dự lễ')">
+Dự lễ
+</button>
+
+
+<button onclick="startApp('Giáo lý')">
+Giáo lý
+</button>
+
+
+</div>
+
+
+
+
+<div class="card hidden" id="scannerBox">
+
+
+<h2 id="typeTitle"></h2>
+
+
+<div id="reader"></div>
+
+
+<div id="result">
+
+
+<img id="photo">
+
+
+<h2 id="name"></h2>
+
+
+<div id="message"></div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
