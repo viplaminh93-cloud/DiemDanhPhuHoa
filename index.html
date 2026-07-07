@@ -9,8 +9,6 @@
 
 <title>Điểm danh Thiếu Nhi</title>
 
-<link rel="manifest" href="manifest.json">
-
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -22,21 +20,27 @@
 <div class="container">
 
 
-<div class="card">
+<div id="home" class="card">
 
-<h1>ĐIỂM DANH THIẾU NHI GIÁO XỨ PHÚ HÒA</h1>
+<h1>
+ĐIỂM DANH THIẾU NHI
+<br>
+GIÁO XỨ PHÚ HÒA
+</h1>
 
 
-<h2>Chọn loại điểm danh</h2>
+<h2>
+Chọn loại điểm danh
+</h2>
 
 
 <button onclick="startApp('Dự lễ')">
-Dự lễ
+DỰ LỄ
 </button>
 
 
 <button onclick="startApp('Giáo lý')">
-Giáo lý
+GIÁO LÝ
 </button>
 
 
@@ -45,7 +49,7 @@ Giáo lý
 
 
 
-<div class="card hidden" id="scannerBox">
+<div id="scannerBox" class="card hidden">
 
 
 <h2 id="typeTitle"></h2>
@@ -54,43 +58,57 @@ Giáo lý
 <div id="reader"></div>
 
 
-<div id="result">
+<button class="back"
+onclick="backHome()">
 
-  <div id="overlay" class="hidden">
+ĐỔI LOẠI ĐIỂM DANH
 
-    <div id="overlayCard">
+</button>
 
-        <div id="overlayIcon">✅</div>
-
-        <div id="overlayTitle">
-            ĐIỂM DANH THÀNH CÔNG
-        </div>
-
-        <img id="overlayPhoto">
-
-        <div id="overlayName"></div>
-
-        <div id="overlayCode"></div>
-
-        <div id="overlayClass"></div>
-
-        <div id="overlayHint">
-            Chạm bất kỳ đâu để tiếp tục
-        </div>
-
-    </div>
 
 </div>
 
 
-<img id="photo">
+</div>
 
 
-<h2 id="name"></h2>
 
 
-<div id="message"></div>
 
+<!-- POPUP KẾT QUẢ -->
+
+
+<div id="overlay" class="hidden">
+
+
+<div id="overlayCard">
+
+
+<div id="overlayIcon">
+✅
+</div>
+
+
+<div id="overlayTitle">
+ĐIỂM DANH THÀNH CÔNG
+</div>
+
+
+<img id="overlayPhoto">
+
+
+<div id="overlayName"></div>
+
+
+<div id="overlayCode"></div>
+
+
+<div id="overlayClass"></div>
+
+
+<div id="overlayHint">
+
+Chạm màn hình để tiếp tục
 
 </div>
 
