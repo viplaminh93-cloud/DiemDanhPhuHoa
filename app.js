@@ -7,7 +7,7 @@ let daQuet = false;
 
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbwpyTjUz2iffBWGqWZF8FxuXS3X1svx_DxH8vDuORSyv9IQ0VFm-hEzlc8V3eQXdt-obg/exec";
+"https://script.google.com/macros/s/AKfycbzNlDuVRJNbRsH7pWt1Ay7LViRLouYIWoZAxgVthBRTEoXpFB427eC9oq4z1fpr0D1Akw/exec";
 
 
 
