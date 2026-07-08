@@ -88,12 +88,12 @@ function guiDiemDanh(maso){
 
     maso = maso.trim().toUpperCase();
 
-    fetch(API_URL,{
-        method:"POST",
-        redirect:"follow",
-        headers:{
-            "Content-Type":"text/plain;charset=utf-8"
-        }
+    fetch(API_URL, {
+        method: "POST",
+        redirect: "follow",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
         body: JSON.stringify({
             maso: maso,
             loai: loaiDiemDanh
@@ -177,7 +177,9 @@ function hienThi(data){
     if(data.student){
 
         name.innerHTML=data.student.hoten;
-        lop.innerHTML="Lớp: "+data.student.lop;
+        lop.innerHTML = data.student.lop
+            ? "Lớp: " + data.student.lop
+            : "";
         code.innerHTML="Mã số: "+data.student.maso;
 
         if(data.student.hinh){
