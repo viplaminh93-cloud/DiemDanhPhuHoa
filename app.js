@@ -90,12 +90,13 @@ function guiDiemDanh(maso){
 
     fetch(API_URL,{
         method:"POST",
+        mode:"cors",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"text/plain;charset=utf-8"
         },
-        body:JSON.stringify({
-            maso:maso,
-            loai:loaiDiemDanh
+        body: JSON.stringify({
+            maso: maso,
+            loai: loaiDiemDanh
         })
     })
 
