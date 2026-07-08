@@ -34,13 +34,14 @@ function startApp(loai){
 }
 
 
-
-
-
 async function startCamera(){
+
+    alert("Bắt đầu mở camera");
 
 
     scanner = new Html5Qrcode("reader");
+
+
     try{
 
 
