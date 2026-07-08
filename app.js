@@ -104,7 +104,7 @@ function guiDiemDanh(maso){
 
     .then(text => {
 
-        console.log(text);
+        console.log("Server:", text);
 
         const data = JSON.parse(text);
 
@@ -116,7 +116,10 @@ function guiDiemDanh(maso){
 
         console.error(err);
 
-        alert(err);
+        hienThi({
+            success:false,
+            message:"Không kết nối được máy chủ"
+        });
 
     });
 
