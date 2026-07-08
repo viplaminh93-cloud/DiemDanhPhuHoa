@@ -116,17 +116,16 @@ function guiDiemDanh(maso){
     })
 
     .catch(err=>{
-
+    
         console.error(err);
-
+    
         hienThi({
-
+    
             success:false,
-
-            message:"Không kết nối được máy chủ"
-
+            message:"Lỗi kết nối"
+    
         });
-
+    
     });
 
 }
