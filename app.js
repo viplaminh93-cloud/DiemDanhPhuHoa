@@ -66,6 +66,8 @@ async function startCamera(){
 
 function qrSuccess(text){
 
+     console.log("QR ĐỌC ĐƯỢC:", text);
+
     if(daQuet) return;
 
     daQuet=true;
