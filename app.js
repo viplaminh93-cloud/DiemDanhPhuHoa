@@ -1,3 +1,5 @@
+console.log("APP PHU HOA MOI");
+
 let loaiDiemDanh = "";
 let scanner = null;
 let daQuet = false;
