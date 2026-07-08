@@ -370,3 +370,12 @@ catch(e){}
 
 
 console.log("APP JS OK - startApp:", typeof startApp);
+
+
+
+
+function startAppTest(){
+
+    alert("startAppTest chạy được");
+
+}
