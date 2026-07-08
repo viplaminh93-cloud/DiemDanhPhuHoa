@@ -90,7 +90,7 @@ function guiDiemDanh(maso){
 
     fetch(API_URL,{
         method:"POST",
-        mode:"cors",
+        redirect:"follow",
         headers:{
             "Content-Type":"text/plain;charset=utf-8"
         },
@@ -100,25 +100,19 @@ function guiDiemDanh(maso){
         })
     })
 
-    .then(async res=>{
+    .then(response => response.text())
 
-        console.log("STATUS:",res.status);
-
-        const text = await res.text();
+    .then(text => {
 
         console.log(text);
 
-        return JSON.parse(text);
-
-    })
-
-    .then(data=>{
+        const data = JSON.parse(text);
 
         hienThi(data);
 
     })
 
-    .catch(err=>{
+    .catch(err => {
 
         console.error(err);
 
