@@ -3,7 +3,7 @@ let scanner = null;
 let daQuet = false;
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzAq2la42rHJGrYvuKxYuCybwZhM8JcJgwcvDu4OLrAO6RqgGyOFVBDeZ55ZaK89AcPCw/exec";
+"https://script.google.com/macros/s/AKfycbxkXz4Pv3iBzkaseXjt3cyidf5fqaHv2p3KEvKAZfsOQ-UtgQKyVka9S5sEv_h342grVQ/exec";
 
 
 //======================
