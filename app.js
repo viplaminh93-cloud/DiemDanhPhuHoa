@@ -339,15 +339,12 @@ catch(e){}
 
 
 
-document
-.getElementById("scannerBox")
-.classList.add("hidden");
+    document.querySelector(".home")
+    .style.display="block";
 
 
-
-document
-.getElementById("home")
-.classList.remove("hidden");
+    document.getElementById("scannerBox")
+    .classList.add("hidden");
 
 
 
