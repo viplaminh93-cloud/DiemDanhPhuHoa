@@ -13,6 +13,8 @@ const API_URL =
 
 function startApp(loai){
 
+    alert("Bắt đầu mở camera");
+    
     loaiDiemDanh = loai;
 
 
