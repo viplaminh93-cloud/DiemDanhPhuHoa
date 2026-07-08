@@ -115,13 +115,18 @@ function guiDiemDanh(maso){
 
     })
 
-    .catch(err => {
+    .catch(err=>{
     
-        console.error("FETCH ERROR:", err);
+        alert(err);
+    
+        console.error(err);
     
         hienThi({
-            success: false,
-            message: "Lỗi kết nối"
+    
+            success:false,
+    
+            message:"Lỗi kết nối"
+    
         });
     
     });
