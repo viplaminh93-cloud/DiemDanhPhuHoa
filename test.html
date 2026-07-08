@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="test()">TEST API</button>
+
+<script>
+const API_URL = "DÁN_URL_EXEC_CỦA_BẠN";
+
+function test(){
+
+fetch(API_URL,{
+    method:"POST",
+    headers:{
+        "Content-Type":"text/plain;charset=utf-8"
+    },
+    body:JSON.stringify({
+        maso:"PH.1601",
+        loai:"Dự lễ"
+    })
+})
+.then(r=>r.text())
+.then(t=>{
+    alert(t);
+    console.log(t);
+})
+.catch(e=>{
+    alert(e);
+    console.error(e);
+});
+
+}
+</script>
+
+</body>
+</html>
