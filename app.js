@@ -1,5 +1,3 @@
-alert("APP.JS ĐÃ TẢI");
-
 let loaiDiemDanh = "";
 let scanner = null;
 let daQuet = false;
@@ -10,12 +8,26 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbyscKv7Kws2LGBsekdr8jmz19FD-ejMl4msXASxQs1Xg4jN8v8eM-fSDukB9_zrLHB2Gg/exec";
 
 
-alert("TRƯỚC STARTAPP");
-
 
 function startApp(loai){
 
-    alert("Đang chọn: " + loai);
+    loaiDiemDanh = loai;
+
+
+    document.querySelector(".home")
+    .style.display = "none";
+
+
+    document.getElementById("scannerBox")
+    .classList.remove("hidden");
+
+
+    document.getElementById("typeTitle")
+    .innerText =
+    "Điểm danh: " + loai;
+
+
+    startCamera();
 
 }
 
