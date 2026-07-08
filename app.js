@@ -89,46 +89,40 @@ function guiDiemDanh(maso){
     maso = maso.trim().toUpperCase();
 
     fetch(API_URL,{
-
         method:"POST",
-
         headers:{
             "Content-Type":"application/json"
         },
-
         body:JSON.stringify({
-
             maso:maso,
             loai:loaiDiemDanh
-
         })
+    })
+
+    .then(async res=>{
+
+        console.log("STATUS:",res.status);
+
+        const text = await res.text();
+
+        console.log(text);
+
+        return JSON.parse(text);
 
     })
 
-    .then(r=>r.json())
-
     .then(data=>{
-
-        console.log(data);
 
         hienThi(data);
 
     })
 
     .catch(err=>{
-    
-        alert(err);
-    
+
         console.error(err);
-    
-        hienThi({
-    
-            success:false,
-    
-            message:"Lỗi kết nối"
-    
-        });
-    
+
+        alert(err);
+
     });
 
 }
