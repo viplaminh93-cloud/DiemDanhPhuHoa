@@ -271,28 +271,31 @@ else{
 
 
 
-const overlay =
-document.getElementById("overlay");
+window.onload = function(){
 
+    const overlay =
+    document.getElementById("overlay");
 
-if(overlay){
+    if(overlay){
 
-    overlay.addEventListener(
-    "click",
-    function(){
+        overlay.addEventListener(
+        "click",
+        function(){
 
-        this.classList.add("hidden");
+            this.classList.add("hidden");
 
-        daQuet=false;
+            daQuet=false;
 
-        try{
-            scanner.resume();
-        }
-        catch(e){}
+            try{
+                scanner.resume();
+            }
+            catch(e){}
 
-    });
+        });
 
-}
+    }
+
+};
 
 
 
