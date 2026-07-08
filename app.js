@@ -1,5 +1,3 @@
-alert("app.js đã chạy");
-
 let loaiDiemDanh = "";
 let scanner = null;
 let daQuet = false;
@@ -18,8 +16,7 @@ function startApp(loai){
     loaiDiemDanh = loai;
 
 
-    document.querySelector(".home")
-    .style.display="none";
+    document.querySelector(".home").style.display = "none";
 
 
     document.getElementById("scannerBox")
