@@ -13,7 +13,21 @@ const API_URL =
 
 function startApp(loai){
 
-    alert("Đang chọn: " + loai);
+    loaiDiemDanh = loai;
+
+
+    document.querySelector(".home")
+    .style.display = "none";
+
+
+    document.getElementById("scannerBox")
+    .classList.remove("hidden");
+
+
+    document.getElementById("typeTitle")
+    .innerText =
+    "Điểm danh: " + loai;
+
 
 }
 
