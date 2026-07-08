@@ -285,11 +285,28 @@ else{
 
 
 
-document
-.getElementById("overlay")
-.addEventListener(
-"click",
-function(){
+const overlay =
+document.getElementById("overlay");
+
+
+if(overlay){
+
+    overlay.addEventListener(
+    "click",
+    function(){
+
+        this.classList.add("hidden");
+
+        daQuet=false;
+
+        try{
+            scanner.resume();
+        }
+        catch(e){}
+
+    });
+
+}
 
 
     this.classList.add("hidden");
@@ -346,3 +363,10 @@ catch(e){}
 
 
 }
+
+
+
+
+
+
+console.log("APP JS OK - startApp:", typeof startApp);
