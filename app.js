@@ -29,6 +29,8 @@ function startApp(loai){
     "Điểm danh: " + loai;
 
 
+    startCamera();
+
 }
 
 
