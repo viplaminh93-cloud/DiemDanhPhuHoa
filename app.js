@@ -353,7 +353,7 @@ async function backHome(){
 function capNhatTong(){
 
     document.getElementById("todayCount").innerHTML =
-    "👦 Đã điểm danh hôm nay: <b>"
+    "Đã điểm danh hôm nay: <b>"
     + tongHomNay +
     "</b> em";
 
