@@ -23,7 +23,7 @@ function startApp(loai){
     document.getElementById("typeTitle")
         .innerText = "Điểm danh: " + loai;
 
-    loadTodayCount();      // ← thêm dòng này
+    loadTodayCount(); 
 
     capNhatTongTuServer(loai);
     
@@ -134,8 +134,6 @@ async function startCamera(){
 //======================
 
 function qrSuccess(text){
-
-     console.log("QR ĐỌC ĐƯỢC:", text);
 
     if(daQuet) return;
 
