@@ -4,7 +4,7 @@ let daQuet = false;
 let tongHomNay = 0;
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbwwDWbxXdzXWeeoUAqu63K6IYeSsE5PuQEj_15A_M3MhwRgz4EtxQvwYeSlBdig6e_b/exec";
+"https://script.google.com/macros/s/AKfycbyJhX8Lx2fWzDtZN24EmdoH6jy7Pf4drlkunxXUuf3i4p0JYmjjL9KF06pJQ9u5BQL2mQ/exec";
 
 
 //======================
@@ -184,12 +184,14 @@ function hienThi(data){
 
 
     
-    if(typeof data.tong !== "undefined"){
-
-    tongHomNay = data.tong;
-
-    capNhatTong();
-
+    if(data.tong != null){
+    
+        tongHomNay = parseInt(data.tong,10);
+    
+        if(!isNaN(tongHomNay)){
+            capNhatTong();
+        }
+    
     }
 
     if(data.success){
