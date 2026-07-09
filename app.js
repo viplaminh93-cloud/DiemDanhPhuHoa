@@ -1,9 +1,10 @@
 let loaiDiemDanh = "";
 let scanner = null;
 let daQuet = false;
+let tongHomNay = 0;
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbznd4VDz_a-tvtZuE-CH7shJ5K-Cm3uSOp-QsH3QcY-drXbCndkf4obOYbMHlxToiVbWw/exec";
+"https://script.google.com/macros/s/AKfycbwwDWbxXdzXWeeoUAqu63K6IYeSsE5PuQEj_15A_M3MhwRgz4EtxQvwYeSlBdig6e_b/exec";
 
 
 //======================
@@ -166,6 +167,14 @@ function guiDiemDanh(maso){
 //======================
 
 function hienThi(data){
+    
+    if(typeof data.tong !== "undefined"){
+
+    tongHomNay = data.tong;
+
+    capNhatTong();
+
+    }
 
     const overlay=document.getElementById("overlay");
 
@@ -306,6 +315,15 @@ async function backHome(){
     document.querySelector(".home").style.display="block";
 
     document.getElementById("scannerBox").classList.add("hidden");
+
+}
+
+function capNhatTong(){
+
+    document.getElementById("todayCount").innerHTML =
+    "👦 Đã điểm danh hôm nay: <b>"
+    + tongHomNay +
+    "</b> em";
 
 }
 
