@@ -168,6 +168,7 @@ function guiDiemDanh(maso){
 
 function hienThi(data){
     
+    
     if(typeof data.tong !== "undefined"){
 
     tongHomNay = data.tong;
@@ -187,6 +188,7 @@ function hienThi(data){
     const code=document.getElementById("overlayCode");
     const lop=document.getElementById("overlayClass");
     const time=document.getElementById("overlayTime");
+
 
 
     if(data.success){
@@ -232,7 +234,8 @@ function hienThi(data){
         
         if(data.duplicate && data.gio){
         
-            time.innerHTML = "🕒 Đã điểm danh lúc: " + data.gio;
+            time.innerHTML =
+            "🕒 Đã điểm danh lúc: " + data.gio;
         
         }else{
         
