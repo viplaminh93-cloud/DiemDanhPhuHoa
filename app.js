@@ -1,6 +1,6 @@
 let loaiDiemDanh = "";
 let scanner = null;
-let daQuet = false;
+let dangXuLy = false;
 let tongHomNay = 0;
 
 const API_URL =
@@ -12,9 +12,6 @@ const API_URL =
 //======================
 
 function startApp(loai){
-
-    let scanner = null;
-    let dangXuLy = false;
 
     loaiDiemDanh = loai;
 
@@ -143,17 +140,23 @@ async function startCamera(){
 
 function qrSuccess(text){
 
-    if(daQuet) return;
+    if(dangXuLy) return;
 
-    daQuet=true;
+    dangXuLy = true;
 
-    scanner.pause();
+    if(scanner){
+
+        scanner.pause();
+
+    }
+
+    if(navigator.vibrate){
+
+        navigator.vibrate(50);
+
+    }
 
     guiDiemDanh(text);
-
-    if (navigator.vibrate) {
-        navigator.vibrate(50);
-    }
 
 }
 
@@ -305,6 +308,14 @@ function hienThi(data){
 
     }
 
+    setTimeout(() => {
+    
+        document
+            .getElementById("overlay")
+            .classList.remove("hidden");
+    
+    },10);
+
 }
 
 
@@ -315,24 +326,25 @@ function hienThi(data){
 
 window.onload=function(){
 
-    document.getElementById("overlay")
-    .addEventListener("click",function(){
+    document
+        .getElementById("overlay")
+        .addEventListener("click",async function(){
 
-        this.classList.add("hidden");
+            this.classList.add("hidden");
 
-        daQuet=false;
+            dangXuLy = false;
 
-        if(scanner){
+            if(scanner){
 
-            scanner.resume();
+                try{
 
-            setTimeout(() => {
-                daQuet = false;
-            }, 200);
+                    await scanner.resume();
 
-        }
+                }catch(e){}
 
-    });
+            }
+
+        });
 
 }
 
@@ -356,7 +368,7 @@ async function backHome(){
 
     }catch(e){}
 
-    daQuet=false;
+    dangXuLy = false;
 
     document.querySelector(".home").style.display="block";
 
