@@ -108,7 +108,7 @@ async function startCamera(){
             { facingMode:"environment" },
 
             {
-                fps:15,
+                fps:10,
                 
                 qrbox:{
                     width:220,
@@ -146,7 +146,7 @@ function qrSuccess(text){
 
     if(scanner){
 
-        scanner.pause();
+        scanner.pause(true);
 
     }
 
@@ -170,39 +170,40 @@ function guiDiemDanh(maso){
 
     maso = maso.trim().toUpperCase();
 
-    fetch(API_URL, {
-        method: "POST",
-        redirect: "follow",
-        headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+    fetch(API_URL,{
+        method:"POST",
+        redirect:"follow",
+        headers:{
+            "Content-Type":"text/plain;charset=utf-8"
         },
-        body: JSON.stringify({
-            maso: maso,
-            loai: loaiDiemDanh
+        body:JSON.stringify({
+            maso:maso,
+            loai:loaiDiemDanh
         })
     })
-
-    .then(response => response.text())
-
-    .then(text => {
-
-        console.log("Server:", text);
-
-        const data = JSON.parse(text);
-
+    
+    .then(res=>res.json())
+    
+    .then(data=>{
+    
+        console.log(data);
+    
         hienThi(data);
-
+    
     })
-
-    .catch(err => {
-
+    
+    .catch(err=>{
+    
         console.error(err);
-
+    
         hienThi({
+    
             success:false,
+    
             message:"Không kết nối được máy chủ"
+    
         });
-
+    
     });
 
 }
