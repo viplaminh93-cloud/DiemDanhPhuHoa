@@ -177,8 +177,16 @@ function guiDiemDanh(maso){
             "Content-Type":"text/plain;charset=utf-8"
         },
         body:JSON.stringify({
+        
             maso:maso,
-            loai:loaiDiemDanh
+        
+            loai:loaiDiemDanh,
+        
+            requestId:
+                Date.now() +
+                "_" +
+                Math.random()
+        
         })
     })
     
