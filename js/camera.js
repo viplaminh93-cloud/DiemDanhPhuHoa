@@ -11,13 +11,13 @@
 
 async function startCamera(){
 
-    if(window.scanner){
+    if(App.scanner){
 
         try{
 
             await window.scanner.stop();
 
-            window.scanner.clear();
+            App.scanner.clear();
 
         }catch(err){
 
@@ -27,11 +27,11 @@ async function startCamera(){
 
     }
 
-    window.scanner = new Html5Qrcode("reader");
+    App.scanner = new Html5Qrcode("reader");
 
     try{
 
-        await scanner.start(
+        await App.scanner.start(
 
             {
 
@@ -82,7 +82,7 @@ async function startCamera(){
 
 async function pauseCamera(){
 
-    if(!window.scanner){
+    if(!App.scanner){
 
         return;
 
@@ -90,7 +90,7 @@ async function pauseCamera(){
 
     try{
 
-        await window.scanner.pause(true);
+        await App.scanner.pause(true);
 
     }
 
@@ -111,7 +111,7 @@ async function pauseCamera(){
 
 async function resumeCamera(){
 
-    if(!window.scanner){
+    if(!App.scanner){
 
         return;
 
@@ -119,7 +119,7 @@ async function resumeCamera(){
 
     try{
 
-        await window.scanner.resume();
+        await App.scanner.resume();
 
     }
 
@@ -141,7 +141,7 @@ async function resumeCamera(){
 
 async function stopCamera(){
 
-    if(!window.scanner){
+    if(!App.scanner){
 
         return;
 
@@ -149,9 +149,9 @@ async function stopCamera(){
 
     try{
 
-        await window.scanner.stop();
+        await App.scanner.stop();
 
-        window.scanner.clear();
+        App.scanner.clear();
 
     }
 
@@ -161,7 +161,7 @@ async function stopCamera(){
 
     }
 
-    window.scanner = null;
+    App.scanner = null;
 
 }
 
@@ -212,7 +212,7 @@ document.addEventListener(
 
         if(
 
-            window.scanner &&
+            App.scanner &&
 
             !document
 
@@ -224,7 +224,7 @@ document.addEventListener(
 
             try{
 
-                await window.scanner.resume();
+                await App.scanner.resume();
 
             }catch(err){
 
