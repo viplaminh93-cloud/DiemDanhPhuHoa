@@ -25,7 +25,7 @@ function startApp(loai){
 
     capNhatTongTuServer(loai);
 
-    dongBoQueue();
+//    dongBoQueue();
 
     startCamera();
 
