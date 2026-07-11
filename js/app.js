@@ -24,19 +24,6 @@ const STORAGE_VERSION = "phuhoa_version";
 const OFFLINE_QUEUE_KEY = "attendance_queue";
 
 
-//======================================
-// GLOBAL
-//======================================
-
-window.scanner = null;
-
-window.loaiDiemDanh = "";
-
-let dangXuLy = false;
-
-let tongHomNay = 0;
-
-let deferredPrompt = null;
 
 
 //======================================
