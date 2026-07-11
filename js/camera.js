@@ -148,12 +148,26 @@ async function stopCamera(){
     }
 
     try{
-
+    
         await App.scanner.stop();
-
-        App.scanner.clear();
-
+    
+    }catch(err){
+    
+        console.log(err);
+    
     }
+    
+    try{
+    
+        App.scanner.clear();
+    
+    }catch(err){
+    
+        console.log(err);
+    
+    }
+    
+    App.scanner = null;
 
     catch(err){
 
