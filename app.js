@@ -464,4 +464,78 @@ function capNhatTong(){
 
 }
 
+
+//======================
+// PWA INSTALL
+//======================
+
+let deferredPrompt = null;
+
+window.addEventListener(
+
+    "beforeinstallprompt",
+
+    e=>{
+
+        e.preventDefault();
+
+        deferredPrompt = e;
+
+        document
+            .getElementById("installBtn")
+            .classList.remove("hidden");
+
+    }
+
+);
+
+document
+
+.getElementById("installBtn")
+
+.addEventListener("click",async()=>{
+
+    if(!deferredPrompt){
+
+        return;
+
+    }
+
+    deferredPrompt.prompt();
+
+    const result =
+        await deferredPrompt.userChoice;
+
+    if(result.outcome==="accepted"){
+
+        console.log("Installed");
+
+    }
+
+    deferredPrompt = null;
+
+    document
+        .getElementById("installBtn")
+        .classList.add("hidden");
+
+});
+
+window.addEventListener(
+
+    "appinstalled",
+
+    ()=>{
+
+        document
+            .getElementById("installBtn")
+            .classList.add("hidden");
+
+        console.log("PWA Installed");
+
+    }
+
+);
+
+
+
 console.log("APP JS OK");
