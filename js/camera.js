@@ -214,9 +214,7 @@ document.addEventListener(
 
             App.scanner &&
 
-            !document
-
-                .getElementById("scannerBox")
+            !id("scannerBox")
 
                 .classList.contains("hidden")
 
@@ -256,11 +254,7 @@ async function qrSuccess(text){
 
     await pauseCamera();
 
-    if(navigator.vibrate){
-
-        navigator.vibrate(50);
-
-    }
+    vibrate();
 
     if(typeof window.onQRCode === "function"){
 
