@@ -51,25 +51,37 @@ HOME
 
 }
 
+.logo{
+
+    width:110px;
+    height:110px;
+    display:block;
+    margin:0 auto 18px;
+    object-fit:contain;
+
+}
+
 h1{
 
     color:#1565c0;
 
-    font-size:32px;
-
-    margin-bottom:10px;
+    font-size:30px;
 
     font-weight:700;
+
+    margin-bottom:8px;
 
 }
 
 h2{
 
-    color:#1565c0;
+    color:#4f6b88;
 
-    font-size:24px;
+    font-size:18px;
 
-    margin-bottom:20px;
+    font-weight:500;
+
+    margin-bottom:25px;
 
 }
 
@@ -117,17 +129,22 @@ button:active{
 
     margin-top:18px;
 
+    box-shadow:
+        0 8px 18px rgba(25,118,210,.25);
+
 }
 
 .btn:hover{
 
     background:#1565c0;
 
+    transform:translateY(-2px);
+
 }
 
 .back{
 
-    background:#78909c;
+    background:#607d8b;
 
     color:white;
 
@@ -164,6 +181,10 @@ QR
     overflow:hidden;
 
     border-radius:18px;
+
+    border:3px solid #1976d2;
+
+    background:white;
 
 }
 
@@ -209,9 +230,47 @@ POPUP
 
     background:#1976d2;
 
-    transition:.25s;
+    animation:popup .25s ease;
 
 }
+
+/*========================
+MÀU KHỐI
+========================*/
+
+#overlay.khaitam #overlayCard{
+
+    background:#29b6f6;
+
+}
+
+#overlay.xungtoi #overlayCard{
+
+    background:#66bb6a;
+
+}
+
+#overlay.themsuc #overlayCard{
+
+    background:#ab47bc;
+
+}
+
+#overlay.songdao #overlayCard{
+
+    background:#fb8c00;
+
+}
+
+#overlay.vaodoi #overlayCard{
+
+    background:#6d4c41;
+
+}
+
+/*========================
+TRẠNG THÁI
+========================*/
 
 #overlay.warning #overlayCard{
 
@@ -245,7 +304,10 @@ POPUP
 
     object-fit:cover;
 
-    border:5px solid rgba(255,255,255,.9);
+    border:6px solid white;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.25);
 
     margin:15px auto 25px;
 
@@ -263,9 +325,17 @@ POPUP
 
 }
 
-#overlayClass{
+#overlayKhoi{
 
     margin-top:10px;
+
+    font-size:22px;
+
+}
+
+#overlayClass{
+
+    margin-top:8px;
 
     font-size:22px;
 
@@ -298,6 +368,30 @@ POPUP
 }
 
 /*========================
+HIỆU ỨNG
+========================*/
+
+@keyframes popup{
+
+    from{
+
+        transform:scale(.8);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/*========================
 MOBILE
 ========================*/
 
@@ -309,9 +403,23 @@ MOBILE
 
     }
 
+    .logo{
+
+        width:90px;
+
+        height:90px;
+
+    }
+
     h1{
 
-        font-size:28px;
+        font-size:26px;
+
+    }
+
+    h2{
+
+        font-size:17px;
 
     }
 
@@ -324,6 +432,7 @@ MOBILE
     #overlayPhoto{
 
         width:150px;
+
         height:150px;
 
     }
