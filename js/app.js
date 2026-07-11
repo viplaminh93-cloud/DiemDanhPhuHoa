@@ -30,7 +30,7 @@ const OFFLINE_QUEUE_KEY = "attendance_queue";
 
 window.scanner = null;
 
-let loaiDiemDanh = "";
+window.loaiDiemDanh = "";
 
 let dangXuLy = false;
 
