@@ -5,7 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>Điểm danh Thiếu Nhi</title>
 
@@ -13,128 +14,135 @@
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
+    <!--=========================
+            TRANG CHỦ
+    ==========================-->
 
-<div class="card home">
+    <div class="card home">
 
-    <div class="logo">
-        📷
+        <div class="logo">
+
+            <img
+            src="logo.png"
+            alt="Logo Giáo xứ"
+            id="logo">
+
+        </div>
+
+        <h1>
+
+            GIÁO XỨ PHÚ HÒA
+
+        </h1>
+
+        <div class="subTitle">
+
+            HỆ THỐNG ĐIỂM DANH QR
+
+        </div>
+
+        <button
+        class="btn btnBlue"
+        onclick="startApp('Dự lễ')">
+
+            DỰ LỄ
+
+        </button>
+
+        <button
+        class="btn btnBlue"
+        onclick="startApp('Giáo lý')">
+
+            GIÁO LÝ
+
+        </button>
+
     </div>
 
 
-    <h1>
-        GIÁO XỨ PHÚ HÒA
-    </h1>
 
+    <!--=========================
+            MÀN HÌNH QUÉT
+    ==========================-->
 
-    <h2>
-        ĐIỂM DANH QR
-    </h2>
+    <div
+    id="scannerBox"
+    class="card hidden">
 
+        <div
+        id="typeTitle"
+        class="scannerTitle">
+        </div>
 
-    <p>
-        Chọn hoạt động
-    </p>
+        <div
+        id="todayCount"
+        class="todayCount">
 
+            Đã điểm danh hôm nay: 0 em
 
-    <button class="btn le"
-    onclick="startApp('Dự lễ')">
-        ⛪ Dự lễ
-    </button>
-    
-    
-    <button class="btn giaoly"
-    onclick="startApp('Giáo lý')">
-        📖 Giáo lý
-    </button>
+        </div>
 
+        <div id="reader"></div>
 
-</div>
+        <button
+        class="back"
+        onclick="backHome()">
 
+            QUAY LẠI
 
+        </button>
 
-
-<div id="scannerBox" class="card hidden">
-
-
-<h2 id="typeTitle"></h2>
-
-<div id="todayCount" class="todayCount">
-    Đã điểm danh hôm nay: 0 em
-</div>
-
-<div id="reader"></div>
-
-
-<button class="back"
-onclick="backHome()">
-
-QUAY LẠI
-
-</button>
-
-
-</div>
-
+    </div>
 
 </div>
 
 
 
+<!--=========================
+        POPUP KẾT QUẢ
+==========================-->
 
+<div
+id="overlay"
+class="hidden">
 
-<!-- POPUP KẾT QUẢ -->
+    <div id="overlayCard">
 
+        <div id="overlayTitle">
 
-<div id="overlay" class="hidden">
+            ĐIỂM DANH THÀNH CÔNG
 
+        </div>
 
-<div id="overlayCard">
+        <img id="overlayPhoto">
 
+        <div id="overlayName"></div>
 
-<div id="overlayIcon">
-✅
-</div>
+        <div id="overlayClass"></div>
 
+        <div id="overlayCode"></div>
 
-<div id="overlayTitle">
-ĐIỂM DANH THÀNH CÔNG
-</div>
+        <div id="overlayTime"></div>
 
+        <div id="overlayHint">
 
-<img id="overlayPhoto">
+            Chạm màn hình để tiếp tục
 
+        </div>
 
-<div id="overlayName"></div>
-<div id="overlayClass"></div>
-<div id="overlayTime"></div>
-<div id="overlayCode"></div>
-
-
-<div id="overlayHint">
-
-Chạm màn hình để tiếp tục
-
-</div>
-
+    </div>
 
 </div>
-
-
-</div>
-
-
 
 
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 
-<script src="app.js?v=1"></script>
+<script src="app.js?v=2"></script>
 
 </body>
 
