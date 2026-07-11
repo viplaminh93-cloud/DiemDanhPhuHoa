@@ -31,8 +31,7 @@ function startApp(loai){
     document.getElementById("typeTitle")
         .innerText = "Điểm danh: " + loai;
 
-    loadTodayCount();
-    
+   
     capNhatTongTuServer(loai);
     
     dongBoQueue();
