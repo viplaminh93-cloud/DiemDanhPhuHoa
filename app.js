@@ -724,11 +724,17 @@ function xoaQueue(requestId){
 async function dongBoQueue(){
 
     const queue = layQueue();
-
-    if(queue.length == 0){
-
+    
+    if(queue.length === 0){
+    
         return;
-
+    
+    }
+    
+    if(!navigator.onLine){
+    
+        return;
+    
     }
 
     for(const item of queue){
