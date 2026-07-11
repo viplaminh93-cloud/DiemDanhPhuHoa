@@ -46,7 +46,11 @@ window.onQRCode = async function(maso){
     
     const data = await guiRequest(request);
     
-    xuLyResponse(data);
+    if(data){
+    
+        xuLyResponse(data);
+    
+    }
 };
 
 
