@@ -1,6 +1,13 @@
-//======================
-// Camera
-//======================
+//======================================
+// CAMERA
+//======================================
+
+"use strict";
+
+
+//======================================
+// BẮT ĐẦU CAMERA
+//======================================
 
 async function startCamera(){
 
@@ -12,7 +19,11 @@ async function startCamera(){
 
             scanner.clear();
 
-        }catch(e){}
+        }catch(err){
+
+            console.log(err);
+
+        }
 
     }
 
@@ -22,15 +33,22 @@ async function startCamera(){
 
         await scanner.start(
 
-            { facingMode:"environment" },
+            {
+
+                facingMode:"environment"
+
+            },
 
             {
 
                 fps:10,
 
                 qrbox:{
+
                     width:220,
+
                     height:220
+
                 },
 
                 rememberLastUsedCamera:true,
@@ -45,7 +63,13 @@ async function startCamera(){
 
     }catch(err){
 
-        alert("Không mở được camera\n\n" + err);
+        alert(
+
+            "Không mở được camera.\n\n"
+
+            + err
+
+        );
 
     }
 
@@ -53,14 +77,11 @@ async function startCamera(){
 
 
 
+//======================================
+// QR SUCCESS
+//======================================
 
-
-
-//======================
-// Quét thành công
-//======================
-
-function qrSuccess(text){
+function qrSuccess(decodedText){
 
     if(dangXuLy){
 
@@ -82,18 +103,15 @@ function qrSuccess(text){
 
     }
 
-    guiDiemDanh(text);
+    guiDiemDanh(decodedText);
 
 }
 
 
 
-
-
-
-//======================
-// Quay lại
-//======================
+//======================================
+// QUAY LẠI
+//======================================
 
 async function backHome(){
 
@@ -111,25 +129,73 @@ async function backHome(){
 
         }
 
-    }catch(e){}
+    }catch(err){
+
+        console.log(err);
+
+    }
 
     dangXuLy = false;
 
     document
+
         .querySelector(".home")
+
         .style.display = "block";
 
     document
+
         .getElementById("scannerBox")
+
         .classList.add("hidden");
 
 }
 
 
 
+//======================================
+// KHỞI ĐỘNG CAMERA KHI ĐỔI TAB
+//======================================
 
+document.addEventListener(
 
+    "visibilitychange",
 
+    async()=>{
+
+        if(document.hidden){
+
+            return;
+
+        }
+
+        if(
+
+            scanner &&
+
+            !document
+
+                .getElementById("scannerBox")
+
+                .classList.contains("hidden")
+
+        ){
+
+            try{
+
+                await scanner.resume();
+
+            }catch(err){
+
+                console.log(err);
+
+            }
+
+        }
+
+    }
+
+);
 
 
 
