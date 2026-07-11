@@ -119,21 +119,32 @@ function xuLyResponse(data){
 
     console.log(data);
 
-    window.dispatchEvent(
+    capNhatDem(data);
 
-        new CustomEvent(
+    hienThi(data);
 
-            "attendance-response",
+}
 
-            {
 
-                detail:data
 
-            }
 
-        )
 
-    );
+
+//======================================
+// CẬP NHẬT BỘ ĐẾM
+//======================================
+
+function capNhatDem(data){
+
+    if(!data.success){
+
+        return;
+
+    }
+
+    App.tongHomNay++;
+
+    capNhatTong();
 
 }
 
