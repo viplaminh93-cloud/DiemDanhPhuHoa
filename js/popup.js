@@ -1,4 +1,4 @@
-hienThi()
+/*hienThi()
 
 showSuccess()
 
