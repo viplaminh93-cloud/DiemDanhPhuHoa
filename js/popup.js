@@ -1,7 +1,7 @@
-/*hienThi()
+//======================================
+// POPUP
+//======================================
 
-showSuccess()
+"use strict";
 
-showDuplicate()
-
-showError()
+console.log("popup.js loaded");
