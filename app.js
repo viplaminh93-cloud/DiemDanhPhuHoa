@@ -16,6 +16,48 @@ const OFFLINE_QUEUE_KEY = "attendance_queue";
 
 
 //======================
+// APP CONFIG
+//======================
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwK1pWbhW1MBbcNunsN1edGWkV7PPKUrL7s0mPqHbQArFHM57vn29MZou6kvSvaS82AeQ/exec";
+
+const STORAGE_VERSION = "phuhoa_version";
+
+const APP_VERSION = "1.0.0";
+
+const OFFLINE_QUEUE_KEY = "attendance_queue";
+
+
+//======================
+// GLOBAL VARIABLES
+//======================
+
+let loaiDiemDanh = "";
+
+let scanner = null;
+
+let dangXuLy = false;
+
+let tongHomNay = 0;
+
+let deferredPrompt = null;
+
+
+console.log("APP CORE LOADED");
+
+
+
+
+
+
+
+
+
+
+
+
+//======================
 // Chọn loại điểm danh
 //======================
 
