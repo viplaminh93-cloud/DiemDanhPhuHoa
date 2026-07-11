@@ -55,9 +55,7 @@ function capNhatTongTuServer(loai){
 
     .then(data=>{
 
-        tongHomNay =
-
-            Number(data.count) || 0;
+        App.tongHomNay = Number(data.count) || 0;
 
         capNhatTong();
 
