@@ -264,10 +264,10 @@ async function qrSuccess(text){
 
     vibrate();
 
-    if(typeof window.onQRCode === "function"){
-
-        window.onQRCode(text);
-
+    if(typeof App.onQRCode === "function"){
+    
+        App.onQRCode(text);
+    
     }
 
 }
