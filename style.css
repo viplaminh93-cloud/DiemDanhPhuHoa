@@ -455,3 +455,102 @@ MOBILE
     background:#1b5e20;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*========================
+SPLASH
+========================*/
+
+#splash{
+
+    position:fixed;
+
+    inset:0;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999999;
+
+    transition:.6s;
+
+}
+
+#splash.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+.splash-content{
+
+    text-align:center;
+
+}
+
+.splash-logo{
+
+    width:150px;
+
+    animation:zoomLogo 1.2s ease;
+
+}
+
+.splash-title{
+
+    margin-top:25px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#1565c0;
+
+}
+
+.splash-sub{
+
+    margin-top:12px;
+
+    color:#666;
+
+    font-size:18px;
+
+}
+
+@keyframes zoomLogo{
+
+    from{
+
+        transform:scale(.8);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
