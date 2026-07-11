@@ -270,32 +270,26 @@ function hienThi(data){
         switch((data.student.khoi || "").toUpperCase()){
 
             case "KHAI TÂM":
-
                 overlay.classList.add("khaitam");
                 break;
 
             case "XƯNG TỘI":
-
                 overlay.classList.add("xungtoi");
                 break;
 
             case "THÊM SỨC":
-
                 overlay.classList.add("themsuc");
                 break;
 
             case "SỐNG ĐẠO":
-
                 overlay.classList.add("songdao");
                 break;
 
             case "VÀO ĐỜI":
-
                 overlay.classList.add("vaodoi");
                 break;
 
             default:
-
                 overlay.classList.add("success");
 
         }
@@ -309,6 +303,9 @@ function hienThi(data){
     if(data.success){
 
         title.innerHTML = "ĐIỂM DANH THÀNH CÔNG";
+
+        // Cập nhật lại tổng từ server
+        capNhatTongTuServer(loaiDiemDanh);
 
     }else if(data.duplicate){
 
@@ -372,15 +369,10 @@ function hienThi(data){
     }else{
 
         name.innerHTML = "";
-
         khoi.innerHTML = "";
-
         lop.innerHTML = "";
-
         code.innerHTML = data.message || "";
-
         time.innerHTML = "";
-
         photo.style.display = "none";
 
     }
