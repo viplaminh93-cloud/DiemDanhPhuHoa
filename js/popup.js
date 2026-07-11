@@ -2,6 +2,4 @@
 // POPUP
 //======================================
 
-"use strict";
-
-console.log("popup.js loaded");
+console.log("popup");
