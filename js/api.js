@@ -44,7 +44,9 @@ window.onQRCode = async function(maso){
 
     const request = taoRequest(maso);
 
-    console.log(request);
+    const data = await guiRequest(request);
+
+    console.log(data);
 
 };
 
