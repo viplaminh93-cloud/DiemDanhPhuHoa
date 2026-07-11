@@ -136,7 +136,7 @@ async function resumeCamera(){
 
 
 //======================================
-// Stop Camera
+// STOP CAMERA
 //======================================
 
 async function stopCamera(){
@@ -148,30 +148,22 @@ async function stopCamera(){
     }
 
     try{
-    
+
         await App.scanner.stop();
-    
+
     }catch(err){
-    
+
         console.log(err);
-    
+
     }
-    
+
     try{
-    
+
         App.scanner.clear();
-    
+
     }catch(err){
-    
+
         console.log(err);
-    
-    }
-    
-    App.scanner = null;
-
-    catch(err){
-
-        console.error(err);
 
     }
 
