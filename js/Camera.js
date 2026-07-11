@@ -77,35 +77,30 @@ async function startCamera(){
 
 
 
-//======================================
-// QR SUCCESS
-//======================================
 
-function qrSuccess(decodedText){
 
-    if(dangXuLy){
 
-        return;
 
-    }
+stopCamera()
 
-    dangXuLy = true;
+pauseCamera()
 
-    if(scanner){
+resumeCamera()
 
-        scanner.pause(true);
 
-    }
 
-    if(navigator.vibrate){
 
-        navigator.vibrate(50);
 
-    }
 
-    guiDiemDanh(decodedText);
 
-}
+
+
+
+
+
+
+
+
 
 
 
@@ -197,6 +192,37 @@ document.addEventListener(
 
 );
 
+
+
+//======================================
+// QR SUCCESS
+//======================================
+
+function qrSuccess(decodedText){
+
+    if(dangXuLy){
+
+        return;
+
+    }
+
+    dangXuLy = true;
+
+    if(scanner){
+
+        scanner.pause(true);
+
+    }
+
+    if(navigator.vibrate){
+
+        navigator.vibrate(50);
+
+    }
+
+    guiDiemDanh(decodedText);
+
+}
 
 
 console.log("camera.js loaded");
