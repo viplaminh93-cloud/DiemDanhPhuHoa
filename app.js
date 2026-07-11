@@ -528,44 +528,49 @@ window.addEventListener(
 
         deferredPrompt = e;
 
-        document
-            .getElementById("installBtn")
-            .classList.remove("hidden");
+        const btn =
+            document.getElementById("installBtn");
+
+        if(btn){
+
+            btn.classList.remove("hidden");
+
+        }
 
     }
 
 );
 
-document
+const installBtn =
+    document.getElementById("installBtn");
 
-.getElementById("installBtn")
+if(installBtn){
 
-.addEventListener("click",async()=>{
+    installBtn.addEventListener(
 
-    if(!deferredPrompt){
+        "click",
 
-        return;
+        async()=>{
 
-    }
+            if(!deferredPrompt){
 
-    deferredPrompt.prompt();
+                return;
 
-    const result =
-        await deferredPrompt.userChoice;
+            }
 
-    if(result.outcome==="accepted"){
+            deferredPrompt.prompt();
 
-        console.log("Installed");
+            await deferredPrompt.userChoice;
 
-    }
+            deferredPrompt = null;
 
-    deferredPrompt = null;
+            installBtn.classList.add("hidden");
 
-    document
-        .getElementById("installBtn")
-        .classList.add("hidden");
+        }
 
-});
+    );
+
+}
 
 window.addEventListener(
 
@@ -573,9 +578,14 @@ window.addEventListener(
 
     ()=>{
 
-        document
-            .getElementById("installBtn")
-            .classList.add("hidden");
+        const btn =
+            document.getElementById("installBtn");
+
+        if(btn){
+
+            btn.classList.add("hidden");
+
+        }
 
         console.log("PWA Installed");
 
@@ -634,20 +644,24 @@ window.addEventListener(
 
     ()=>{
 
+        const splash =
+            document.getElementById("splash");
+
+        if(!splash){
+
+            return;
+
+        }
+
         setTimeout(()=>{
 
-            document
-
-                .getElementById("splash")
-
-                .classList.add("hide");
+            splash.classList.add("hide");
 
         },1500);
 
     }
 
 );
-
 
 
 
