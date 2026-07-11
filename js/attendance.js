@@ -11,7 +11,7 @@
 
 function startApp(loai){
 
-    loaiDiemDanh = loai;
+    window.loaiDiemDanh = loai;
 
     document.querySelector(".home").style.display = "none";
 
