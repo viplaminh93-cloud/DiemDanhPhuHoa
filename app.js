@@ -540,4 +540,47 @@ window.addEventListener(
 
 
 
+//======================
+// CHECK VERSION
+//======================
+
+(function(){
+
+    const oldVersion =
+        localStorage.getItem(STORAGE_VERSION);
+
+    if(oldVersion !== APP_VERSION){
+
+        localStorage.setItem(
+            STORAGE_VERSION,
+            APP_VERSION
+        );
+
+        if("serviceWorker" in navigator){
+
+            navigator.serviceWorker
+                .getRegistrations()
+                .then(list=>{
+
+                    list.forEach(sw=>sw.update());
+
+                });
+
+        }
+
+        console.log(
+            "Updated to",
+            APP_VERSION
+        );
+
+    }
+
+})();
+
+
+
+
+
+
+
 console.log("APP JS OK");
