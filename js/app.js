@@ -85,3 +85,17 @@ window.addEventListener(
     }
 
 );
+
+
+
+
+
+//======================================
+// CAMERA CALLBACK
+//======================================
+
+window.onQRCode = function(text){
+
+    guiDiemDanh(text);
+
+};
