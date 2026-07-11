@@ -81,22 +81,11 @@ function capNhatTong(){
 
     const obj = id("todayCount");
 
-    if(!obj){
-
-        return;
-
-    }
+    if(!obj) return;
 
     obj.innerHTML =
-
         "Đã điểm danh hôm nay: <b>"
-
-        +
-
-        App.tongHomNay
-
-        +
-
-        "</b> em";
+        + App.tongHomNay
+        + "</b> em";
 
 }
