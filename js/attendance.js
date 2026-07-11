@@ -13,22 +13,49 @@ function startApp(loai){
 
     loaiDiemDanh = loai;
 
-    document
-        .querySelector(".home")
-        .style.display = "none";
+    const home =
+        document.querySelector(".home");
 
-    document
-        .getElementById("scannerBox")
-        .classList.remove("hidden");
+    const scannerBox =
+        document.getElementById("scannerBox");
 
-    document
-        .getElementById("typeTitle")
-        .innerHTML =
-        "Điểm danh: " + loai;
+    const title =
+        document.getElementById("typeTitle");
+
+    if(home){
+
+        home.style.display = "none";
+
+    }
+
+    if(scannerBox){
+
+        scannerBox.classList.remove("hidden");
+
+    }
+
+    if(title){
+
+        title.innerHTML =
+            "Điểm danh: " + loai;
+
+    }
+
+    //----------------------------------
+    // Đồng bộ queue cũ
+    //----------------------------------
+
+    dongBoQueue();
+
+    //----------------------------------
+    // Lấy tổng hôm nay
+    //----------------------------------
 
     capNhatTongTuServer(loai);
 
-    dongBoQueue();
+    //----------------------------------
+    // Mở camera
+    //----------------------------------
 
     startCamera();
 
@@ -37,7 +64,7 @@ function startApp(loai){
 
 
 //======================================
-// LẤY TỔNG TỪ SERVER
+// LẤY TỔNG TỪ APPS SCRIPT
 //======================================
 
 function capNhatTongTuServer(loai){
@@ -80,17 +107,21 @@ function capNhatTongTuServer(loai){
 
 function capNhatTong(){
 
-    const box =
+    const obj =
 
-        document.getElementById("todayCount");
+        document.getElementById(
 
-    if(!box){
+            "todayCount"
+
+        );
+
+    if(!obj){
 
         return;
 
     }
 
-    box.innerHTML =
+    obj.innerHTML =
 
         "Đã điểm danh hôm nay: <b>"
 
