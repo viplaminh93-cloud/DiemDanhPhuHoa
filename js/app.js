@@ -28,7 +28,7 @@ const OFFLINE_QUEUE_KEY = "attendance_queue";
 // GLOBAL
 //======================================
 
-let scanner = null;
+window.scanner = null;
 
 let loaiDiemDanh = "";
 
