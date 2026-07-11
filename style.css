@@ -438,3 +438,20 @@ MOBILE
     }
 
 }
+
+
+
+
+.install{
+
+    margin-top:18px;
+
+    background:#2e7d32;
+
+}
+
+.install:hover{
+
+    background:#1b5e20;
+
+}
