@@ -38,17 +38,21 @@ const CONFIG = {
     //==============================
 
     CAMERA:{
-
+    
         FPS:10,
-
+    
         WIDTH:220,
-
+    
         HEIGHT:220,
-
+    
         VIBRATE:50,
-
-        FACING_MODE:"environment"
-
+    
+        FACING_MODE:"environment",
+    
+        REMEMBER_CAMERA:true,
+    
+        DISABLE_FLIP:true
+    
     },
 
 
