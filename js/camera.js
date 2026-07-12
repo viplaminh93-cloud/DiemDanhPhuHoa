@@ -217,12 +217,12 @@ document.addEventListener(
         }
 
         if(
-        
+
             App.scanner &&
-        
+
             !isHidden(id("scannerBox"))
-        
-        )
+
+        ){
 
             try{
 
@@ -235,6 +235,8 @@ document.addEventListener(
             }
 
         }
+
+    }
 
 );
 
