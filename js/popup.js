@@ -15,6 +15,8 @@ function hienThi(data){
 
     renderTitle(data);
 
+    renderHint();
+
     showPopup();
 
 }
