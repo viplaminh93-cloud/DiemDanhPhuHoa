@@ -71,7 +71,7 @@ async function guiRequest(request){
 
         const res = await fetch(
 
-            API_URL,
+            CONFIG.API.URL,
 
             {
 
