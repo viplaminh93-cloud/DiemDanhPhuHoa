@@ -132,4 +132,17 @@ id("overlay").addEventListener(
 
 );
 
+
+//======================================
+// HIỂN THỊ HƯỚNG DẪN
+//======================================
+
+function renderHint(){
+
+    id("overlayHint").innerText =
+
+        CONFIG.POPUP.HINT;
+
+}
+
 console.log("popup.js loaded");
