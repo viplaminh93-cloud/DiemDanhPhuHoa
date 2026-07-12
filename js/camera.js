@@ -59,9 +59,9 @@ async function startCamera(){
         
                 },
         
-                rememberLastUsedCamera:true,
-        
-                disableFlip:true
+                    rememberLastUsedCamera:CONFIG.CAMERA.REMEMBER_CAMERA,
+                    
+                    disableFlip:CONFIG.CAMERA.DISABLE_FLIP
         
             },
         
