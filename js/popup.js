@@ -13,6 +13,8 @@ function hienThi(data){
 
     resetPopup();
 
+    renderPopup(data);
+
     renderTitle(data);
 
     renderHint();
@@ -20,7 +22,6 @@ function hienThi(data){
     showPopup();
 
 }
-
 
 
 
