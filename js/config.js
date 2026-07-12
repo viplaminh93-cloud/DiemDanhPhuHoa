@@ -61,12 +61,14 @@ const CONFIG = {
     //==============================
 
     POPUP:{
-
+    
         AUTO_CLOSE:false,
-
-        DURATION:3000
-
-    },
+    
+        DURATION:3000,
+    
+        HINT:"Chạm màn hình để tiếp tục"
+    
+    }
 
 
     //==============================
