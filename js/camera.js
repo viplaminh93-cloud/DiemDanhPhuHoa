@@ -57,9 +57,6 @@ async function startCamera(){
                 
                     height:CONFIG.CAMERA.HEIGHT
                 
-                }
-                
-                navigator.vibrate(CONFIG.CAMERA.VIBRATE)
 
                 },
 
