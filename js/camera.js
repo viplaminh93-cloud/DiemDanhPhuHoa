@@ -270,7 +270,7 @@ async function qrSuccess(text){
 
     }
 
-    App.onQRCode(text);
+    await App.onQRCode(text);
 
 }
 
