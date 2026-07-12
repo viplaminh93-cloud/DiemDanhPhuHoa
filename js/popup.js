@@ -44,8 +44,6 @@ function resetPopup(){
 
                 khoi.css
 
-            );
-
         });
 
 }
