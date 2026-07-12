@@ -38,23 +38,13 @@ function resetPopup(){
     overlay.classList.add("hidden");
 
     // Xóa toàn bộ class màu
-    overlay.classList.remove(
-
-        "success",
-
-        "warning",
-
-        "error",
-
-        "khaitam",
-
-        "xungtoi",
-
-        "themsuc",
-
-        "songdao",
-
-        "vaodoi"
+    Object.values(CONFIG.KHOI)
+    
+        .forEach(khoi=>{
+    
+            overlay.classList.remove(khoi.css);
+    
+        });
 
     );
 
