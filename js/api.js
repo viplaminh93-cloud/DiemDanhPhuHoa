@@ -120,13 +120,13 @@ async function guiRequest(request){
 // XỬ LÝ RESPONSE
 //======================================
 
-function xuLyResponse(data){
+function xuLyResponse(hocSinh){
 
-    console.log(data);
+    console.log(hocSinh);
 
-    capNhatDem(data);
+    capNhatDem(hocSinh);
 
-    hienThi(data);
+    hienThi(hocSinh);
 
 }
 
@@ -139,9 +139,9 @@ function xuLyResponse(data){
 // CẬP NHẬT BỘ ĐẾM
 //======================================
 
-function capNhatDem(data){
+function capNhatDem(hocSinh){
 
-    if(!data.success){
+    if(!hocSinh.success){
 
         return;
 
