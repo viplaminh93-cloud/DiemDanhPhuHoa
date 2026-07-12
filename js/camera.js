@@ -72,11 +72,13 @@ async function startCamera(){
     }catch(err){
 
         alert(
-
-            "Không mở được camera.\n\n"
-
+        
+            MESSAGE.CAMERA_ERROR
+        
+            + "\n\n"
+        
             + err
-
+        
         );
 
     }
