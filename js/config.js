@@ -7,7 +7,7 @@
 const CONFIG = {
 
     //==============================
-    // THÔNG TIN ỨNG DỤNG
+    // APP
     //==============================
 
     APP:{
@@ -45,7 +45,9 @@ const CONFIG = {
 
         HEIGHT:220,
 
-        VIBRATE:50
+        VIBRATE:50,
+
+        FACING_MODE:"environment"
 
     },
 
@@ -56,7 +58,20 @@ const CONFIG = {
 
     POPUP:{
 
+        AUTO_CLOSE:false,
+
         DURATION:3000
+
+    },
+
+
+    //==============================
+    // OFFLINE
+    //==============================
+
+    OFFLINE:{
+
+        STORAGE_KEY:"attendance_queue"
 
     },
 
