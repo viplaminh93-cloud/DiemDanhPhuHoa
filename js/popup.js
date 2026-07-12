@@ -20,6 +20,8 @@ function hienThi(data){
 }
 
 
+
+
 //======================================
 // RESET
 //======================================
@@ -95,6 +97,23 @@ function showPopup(){
     id("overlay")
 
         .classList.remove("hidden");
+
+}
+
+
+
+
+//======================================
+// ĐÓNG POPUP
+//======================================
+
+function dongPopup(){
+
+    hide(id("overlay"));
+
+    App.dangXuLy = false;
+
+    resumeCamera();
 
 }
 
