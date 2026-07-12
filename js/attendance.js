@@ -63,7 +63,7 @@ function capNhatTongTuServer(loai){
     
             success:false,
     
-            message:"Không gửi được dữ liệu."
+            message:MESSAGE.NETWORK_ERROR
     
         });
     
