@@ -11,8 +11,6 @@
 
 function hienThi(data){
 
-    alert("Đã vào hienThi");
-
     resetPopup();
 
     renderPopup(data);
