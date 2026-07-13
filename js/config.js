@@ -11,13 +11,15 @@ const CONFIG = {
     //==============================
 
     APP:{
-
+    
         NAME:"Điểm danh TNTT",
-
+    
         PARISH:"Giáo xứ Phú Hòa",
-
-        VERSION:"1.0.0"
-
+    
+        VERSION:"1.0.0",
+    
+        DEBUG:false
+    
     },
 
 
