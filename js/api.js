@@ -250,14 +250,25 @@ function xuLyModel(data){
 
 }
 
+
+
+
 //======================================
 // XỬ LÝ RESPONSE
 //======================================
 
-debug(
-    MODULE.API,
-    "Response received"
-);
+function xuLyResponse(hocSinh){
+
+    debug(
+        MODULE.API,
+        "Response received"
+    );
+
+    capNhatDem(hocSinh);
+
+    hienThi(hocSinh);
+
+}
 
 
 
@@ -307,7 +318,7 @@ function xuLyError(message){
 
 debug(
 
-    "API",
+    MODULE.API,
 
     "api.js loaded"
 
