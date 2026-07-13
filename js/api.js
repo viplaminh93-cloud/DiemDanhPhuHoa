@@ -226,7 +226,17 @@ async function guiRequest(request){
 
 function xuLyModel(data){
 
+    debug(
+        MODULE.MODEL,
+        "Process model"
+    );
+
     if(data.offline){
+
+        debug(
+            MODULE.POPUP,
+            "Show offline popup"
+        );
 
         hienThi(data);
 
