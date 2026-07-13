@@ -45,6 +45,8 @@ App.onQRCode = async function(maso){
     const request = taoRequest(maso);
 
     const data = await guiRequest(request);
+
+    alert(JSON.stringify(data));
     
     if(!data){
     
