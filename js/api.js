@@ -131,7 +131,7 @@ async function guiRequest(request){
 
     try{
 
-        const res = await fetch(
+        const res = await fetchWithTimeout(
 
             CONFIG.API.URL,
 
