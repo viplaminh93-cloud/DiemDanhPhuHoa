@@ -152,4 +152,15 @@ function renderHint(){
 
 }
 
-console.log("popup.js loaded");
+
+
+
+
+
+debug(
+
+    "POPUP",
+
+    "popup.js loaded"
+
+);
