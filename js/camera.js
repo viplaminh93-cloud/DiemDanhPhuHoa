@@ -11,6 +11,14 @@
 
 async function startCamera(){
 
+    debug(
+    
+        MODULE.CAMERA,
+    
+        "Start camera"
+    
+    );    
+
     if(App.scanner){
     
         try{
@@ -69,17 +77,23 @@ async function startCamera(){
         
         );
 
+        debug(
+        
+            MODULE.CAMERA,
+        
+            "Camera started"
+        
+        );        
+
     }catch(err){
 
-        alert(
-        
-            MESSAGE.CAMERA_ERROR
-        
-            + "\n\n"
-        
-            + err
-        
-        );
+    debug(
+    
+        MODULE.CAMERA,
+    
+        "Camera error: " + err
+    
+    );
 
     }
 
@@ -97,6 +111,14 @@ async function pauseCamera(){
         return;
 
     }
+
+    debug(
+    
+        MODULE.CAMERA,
+    
+        "Pause camera"
+    
+    );    
 
     try{
 
@@ -127,6 +149,14 @@ async function resumeCamera(){
 
     }
 
+    debug(
+    
+        MODULE.CAMERA,
+    
+        "Resume camera"
+    
+    );
+
     try{
 
         await App.scanner.resume();
@@ -150,6 +180,14 @@ async function resumeCamera(){
 //======================================
 
 async function stopCamera(){
+
+    debug(
+
+        MODULE.CAMERA,
+    
+        "Stop camera"
+    
+    );
 
     if(!App.scanner) return;
 
@@ -256,6 +294,14 @@ async function qrSuccess(text){
 
     }
 
+    debug(
+    
+        MODULE.CAMERA,
+    
+        "QR scanned: " + text
+    
+    );
+    
     App.dangXuLy = true;
 
     await pauseCamera();
@@ -273,12 +319,3 @@ async function qrSuccess(text){
     await App.onQRCode(text);
 
 }
-
-
-debug(
-
-    MODULE.CAMERA,
-
-    "Start camera"
-
-);
