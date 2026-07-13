@@ -81,6 +81,40 @@ function toggleDebug(){
 }
 
 
+
+
+
+//======================================
+// RENDER LOG
+//======================================
+
+function renderDebug(){
+
+    const content = id("debugContent");
+
+    if(!content){
+
+        return;
+
+    }
+
+    content.innerHTML =
+
+        Debug.logs.join("<br>");
+
+    content.scrollTop =
+
+        content.scrollHeight;
+
+}
+
+
+
+
+
+
+
+
 //======================================
 // DEBUG
 //======================================
@@ -106,7 +140,9 @@ function debug(message){
         + message;
 
     Debug.logs.push(line);
-
+    
     console.log(line);
+    
+    renderDebug();
 
 }
