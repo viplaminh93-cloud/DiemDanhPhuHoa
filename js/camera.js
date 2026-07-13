@@ -277,8 +277,8 @@ async function qrSuccess(text){
 
 debug(
 
-    "CAMERA",
+    MODULE.CAMERA,
 
-    "camera.js loaded"
+    "Start camera"
 
 );
