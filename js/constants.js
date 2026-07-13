@@ -67,4 +67,26 @@ const MESSAGE = Object.freeze({
 
 });
 
+
+const MODULE = {
+
+    CAMERA:"CAMERA",
+
+    API:"API",
+
+    POPUP:"POPUP",
+
+    OFFLINE:"OFFLINE",
+
+    MODEL:"MODEL",
+
+    RENDERER:"RENDERER",
+
+    APP:"APP"
+
+};
+
+
+
+
 console.log("constants.js loaded");
