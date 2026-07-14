@@ -22,23 +22,162 @@
 
 </head>
 
+
+    
+
 <body>
 
-    <div class="container">
-
-        <h1>
-
-            GIÁO XỨ PHÚ HÒA
-
-        </h1>
-
-        <h2>
-
-            DASHBOARD
-
-        </h2>
-
-    </div>
+        <div class="container">
+        
+            <h1>
+        
+                GIÁO XỨ PHÚ HÒA
+        
+            </h1>
+        
+            <h2>
+        
+                DASHBOARD
+        
+            </h2>
+        
+        
+        
+            <!--=========================
+                    TỔNG QUAN
+            ==========================-->
+        
+            <div class="summary">
+        
+                <div class="card">
+        
+                    <div class="card-title">
+        
+                        Đã điểm danh
+        
+                    </div>
+        
+                    <div
+                        id="tongDiemDanh"
+                        class="card-value">
+        
+                        0
+        
+                    </div>
+        
+                </div>
+        
+        
+                <div class="card">
+        
+                    <div class="card-title">
+        
+                        Dự lễ
+        
+                    </div>
+        
+                    <div
+                        id="tongLe"
+                        class="card-value">
+        
+                        0
+        
+                    </div>
+        
+                </div>
+        
+        
+                <div class="card">
+        
+                    <div class="card-title">
+        
+                        Giáo lý
+        
+                    </div>
+        
+                    <div
+                        id="tongGiaoLy"
+                        class="card-value">
+        
+                        0
+        
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+        
+        
+            <!--=========================
+                    NÚT
+            ==========================-->
+        
+            <div class="actions">
+        
+                <button
+                    id="btnRefresh">
+        
+                    Làm mới
+        
+                </button>
+        
+            </div>
+        
+        
+        
+            <!--=========================
+                    DANH SÁCH
+            ==========================-->
+        
+            <table>
+        
+                <thead>
+        
+                    <tr>
+        
+                        <th>
+        
+                            STT
+        
+                        </th>
+        
+                        <th>
+        
+                            Mã số
+        
+                        </th>
+        
+                        <th>
+        
+                            Họ tên
+        
+                        </th>
+        
+                        <th>
+        
+                            Loại
+        
+                        </th>
+        
+                        <th>
+        
+                            Giờ
+        
+                        </th>
+        
+                    </tr>
+        
+                </thead>
+        
+                <tbody
+                    id="attendanceBody">
+        
+                </tbody>
+        
+            </table>
+        
+        </div>
 
     <script src="js/dashboard.js"></script>
 
