@@ -1,16 +1,32 @@
-const CACHE_NAME = "phuhoa-qr-" + APP_VERSION;
+//======================================
+// SERVICE WORKER
+//======================================
 
-const APP_FILES = [
+const CACHE_NAME = "phuhoa-v1";
+
+const FILES = [
 
     "./",
+
     "./index.html",
-    "./style.css",
-    "./app.js",
+
     "./manifest.json",
 
-    "./icons/icon-192.png",
-    "./icons/icon-512.png",
-    "./icons/maskable-512.png"
+    "./css/style.css",
+
+    "./js/config.js",
+    "./js/constants.js",
+    "./js/model.js",
+    "./js/core.js",
+    "./js/renderer.js",
+    "./js/debug.js",
+    "./js/utils.js",
+    "./js/camera.js",
+    "./js/offline.js",
+    "./js/attendance.js",
+    "./js/api.js",
+    "./js/popup.js",
+    "./js/app.js"
 
 ];
 
