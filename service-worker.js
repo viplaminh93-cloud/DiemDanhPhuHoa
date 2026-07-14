@@ -2,7 +2,11 @@
 // SERVICE WORKER
 //======================================
 
-const CACHE_NAME = "phuhoa-v1";
+const CACHE_NAME =
+
+    "phuhoa-" +
+
+    "1.0.0";
 
 const FILES = [
 
