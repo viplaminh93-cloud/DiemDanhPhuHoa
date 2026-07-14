@@ -13,6 +13,26 @@ function startApp(loai){
 
     App.loaiDiemDanh = loai;
 
+    if(
+    
+        navigator.onLine &&
+    
+        hasQueue()
+    
+    ){
+    
+        debug(
+    
+            MODULE.OFFLINE,
+    
+            "Queue detected"
+    
+        );
+    
+        syncQueue();
+    
+    }
+
     qs(".home").style.display = "none";
 
     show(id("scannerBox"));
