@@ -304,7 +304,7 @@ async function qrSuccess(text){
     
     App.dangXuLy = true;
 
-    await pauseCamera();
+    // await pauseCamera();
 
     vibrate();
 
