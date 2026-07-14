@@ -4,6 +4,10 @@
 
 "use strict";
 
-const APP_VERSION =
+const APP_VERSION = Object.freeze({
 
-    "1.0.0";
+    VERSION : "1.0.0",
+
+    CACHE : "phuhoa-1.0.0"
+
+});
