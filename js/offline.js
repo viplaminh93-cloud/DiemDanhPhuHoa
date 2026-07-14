@@ -170,18 +170,33 @@ async function syncQueue(){
         );
     
         const data = await resendRequest(request);
-    
-        debug(
-            MODULE.OFFLINE,
-            "Server OK"
-        );
-    
-        popQueue();
-    
-        debug(
-            MODULE.OFFLINE,
-            "Removed from queue"
-        );
+        
+        if(data && data.success){
+        
+            debug(
+                MODULE.OFFLINE,
+                "Server OK"
+            );
+        
+            popQueue();
+        
+            debug(
+                MODULE.OFFLINE,
+                "Removed from queue"
+            );
+        
+        }
+        else{
+        
+            debug(
+                MODULE.OFFLINE,
+                "Server rejected"
+        
+            );
+        
+            break;
+        
+        }
     
     }
 
