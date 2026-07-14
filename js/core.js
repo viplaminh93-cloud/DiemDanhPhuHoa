@@ -1,24 +1,13 @@
-const App = {
-
-    //==============================
-    // STATE
-    //==============================
+const App={
 
     scanner:null,
 
-    loaiDiemDanh:"",
-
     dangXuLy:false,
+
+    loaiDiemDanh:"",
 
     tongHomNay:0,
 
-    syncing:false,
-
-
-    //==============================
-    // CALLBACK
-    //==============================
-
-    onQRCode:null
+    syncing:false
 
 };
