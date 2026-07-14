@@ -177,4 +177,46 @@ function renderPopup(data){
 
 }
 
+
+
+
+//======================================
+// QUEUE BADGE
+//======================================
+
+function renderQueueBadge(){
+
+    const count = queueLength();
+
+    renderText(
+
+        "queueCount",
+
+        count
+
+    );
+
+    if(count > 0){
+
+        renderShow(
+
+            "queueBadge"
+
+        );
+
+    }
+
+    else{
+
+        renderHide(
+
+            "queueBadge"
+
+        );
+
+    }
+
+}
+
+
 console.log("renderer.js loaded");
