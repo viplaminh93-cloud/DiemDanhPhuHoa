@@ -42,7 +42,7 @@ self.addEventListener("install",event=>{
 
         caches
             .open(CACHE_NAME)
-            .then(cache=>cache.addAll(FILES)
+            .then(cache=>cache.addAll(FILES))
 
     );
 
