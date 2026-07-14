@@ -76,7 +76,7 @@ function saveRequest(request){
 
 
 //======================================
-// PEEK SIZE
+// PEEK REQUEST
 //======================================
 
 function peekQueue(){
