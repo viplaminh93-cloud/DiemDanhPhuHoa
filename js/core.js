@@ -12,6 +12,8 @@ const App = {
 
     tongHomNay:0,
 
+    syncing:false
+
 
     //==============================
     // CALLBACK
