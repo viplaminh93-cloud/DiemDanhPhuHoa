@@ -240,14 +240,6 @@ async function guiRequest(request){
 
         const data = await postRequest(request);
 
-        debug(
-            MODULE.API,
-            "connection = " +
-            (navigator.connection
-                ? navigator.connection.effectiveType
-                : "unknown")
-        );
-
         return data;
 
     }
@@ -273,6 +265,8 @@ async function guiRequest(request){
             success:false,
 
             offline:true,
+
+            maso:request.maso,
 
             message:"Đã lưu, sẽ đồng bộ khi có mạng."
 
