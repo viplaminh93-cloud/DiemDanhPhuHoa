@@ -145,3 +145,47 @@ h2{
     color:#555;
 
 }
+
+
+
+/*======================================
+SEARCH
+======================================*/
+
+.toolbar{
+
+    margin-bottom:24px;
+
+}
+
+#searchBox{
+
+    width:100%;
+
+    padding:14px 18px;
+
+    border:1px solid #DADCE0;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:16px;
+
+    transition:.2s;
+
+    background:#FFF;
+
+}
+
+#searchBox:focus{
+
+    border-color:#1565C0;
+
+    box-shadow:
+
+        0 0 0 3px
+
+        rgba(21,101,192,.15);
+
+}
