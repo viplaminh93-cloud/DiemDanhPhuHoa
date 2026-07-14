@@ -114,8 +114,14 @@ function renderStudents(list){
             create("div");
 
         card.className =
-
+        
             "student-card";
+        
+        card.style.borderLeft =
+        
+            "8px solid " +
+        
+            (student.mauKhoi || "#1565C0");
 
         card.innerHTML =
 
@@ -157,6 +163,91 @@ function renderStudents(list){
 
         container.appendChild(card);
 
+        card.addEventListener(
+        
+            "click",
+        
+            ()=>{
+        
+                openStudent(student);
+        
+            }
+        
+        );
+    
+
     });
 
 }
+
+
+
+
+
+//======================================
+// OPEN STUDENT
+//======================================
+
+function openStudent(student){
+
+    id("modalPhoto").src =
+
+        student.hinh;
+
+    id("modalName").innerText =
+
+        student.hoten;
+
+    id("modalInfo").innerHTML =
+
+        `
+        <b>Mã số:</b> ${student.maso}<br>
+
+        <b>Lớp:</b> ${student.lop}<br>
+
+        <b>Khối:</b> ${student.khoi}<br>
+
+        <b>Trạng thái:</b> ${student.trangthai}
+        `;
+
+    show(
+
+        id("studentModal")
+
+    );
+
+}
+
+
+
+//======================================
+// CLOSE MODAL
+//======================================
+
+id("studentModal")
+
+.addEventListener(
+
+    "click",
+
+    e=>{
+
+        if(
+
+            e.target.id ==
+
+            "studentModal"
+
+        ){
+
+            hide(
+
+                id("studentModal")
+
+            );
+
+        }
+
+    }
+
+);
