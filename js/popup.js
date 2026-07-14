@@ -13,9 +13,9 @@ function hienThi(data){
 
     debug(
         MODULE.POPUP,
-        "Show popup"
+        "hienThi() called"
     );
-    
+
     resetPopup();
 
         debug(
