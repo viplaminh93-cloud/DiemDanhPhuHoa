@@ -208,10 +208,33 @@ async function postRequest(request){
 
 async function guiRequest(request){
 
-    debug(
-        MODULE.API,
-        "navigator.onLine = " + navigator.onLine
-    );
+    if(!navigator.onLine){
+    
+        debug(
+            MODULE.API,
+            "Offline mode"
+        );
+    
+        saveRequest(request);
+    
+        debug(
+            MODULE.OFFLINE,
+            "Request saved"
+        );
+    
+        return{
+    
+            success:false,
+    
+            offline:true,
+    
+            maso:request.maso,
+    
+            message:"Đã lưu, sẽ đồng bộ khi có mạng."
+    
+        };
+    
+    }
 
     try{
 
