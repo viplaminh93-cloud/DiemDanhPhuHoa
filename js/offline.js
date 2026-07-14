@@ -161,10 +161,22 @@ async function syncQueue(){
     
         debug(
             MODULE.OFFLINE,
-            "Peek request: " + request.maso
+            "Send: " + request.maso
         );
     
-        break;
+        const data = await resendRequest(request);
+    
+        debug(
+            MODULE.OFFLINE,
+            "Server OK"
+        );
+    
+        popQueue();
+    
+        debug(
+            MODULE.OFFLINE,
+            "Removed from queue"
+        );
     
     }
 
