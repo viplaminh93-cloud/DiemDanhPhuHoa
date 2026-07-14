@@ -32,41 +32,30 @@ window.addEventListener(
     ()=>{
 
         console.log(
-
             "================================"
-
         );
 
         console.log(
-
             "GIÁO XỨ PHÚ HÒA"
-
         );
 
         console.log(
-
             "QR Attendance"
-
         );
 
         console.log(
-
             "Version:",
-
             APP_VERSION
-
         );
 
         console.log(
-
             "================================"
-
         );
+
+        renderQueueBadge();
 
     }
 
-    renderQueueBadge();
-    
 );
 
 
