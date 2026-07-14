@@ -45,14 +45,32 @@ function loadQueue(){
 // SAVE QUEUE
 //======================================
 
-function saveQueue(queue){
+function saveRequest(request){
 
-    localStorage.setItem(
+    debug(
+        MODULE.OFFLINE,
+        "Load queue"
+    );
 
-        CONFIG.OFFLINE.STORAGE_KEY,
+    const queue = loadQueue();
 
-        JSON.stringify(queue)
+    debug(
+        MODULE.OFFLINE,
+        "Push request"
+    );
 
+    queue.push(request);
+
+    debug(
+        MODULE.OFFLINE,
+        "Save queue"
+    );
+
+    saveQueue(queue);
+
+    debug(
+        MODULE.OFFLINE,
+        "Save finished"
     );
 
 }
