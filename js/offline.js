@@ -71,6 +71,8 @@ function saveRequest(request){
 
     saveQueue(queue);
 
+    renderQueueBadge();
+
 }
 
 
@@ -99,6 +101,8 @@ function popQueue(){
 
     saveQueue(queue);
 
+    renderQueueBadge();
+
     return item;
 
 }
@@ -109,6 +113,8 @@ function popQueue(){
 function clearQueue(){
 
     saveQueue([]);
+
+    renderQueueBadge();
 
 }
 
