@@ -138,15 +138,38 @@ function hasQueue(){
 
 
 
+
 //======================================
 // SYNC QUEUE
 //======================================
 
 async function syncQueue(){
 
+    debug(
+        MODULE.OFFLINE,
+        "Sync start"
+    );
 
+    while(hasQueue()){
+
+        debug(
+            MODULE.OFFLINE,
+            "Remaining = " + queueLength()
+        );
+
+        break;
+
+    }
+
+    debug(
+        MODULE.OFFLINE,
+        "Sync finished"
+    );
 
 }
+
+
+
 
 
 debug(
