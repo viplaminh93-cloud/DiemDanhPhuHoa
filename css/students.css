@@ -189,3 +189,108 @@ SEARCH
         rgba(21,101,192,.15);
 
 }
+
+
+
+
+
+
+/*======================================
+MODAL
+======================================*/
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+.modal.hidden{
+
+    display:none;
+
+}
+
+.modal-box{
+
+    width:min(420px,92%);
+
+    background:#FFF;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    text-align:center;
+
+    animation:fadeUp .2s ease;
+
+}
+
+.modal-photo{
+
+    width:180px;
+
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    border:3px solid #1565C0;
+
+    margin-bottom:20px;
+
+}
+
+#modalName{
+
+    color:#1565C0;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+}
+
+#modalInfo{
+
+    text-align:left;
+
+    line-height:1.9;
+
+    font-size:16px;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
