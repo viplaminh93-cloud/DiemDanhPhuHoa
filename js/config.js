@@ -30,7 +30,7 @@ const CONFIG = {
     API:{
 
         URL:
-        "https://script.google.com/macros/s/AKfycbwK1pWbhW1MBbcNunsN1edGWkV7PPKUrL7s0mPqHbQArFHM57vn29MZou6kvSvaS82AeQ/exec"
+        "https://script.google.com/macros/s/AKfycbwK6o2oEPL3K0hxPlX7LtBwds_jgFELSUoeFHYWyRuQi5tEGXZIulWtvV145t9d-42Atw/exec"
 
     },
 
