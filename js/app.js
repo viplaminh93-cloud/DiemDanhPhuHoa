@@ -44,8 +44,11 @@ window.addEventListener(
         );
 
         console.log(
+        
             "Version:",
-            APP_VERSION
+        
+            APP_VERSION.VERSION
+        
         );
 
         console.log(
