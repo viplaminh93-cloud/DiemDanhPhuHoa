@@ -169,29 +169,42 @@ async function syncQueue(){
             "Send: " + request.maso
         );
     
-        const data = await resendRequest(request);
+        try{
         
-        if(data && data.success){
+            const data = await resendRequest(request);
         
-            debug(
-                MODULE.OFFLINE,
-                "Server OK"
-            );
+            if(data && data.success){
         
-            popQueue();
+                debug(
+                    MODULE.OFFLINE,
+                    "Server OK"
+                );
         
-            debug(
-                MODULE.OFFLINE,
-                "Removed from queue"
-            );
+                popQueue();
+        
+                debug(
+                    MODULE.OFFLINE,
+                    "Removed from queue"
+                );
+        
+            }
+            else{
+        
+                debug(
+                    MODULE.OFFLINE,
+                    "Server rejected"
+                );
+        
+                break;
+        
+            }
         
         }
-        else{
+        catch(err){
         
             debug(
                 MODULE.OFFLINE,
-                "Server rejected"
-        
+                "Sync failed: " + err.message
             );
         
             break;
