@@ -98,11 +98,20 @@ async function fetchWithTimeout(
     const controller = new AbortController();
 
     const timer = setTimeout(
-
-        ()=>controller.abort(),
-
+    
+        ()=>{
+    
+            debug(
+                MODULE.API,
+                "Abort fetch"
+            );
+    
+            controller.abort();
+    
+        },
+    
         timeout
-
+    
     );
 
     try{
