@@ -25,7 +25,7 @@ const OFFLINE_QUEUE_KEY = "attendance_queue";
 // APP START
 //======================================
 
-/* window.addEventListener(
+window.addEventListener(
 
     "load",
 
@@ -65,7 +65,9 @@ const OFFLINE_QUEUE_KEY = "attendance_queue";
 
     }
 
-);    */
+    renderQueueBadge();
+    
+);
 
 
 
