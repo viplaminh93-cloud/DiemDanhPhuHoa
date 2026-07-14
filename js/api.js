@@ -243,6 +243,11 @@ async function guiRequest(request){
         try{
         
             saveRequest(request);
+
+            debug(
+                MODULE.OFFLINE,
+                "Queue length after save = " + queueLength()
+            );
         
         }
         catch(err){
@@ -296,6 +301,11 @@ async function guiRequest(request){
         console.error(err);
 
         saveRequest(request);
+
+        debug(
+            MODULE.OFFLINE,
+            "Queue length after save = " + queueLength()
+        );
 
         debug(
             MODULE.OFFLINE,
