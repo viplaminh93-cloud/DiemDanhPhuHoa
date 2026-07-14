@@ -1,5 +1,6 @@
 "use strict";
 
+
 //======================================
 // STATUS
 //======================================
@@ -14,29 +15,11 @@ const STATUS = Object.freeze({
 
 });
 
-//========================
-// EVENT
-//========================
 
-const EVENT={
 
-    QR_SUCCESS:"qr-success",
-
-    QR_ERROR:"qr-error",
-
-    POPUP_SHOW:"popup-show",
-
-    POPUP_CLOSE:"popup-close",
-
-    API_SUCCESS:"api-success",
-
-    API_ERROR:"api-error"
-
-};
-
-//========================
-// LOAI DIEM DANH
-//========================
+//======================================
+// LOẠI ĐIỂM DANH
+//======================================
 
 const LOAI = Object.freeze({
 
@@ -47,46 +30,69 @@ const LOAI = Object.freeze({
 });
 
 
+
+//======================================
+// EVENT
+//======================================
+
+const EVENT = Object.freeze({
+
+    QR_SUCCESS : "qr-success",
+
+    QR_ERROR : "qr-error",
+
+    POPUP_SHOW : "popup-show",
+
+    POPUP_CLOSE : "popup-close",
+
+    API_SUCCESS : "api-success",
+
+    API_ERROR : "api-error"
+
+});
+
+
+
 //======================================
 // MESSAGE
 //======================================
 
 const MESSAGE = Object.freeze({
 
-    CAMERA_ERROR:
+    CAMERA_ERROR :
 
         "Không mở được camera.",
 
-    NETWORK_ERROR:
+    NETWORK_ERROR :
 
         "Không gửi được dữ liệu.",
 
-    UNKNOWN_ERROR:
+    UNKNOWN_ERROR :
 
         "Có lỗi xảy ra."
 
 });
 
 
-const MODULE = {
 
-    CAMERA:"CAMERA",
+//======================================
+// DEBUG MODULE
+//======================================
 
-    API:"API",
+const MODULE = Object.freeze({
 
-    POPUP:"POPUP",
+    APP : "APP",
 
-    OFFLINE:"OFFLINE",
+    API : "API",
 
-    MODEL:"MODEL",
+    CAMERA : "CAMERA",
 
-    RENDERER:"RENDERER",
+    MODEL : "MODEL",
 
-    APP:"APP"
+    OFFLINE : "OFFLINE",
 
-};
+    POPUP : "POPUP",
 
+    RENDERER : "RENDERER"
 
-
-
-console.log("constants.js loaded");
+});
