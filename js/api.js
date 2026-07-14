@@ -140,6 +140,39 @@ async function fetchWithTimeout(
 
 
 
+//======================================
+// POST REQUEST
+//======================================
+
+async function postRequest(request){
+
+    const res = await fetchWithTimeout(
+
+        CONFIG.API.URL,
+
+        {
+
+            method:"POST",
+
+            redirect:"follow",
+
+            headers:{
+
+                "Content-Type":"text/plain;charset=utf-8"
+
+            },
+
+            body:JSON.stringify(request)
+
+        }
+
+    );
+
+    return await res.json();
+
+}
+
+
 
 //======================================
 // GỬI REQUEST
@@ -154,43 +187,21 @@ async function guiRequest(request){
 
     try{
 
-        const res = await fetchWithTimeout(
+        const data = await postRequest(request);
 
-            CONFIG.API.URL,
-
-            {
-
-                method:"POST",
-
-                redirect:"follow",
-
-                headers:{
-
-                    "Content-Type":"text/plain;charset=utf-8"
-
-                },
-
-                body: JSON.stringify(request)
-
-            }
-
-        );
-
-        const data = await res.json();
-        
         debug(
             MODULE.API,
             "Fetch success"
         );
-        
+
         return data;
 
     }
 
     catch(err){
-    
+
         console.error(err);
-    
+
         saveRequest(request);
 
         debug(
@@ -202,17 +213,17 @@ async function guiRequest(request){
             MODULE.API,
             "Return offline response"
         );
-    
+
         return {
-    
+
             success:false,
-    
+
             offline:true,
-    
+
             message:"Đã lưu, sẽ đồng bộ khi có mạng."
-    
+
         };
-    
+
     }
 
 }
