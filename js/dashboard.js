@@ -18,6 +18,18 @@ window.addEventListener(
 
         loadDashboard();
 
+        id(
+
+            "btnRefresh"
+
+        ).addEventListener(
+
+            "click",
+
+            loadDashboard
+
+        );
+
     }
 
 );
