@@ -38,51 +38,59 @@ async function loadStudents(){
 
     try{
 
-        const response = await fetch(
+        const data = await Auth.post({
 
-            CONFIG.API.URL,
+            action:"students"
 
-            {
+        });
 
-                method:"POST",
+        //----------------------------------
+        // Token hết hạn
+        //----------------------------------
 
-                headers:{
+        if(
 
-                    "Content-Type":"text/plain;charset=utf-8"
+            !data.success &&
 
-                },
+            data.message == "Phiên đăng nhập hết hạn."
 
-                body:JSON.stringify({
+        ){
 
-                    action:"students"
+            Auth.logout();
 
-                })
+            alert(
 
-            }
+                "Phiên đăng nhập đã hết hạn."
 
-        );
+            );
 
-        const data = await response.json();
+            location.href = "index.html";
 
-        console.log(data);
-
-        if(!data.success){
-        
-            console.error(data);
-        
-            alert(data.message);
-        
             return;
-        
+
         }
 
-            allStudents = data.list;
-            
-            console.log(allStudents[0]);
-            
-            console.log(allStudents[0].hinh);
-            
-            renderStudents(allStudents);
+        //----------------------------------
+        // Không đủ quyền
+        //----------------------------------
+
+        if(!data.success){
+
+            alert(
+
+                data.message
+
+            );
+
+            return;
+
+        }
+
+        //----------------------------------
+
+        allStudents = data.list;
+
+        renderStudents(allStudents);
 
     }
 
