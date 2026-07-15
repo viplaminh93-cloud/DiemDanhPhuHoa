@@ -124,7 +124,7 @@ const CONFIG = Object.freeze({
     // AUTH
     //======================================
     
-    AUTH = {
+    AUTH: Object.freeze({
     
         TOKEN: null,
     
