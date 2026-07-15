@@ -145,3 +145,37 @@ const Auth = (() => {
     };
 
 })();
+
+
+
+//----------------------------------
+// Require Login
+//----------------------------------
+
+function requireLogin(){
+
+    if(
+
+        token()===""
+
+    ){
+
+        location.href="login.html";
+
+    }
+
+}
+
+return{
+
+    login,
+
+    logout,
+
+    token,
+
+    post,
+
+    requireLogin
+
+};
