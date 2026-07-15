@@ -4,7 +4,7 @@
 
 "use strict";
 
-
+Auth.requireLogin();
 let allStudents = [];
 
 
