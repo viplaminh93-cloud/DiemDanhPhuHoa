@@ -114,12 +114,6 @@ async function loadDashboard(){
 
 function renderDashboard(){
 
-    id("tongLe").innerText =
-        dashboardData.le;
-
-    id("tongGiaoLy").innerText =
-        dashboardData.giaoly;
-
     renderTable();
 
 }
@@ -140,7 +134,7 @@ function renderTable(){
     const list =
         dashboardData.list.filter(item=>{
 
-            return item.lop === currentType;
+            return item.loai === currentType;
 
         });
 
@@ -181,33 +175,15 @@ function renderTable(){
 
 
 //======================================
-// REFRESH
-//======================================
-
-id(
-
-    "btnRefresh"
-
-).addEventListener(
-
-    "click",
-
-    ()=>{
-
-        loadDashboard();
-
-    }
-
-);
-
-
-//======================================
 // BUTTON
 //======================================
 
 id("btnLe").onclick = ()=>{
 
     currentType = "Dự lễ";
+
+    id("btnLe").classList.add("active");
+    id("btnGiaoLy").classList.remove("active");
 
     renderTable();
 
@@ -216,6 +192,9 @@ id("btnLe").onclick = ()=>{
 id("btnGiaoLy").onclick = ()=>{
 
     currentType = "Giáo lý";
+
+    id("btnGiaoLy").classList.add("active");
+    id("btnLe").classList.remove("active");
 
     renderTable();
 
