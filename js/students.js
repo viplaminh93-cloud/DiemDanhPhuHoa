@@ -191,8 +191,10 @@ function renderStudents(list){
 function openStudent(student){
 
     id("modalPhoto").src =
-
-        student.hinh;
+    
+        student.hinh ||
+    
+        "images/no-photo.png";
 
     id("modalName").innerText =
 
