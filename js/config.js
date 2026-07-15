@@ -132,6 +132,6 @@ const CONFIG = Object.freeze({
     
         ROLE: null
     
-    }    
+    })    
 
 });
