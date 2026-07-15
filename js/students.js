@@ -199,16 +199,40 @@ function openStudent(student){
         student.hoten;
 
     id("modalInfo").innerHTML =
-
-        `
-        <b>Mã số:</b> ${student.maso}<br>
-
-        <b>Lớp:</b> ${student.lop}<br>
-
-        <b>Khối:</b> ${student.khoi}<br>
-
-        <b>Trạng thái:</b> ${student.trangthai}
-        `;
+    
+    `
+    <div class="info-row">
+    
+        <span>Mã số</span>
+    
+        <b>${student.maso}</b>
+    
+    </div>
+    
+    <div class="info-row">
+    
+        <span>Lớp</span>
+    
+        <b>${student.lop}</b>
+    
+    </div>
+    
+    <div class="info-row">
+    
+        <span>Khối</span>
+    
+        <b>${student.khoi}</b>
+    
+    </div>
+    
+    <div class="info-row">
+    
+        <span>Trạng thái</span>
+    
+        <b>${student.trangthai}</b>
+    
+    </div>
+    `;
 
     show(
 
