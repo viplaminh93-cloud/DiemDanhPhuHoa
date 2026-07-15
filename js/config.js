@@ -28,7 +28,7 @@ const CONFIG = Object.freeze({
     API: Object.freeze({
 
         URL:
-        "https://script.google.com/macros/s/AKfycbw1z1sRii7Ob_b_5iAuwbBYVfiYylsWxxVQaTdhDwaIbKEZyEwhYJscVuMWmpID9s7Zbg/exec"
+        "https://script.google.com/macros/s/AKfycbwhRyOvl0vWenYW_6GTDJFKsowAa0uDpvbzDM45D--E8qrhOs9xZrAJxQk-ycz6WPc0aA/exec"
 
     }),
 
@@ -119,5 +119,19 @@ const CONFIG = Object.freeze({
         })
 
     })
+
+    //======================================
+    // AUTH
+    //======================================
+    
+    CONFIG.AUTH = {
+    
+        TOKEN: null,
+    
+        EMAIL: null,
+    
+        ROLE: null
+    
+    };    
 
 });
