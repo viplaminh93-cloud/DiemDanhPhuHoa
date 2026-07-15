@@ -5,6 +5,11 @@
 "use strict";
 
 
+let allStudents = [];
+
+
+
+
 
 //======================================
 // LOAD
@@ -71,11 +76,9 @@ async function loadStudents(){
 
         }
 
-        renderStudents(
-
-            data.list
-
-        );
+            allStudents = data.list;
+            
+            renderStudents(allStudents);
 
     }
 
