@@ -4,6 +4,10 @@
 
 "use strict";
 
+
+Auth.requireLogin();
+
+
 let currentType = "Dự lễ";
 
 let dashboardData = null;
