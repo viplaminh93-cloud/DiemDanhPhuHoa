@@ -140,7 +140,7 @@ function renderTable(){
     const list =
         dashboardData.list.filter(item=>{
 
-            return item.loai === currentType;
+            return item.lop === currentType;
 
         });
 
