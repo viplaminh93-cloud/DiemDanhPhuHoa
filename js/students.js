@@ -64,16 +64,16 @@ async function loadStudents(){
 
         const data = await response.json();
 
+        console.log(data);
+
         if(!data.success){
-
-            alert(
-
-                "Không lấy được danh sách."
-
-            );
-
+        
+            console.error(data);
+        
+            alert(data.message);
+        
             return;
-
+        
         }
 
             allStudents = data.list;
