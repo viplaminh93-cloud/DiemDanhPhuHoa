@@ -1,13 +1,51 @@
 //======================================
 // VERSION
+// Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
-const APP_VERSION = Object.freeze({
+/**
+ * ======================================
+ * VERSION MODULE
+ *
+ * Quản lý thông tin phiên bản ứng dụng.
+ *
+ * Chức năng:
+ * - Phiên bản hiện tại
+ * - Tên Cache Service Worker
+ *
+ * Không chứa business.
+ * Không thao tác DOM.
+ * ======================================
+ */
 
-    VERSION : "1.0.0",
+const Version = (()=>{
 
-    CACHE : "phuhoa-1.0.0"
+    //======================================
+    // VERSION
+    //======================================
 
-});
+    const VERSION = "1.0.0";
+
+    //======================================
+    // CACHE NAME
+    //======================================
+
+    const CACHE_NAME =
+
+        "phuhoa-" +
+
+        VERSION;
+
+    //======================================
+
+    return Object.freeze({
+
+        VERSION,
+
+        CACHE_NAME
+
+    });
+
+})();
