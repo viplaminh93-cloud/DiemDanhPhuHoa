@@ -1,155 +1,163 @@
-//==================================================
+//======================================
 // DASHBOARD CONTROLLER
-//
-// Điều phối Dashboard
-//
-// Chức năng:
-//
-// - Khởi tạo
-// - Load Dashboard
-// - Refresh
-// - Chuyển tab
-//
-//==================================================
+// Giáo xứ Phú Hòa
+//======================================
 
 "use strict";
 
-Auth.requireLogin();
+/**
+ * ======================================
+ * Dashboard Controller
+ * --------------------------------------
+ * Điều khiển toàn bộ Dashboard
+ * Không xử lý API
+ * Không render HTML
+ * ======================================
+ */
+
+const DashboardController = (() => {
+
+    //----------------------------------
+    // State
+    //----------------------------------
+
+    let currentType = "Dự lễ";
+
+    let dashboardData = null;
+
+    //----------------------------------
+    // Khởi tạo
+    //----------------------------------
+
+    function init() {
+
+        Auth.requireLogin();
+
+        bindEvents();
+
+        load();
+
+    }
+
+    //----------------------------------
+    // Gắn sự kiện
+    //----------------------------------
+
+    function bindEvents() {
+
+        id("btnRefresh")
+            .addEventListener(
+                "click",
+                load
+            );
+
+        id("btnLe")
+            .addEventListener(
+                "click",
+                showMass
+            );
+
+        id("btnGiaoLy")
+            .addEventListener(
+                "click",
+                showCatechism
+            );
+
+    }
+
+    //----------------------------------
+    // Load Dashboard
+    //----------------------------------
+
+    async function load() {
+
+        try {
+
+            dashboardData =
+                await DashboardService.load();
+
+            DashboardRenderer.renderSummary(
+                dashboardData
+            );
+
+            DashboardRenderer.renderTable(
+                dashboardData,
+                currentType
+            );
+
+        }
+
+        catch (err) {
+
+            console.error(err);
+
+            alert(
+                "Không kết nối được máy chủ."
+            );
+
+        }
+
+    }
+
+    //----------------------------------
+    // Hiển thị Dự lễ
+    //----------------------------------
+
+    function showMass() {
+
+        currentType = "Dự lễ";
+
+        DashboardRenderer.setActiveButton(
+            currentType
+        );
+
+        DashboardRenderer.renderTable(
+            dashboardData,
+            currentType
+        );
+
+    }
+
+    //----------------------------------
+    // Hiển thị Giáo lý
+    //----------------------------------
+
+    function showCatechism() {
+
+        currentType = "Giáo lý";
+
+        DashboardRenderer.setActiveButton(
+            currentType
+        );
+
+        DashboardRenderer.renderTable(
+            dashboardData,
+            currentType
+        );
+
+    }
+
+    //----------------------------------
+    // Public
+    //----------------------------------
+
+    return {
+
+        init
+
+    };
+
+})();
+
 
 //======================================
-// INIT
+// START
 //======================================
 
 window.addEventListener(
 
     "load",
 
-    initDashboard
+    DashboardController.init
 
 );
-
-//======================================
-// INIT DASHBOARD
-//======================================
-
-async function initDashboard(){
-
-    await loadDashboard();
-
-    bindEvents();
-
-}
-
-//======================================
-// LOAD DASHBOARD
-//======================================
-
-async function loadDashboard(){
-
-    try{
-
-        await DashboardService.load();
-
-        DashboardRenderer.updateToolbar();
-
-        DashboardRenderer.render();
-
-    }
-
-    catch(err){
-
-        console.error(err);
-
-        alert(
-
-            err.message ||
-
-            "Không kết nối được máy chủ."
-
-        );
-
-    }
-
-}
-
-//======================================
-// EVENTS
-//======================================
-
-function bindEvents(){
-
-    //----------------------------------
-    // Refresh
-    //----------------------------------
-
-    id("btnRefresh")
-
-    .addEventListener(
-
-        "click",
-
-        loadDashboard
-
-    );
-
-    //----------------------------------
-    // Dự lễ
-    //----------------------------------
-
-    id("btnLe")
-
-    .addEventListener(
-
-        "click",
-
-        showLe
-
-    );
-
-    //----------------------------------
-    // Giáo lý
-    //----------------------------------
-
-    id("btnGiaoLy")
-
-    .addEventListener(
-
-        "click",
-
-        showGiaoLy
-
-    );
-
-}
-
-//======================================
-// SHOW LỄ
-//======================================
-
-function showLe(){
-
-    DashboardState.currentType =
-
-        LOAI.LE;
-
-    DashboardRenderer.updateToolbar();
-
-    DashboardRenderer.render();
-
-}
-
-//======================================
-// SHOW GIÁO LÝ
-//======================================
-
-function showGiaoLy(){
-
-    DashboardState.currentType =
-
-        LOAI.GIAOLY;
-
-    DashboardRenderer.updateToolbar();
-
-    DashboardRenderer.render();
-
-}
