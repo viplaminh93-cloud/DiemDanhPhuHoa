@@ -1,137 +1,184 @@
 //======================================
 // CONFIG
+// Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
-const CONFIG = Object.freeze({
+/**
+ * ======================================
+ * CONFIG MODULE
+ *
+ * Quản lý toàn bộ cấu hình hệ thống.
+ *
+ * Bao gồm:
+ * - APP
+ * - API
+ * - CAMERA
+ * - POPUP
+ * - OFFLINE
+ * - KHOI
+ * - AUTH
+ *
+ * Chỉ chứa cấu hình.
+ * Không chứa business.
+ * ======================================
+ */
 
-    //==============================
+const Config = Object.freeze({
+
+    //==================================
     // APP
-    //==============================
+    //==================================
 
-    APP: Object.freeze({
+    APP : Object.freeze({
 
-        NAME: "Điểm danh TNTT",
+        NAME :
 
-        PARISH: "Giáo xứ Phú Hòa",
+            "Điểm danh TNTT",
 
-        DEBUG: false
+        PARISH :
+
+            "Giáo xứ Phú Hòa",
+
+        DEBUG :
+
+            false
 
     }),
 
-
-    //==============================
+    //==================================
     // API
-    //==============================
+    //==================================
 
-    API: Object.freeze({
+    API : Object.freeze({
 
-        URL:
-        "https://script.google.com/macros/s/AKfycbybXsZXmp2C5ep_1K5GPtyHQI3vPaZxPj9_zoRcvVCX-rgwdgUH55KnsX2kwpVNDqOc3A/exec"
+        URL :
+
+            "https://script.google.com/macros/s/AKfycbybXsZXmp2C5ep_1K5GPtyHQI3vPaZxPj9_zoRcvVCX-rgwdgUH55KnsX2kwpVNDqOc3A/exec"
 
     }),
 
-
-    //==============================
+    //==================================
     // CAMERA
-    //==============================
+    //==================================
 
-    CAMERA: Object.freeze({
+    CAMERA : Object.freeze({
 
-        FPS: 10,
+        FPS : 10,
 
-        WIDTH: 220,
+        WIDTH : 220,
 
-        HEIGHT: 220,
+        HEIGHT : 220,
 
-        VIBRATE: 50,
+        VIBRATE : 50,
 
-        FACING_MODE: "environment",
+        FACING_MODE :
 
-        REMEMBER_CAMERA: true,
+            "environment",
 
-        DISABLE_FLIP: true
+        REMEMBER_CAMERA :
+
+            true,
+
+        DISABLE_FLIP :
+
+            true
 
     }),
 
-
-    //==============================
+    //==================================
     // POPUP
-    //==============================
+    //==================================
 
-    POPUP: Object.freeze({
+    POPUP : Object.freeze({
 
-        AUTO_CLOSE: false,
+        AUTO_CLOSE :
 
-        DURATION: 3000,
+            false,
 
-        HINT: "Chạm màn hình để tiếp tục"
+        DURATION :
+
+            3000,
+
+        HINT :
+
+            "Chạm màn hình để tiếp tục"
 
     }),
 
-
-    //==============================
+    //==================================
     // OFFLINE
-    //==============================
+    //==================================
 
-    OFFLINE: Object.freeze({
+    OFFLINE : Object.freeze({
 
-        STORAGE_KEY: "attendance_queue"
+        STORAGE_KEY :
+
+            "attendance_queue"
 
     }),
 
-
-    //==============================
+    //==================================
     // KHỐI
-    //==============================
+    //==================================
 
-    KHOI: Object.freeze({
+    KHOI : Object.freeze({
 
-        "KHAI TÂM": Object.freeze({
+        "KHAI TÂM" : Object.freeze({
 
-            css: "khaitam"
+            css :
 
-        }),
-
-        "XƯNG TỘI": Object.freeze({
-
-            css: "xungtoi"
+                "khaitam"
 
         }),
 
-        "THÊM SỨC": Object.freeze({
+        "XƯNG TỘI" : Object.freeze({
 
-            css: "themsuc"
+            css :
 
-        }),
-
-        "SỐNG ĐẠO": Object.freeze({
-
-            css: "songdao"
+                "xungtoi"
 
         }),
 
-        "VÀO ĐỜI": Object.freeze({
+        "THÊM SỨC" : Object.freeze({
 
-            css: "vaodoi"
+            css :
+
+                "themsuc"
+
+        }),
+
+        "SỐNG ĐẠO" : Object.freeze({
+
+            css :
+
+                "songdao"
+
+        }),
+
+        "VÀO ĐỜI" : Object.freeze({
+
+            css :
+
+                "vaodoi"
 
         })
 
     }),
 
-    //======================================
+    //==================================
     // AUTH
-    //======================================
-    
-    AUTH: Object.freeze({
-    
-        TOKEN: null,
-    
-        EMAIL: null,
-    
-        ROLE: null
-    
-    })    
+    //==================================
+
+    AUTH : {
+
+        TOKEN : null,
+
+        EMAIL : null,
+
+        ROLE : null
+
+    }
 
 });
