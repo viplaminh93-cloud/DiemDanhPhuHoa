@@ -1,20 +1,44 @@
+//======================================
+// AUTH
+// Giáo xứ Phú Hòa
+//======================================
+
 "use strict";
 
 /**
  * ======================================
- * AUTH CLIENT
+ * AUTH MODULE
+ *
+ * Quản lý xác thực người dùng.
+ *
+ * Chức năng:
+ * - Login
+ * - Logout
+ * - Save Token
+ * - Get Token
+ * - Require Login
+ * - Authenticated POST
+ *
+ * Không chứa UI.
+ * Không chứa Business.
  * ======================================
  */
 
 const Auth = (()=>{
 
-    const TOKEN_KEY = "attendance_token";
+    //======================================
+    // STORAGE
+    //======================================
 
-    //----------------------------------
-    // SAVE
-    //----------------------------------
+    const TOKEN_KEY =
 
-    function save(token){
+        "attendance_token";
+
+    //======================================
+    // SAVE TOKEN
+    //======================================
+
+    function saveToken(token){
 
         localStorage.setItem(
 
@@ -26,23 +50,47 @@ const Auth = (()=>{
 
     }
 
-    //----------------------------------
-    // TOKEN
-    //----------------------------------
+    //======================================
+    // GET TOKEN
+    //======================================
 
     function getToken(){
 
-        return localStorage.getItem(
+        return (
 
-            TOKEN_KEY
+            localStorage.getItem(
 
-        ) || "";
+                TOKEN_KEY
+
+            ) || ""
+
+        );
 
     }
 
-    //----------------------------------
+    //======================================
+    // HAS LOGIN
+    //======================================
+
+    function isLogin(){
+
+        return getToken() !== "";
+
+    }
+
+    //======================================
+    // LOGIN
+    //======================================
+
+    async function login(token){
+
+        saveToken(token);
+
+    }
+
+    //======================================
     // LOGOUT
-    //----------------------------------
+    //======================================
 
     function logout(){
 
@@ -52,79 +100,85 @@ const Auth = (()=>{
 
         );
 
-        location.href="login.html";
+        location.href =
+
+            "../login/login.html";
 
     }
 
-    //----------------------------------
-    // LOGIN
-    //----------------------------------
-
-async function login(token){
-
-    console.log("SAVE TOKEN =",token);
-
-    save(token);
-
-    console.log(localStorage.getItem("attendance_token"));
-
-}
-
-    //----------------------------------
+    //======================================
     // REQUIRE LOGIN
-    //----------------------------------
+    //======================================
 
     function requireLogin(){
 
-        if(getToken()===""){
+        if(isLogin()){
 
-            location.href="login.html";
-
-            return false;
+            return true;
 
         }
 
-        return true;
+        location.href =
+
+            "../login/login.html";
+
+        return false;
 
     }
 
-    //----------------------------------
+    //======================================
     // POST
-    //----------------------------------
+    //======================================
 
-async function post(body={}){
+    async function post(body = {}){
 
-    console.log("TOKEN =", getToken());
+        if(
 
-    if(body.action !== "login"){
-        body.token = getToken();
-    }
+            body.action !== "login"
 
-    console.log(body);
+        ){
 
-    const response = await fetch(
+            body.token =
 
-        CONFIG.API.URL,
-
-        {
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"text/plain;charset=utf-8"
-            },
-
-            body:JSON.stringify(body)
+                getToken();
 
         }
 
-    );
+        const response =
 
-    return await response.json();
+            await fetch(
 
-}
+                Config.API.URL,
 
-    //----------------------------------
+                {
+
+                    method : "POST",
+
+                    headers : {
+
+                        "Content-Type"
+
+                        :
+
+                        "text/plain;charset=utf-8"
+
+                    },
+
+                    body :
+
+                        JSON.stringify(body)
+
+                }
+
+            );
+
+        return await response.json();
+
+    }
+
+    //======================================
+    // EXPORT
+    //======================================
 
     return{
 
@@ -132,11 +186,15 @@ async function post(body={}){
 
         logout,
 
-        getToken,
-
         post,
 
-        requireLogin
+        getToken,
+
+        saveToken,
+
+        requireLogin,
+
+        isLogin
 
     };
 
