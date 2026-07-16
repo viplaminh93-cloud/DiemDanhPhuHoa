@@ -26,114 +26,115 @@ const CACHE_NAME = "phuhoa-" + CACHE_VERSION;
 //======================================
 // APP SHELL
 //======================================
+//======================================
+// APP SHELL
+//======================================
 
 const APP_FILES = [
+
+    //----------------------------------
+    // Root
+    //----------------------------------
+
+    "./",
+
+    "./manifest.json",
 
     //----------------------------------
     // Attendance
     //----------------------------------
 
-    "/attendance/attendance.html",
+    "./attendance/attendance.html",
 
-    "/attendance/attendance.css",
+    "./attendance/attendance.css",
 
-    "/attendance/attendance.controller.js",
+    "./attendance/attendance.controller.js",
 
-    "/attendance/attendance.service.js",
+    "./attendance/attendance.service.js",
 
-    "/attendance/attendance.renderer.js",
+    "./attendance/attendance.renderer.js",
 
-    "/attendance/api.js",
+    "./attendance/api.js",
 
-    "/attendance/app.js",
-
-    "/attendance/offline.js",
-
-    "/attendance/popup/popup.service.js",
-
-    "/attendance/popup/popup.renderer.js",
+    "./attendance/app.js",
 
     "/attendance/camera/camera.service.js",
 
     "/attendance/camera/camera.controller.js",
 
+    "./attendance/offline.js",
+
+    "./attendance/popup/popup.service.js",
+
+    "./attendance/popup/popup.renderer.js",
+
     //----------------------------------
     // Dashboard
     //----------------------------------
 
-    "/dashboard/dashboard.html",
+    "./dashboard/dashboard.html",
 
-    "/dashboard/dashboard.css",
+    "./dashboard/dashboard.css",
 
-    "/dashboard/dashboard.state.js",
-
-    "/dashboard/dashboard.controller.js",
-
-    "/dashboard/dashboard.service.js",
-
-    "/dashboard/dashboard.renderer.js",
+    "./dashboard/dashboard.controller.js",
 
     //----------------------------------
     // Students
     //----------------------------------
 
-    "/students/students.html",
+    "./students/students.html",
 
-    "/students/students.css",
+    "./students/students.css",
 
-    "/students/students.controller.js",
+    "./students/students.controller.js",
 
-    "/students/students.service.js",
+    "./students/students.service.js",
 
-    "/students/students.renderer.js",
+    "./students/students.renderer.js",
 
     //----------------------------------
     // Login
     //----------------------------------
 
-    "/login/login.html",
+    "./login/login.html",
 
-    "/login/login.css",
+    "./login/login.css",
 
-    "/login/login.controller.js",
+    "./login/login.controller.js",
 
-    "/login/login.service.js",
+    "./login/login.service.js",
 
-    "/login/login.renderer.js",
+    "./login/login.renderer.js",
 
     //----------------------------------
     // System
     //----------------------------------
 
-    "/system/version.js",
+    "./system/version.js",
 
-    "/system/config.js",
+    "./system/config.js",
 
-    "/system/constants.js",
+    "./system/constants.js",
 
-    "/system/core.js",
+    "./system/core.js",
 
-    "/system/utils.js",
+    "./system/model.js",
 
-    "/system/debug.js",
+    "./system/utils.js",
 
-    "/system/model.js",
+    "./system/debug.js",
 
-    "/system/renderer.js",
+    "./system/renderer.js",
 
-    "/system/auth.js",
+    "./system/auth.js",
 
     //----------------------------------
-    // Assets
+    // Icons
     //----------------------------------
 
-    "/manifest.json",
+    "./icons/icon-192.png",
 
-    "/icons/icon-192.png",
-
-    "/icons/icon-512.png",
-
-//    "/icons/maskable-512.png"
+    "./icons/icon-512.png"
 
 ];
 
@@ -270,7 +271,7 @@ self.addEventListener(
 
                     return caches.match(
 
-                        "/attendance/attendance.html"
+                        "./attendance/attendance.html"
 
                     );
 
