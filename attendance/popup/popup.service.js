@@ -20,7 +20,7 @@ const PopupService = (()=>{
     // SHOW
     //======================================
 
-    function show(data){
+    function PopupRenderer.show(data){
 
         debug(
 
@@ -75,7 +75,7 @@ const PopupService = (()=>{
 // CLICK OVERLAY
 //======================================
 
-id("overlay")
+Utils.id("overlay")
 
 .addEventListener(
 
