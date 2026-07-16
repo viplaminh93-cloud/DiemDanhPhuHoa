@@ -20,7 +20,7 @@ const PopupService = (()=>{
     // SHOW
     //======================================
 
-    function PopupRenderer.show(data){
+    function show(data){
 
         debug(
 
@@ -50,7 +50,7 @@ const PopupService = (()=>{
 
         PopupRenderer.hide();
 
-        await sleep(150);
+        await Utils.sleep(150);
 
         App.dangXuLy = false;
 
