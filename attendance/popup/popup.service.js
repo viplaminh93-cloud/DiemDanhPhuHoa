@@ -48,6 +48,8 @@ const PopupService = (()=>{
 
     async function close(){
 
+          console.log("POPUP CLOSE");
+
         PopupRenderer.hide();
 
         await Utils.sleep(150);
