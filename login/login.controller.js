@@ -59,7 +59,7 @@ async function handleLogin(){
     // Lấy email
     //----------------------------------
 
-    const email = getLoginEmail();
+    const email = LoginService.getLoginEmail();
 
     //----------------------------------
     // Kiểm tra
@@ -89,7 +89,7 @@ async function handleLogin(){
 
     try{
 
-        const result = await loginService(email);
+        const result = await LoginService.login(email);
 
         //----------------------------------
         // Không thành công
@@ -123,7 +123,7 @@ async function handleLogin(){
 
         location.href =
 
-            "modules/dashboard/dashboard.html";
+            "../dashboard/dashboard.html";
 
     }
 
