@@ -54,7 +54,7 @@ const PopupService = (()=>{
 
         App.dangXuLy = false;
 
-        await resumeCamera();
+        await CameraService.resume()
 
     }
 
