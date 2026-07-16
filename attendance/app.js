@@ -44,7 +44,7 @@ function initializeAttendance(){
 
         "Version:",
 
-        APP_VERSION
+        Version
 
     );
 
