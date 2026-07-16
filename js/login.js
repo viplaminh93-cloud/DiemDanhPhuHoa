@@ -50,6 +50,9 @@ async function loginSystem(){
 
     });
 
+
+console.log(result);
+    
     if(!result.success){
 
         alert(
