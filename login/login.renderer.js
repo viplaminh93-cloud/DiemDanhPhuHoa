@@ -14,86 +14,49 @@
  * ======================================
  */
 
+//======================================
+// LOGIN RENDERER
+//======================================
+
 const LoginRenderer = (()=>{
 
     /**
-     * ======================================
-     * Hiện Loading
-     * ======================================
+     * Hiển thị lỗi
      */
-
-    function showLoading(){
-
-        const button = Utils.id("btnLogin");
-
-        if(!button){
-
-            return;
-
-        }
-
-        button.disabled = true;
-
-        button.innerText =
-
-            "Đang đăng nhập...";
-
-    }
-
-    /**
-     * ======================================
-     * Ẩn Loading
-     * ======================================
-     */
-
-    function hideLoading(){
-
-        const button = Utils.id("btnLogin");
-
-        if(!button){
-
-            return;
-
-        }
-
-        button.disabled = false;
-
-        button.innerText =
-
-            "ĐĂNG NHẬP";
-
-    }
-
-    /**
-     * ======================================
-     * Focus Email
-     * ======================================
-     */
-
-    function focusEmail(){
-
-        Utils.id("txtEmail")?.focus();
-
-    }
-
-    /**
-     * ======================================
-     * Hiện lỗi
-     * ======================================
-     */
-
     function showError(message){
 
         alert(message);
 
     }
 
+    /**
+     * Loading Button
+     */
+    function setLoading(loading){
+
+        const button = Utils.id("btnLogin");
+
+        if(!button){
+
+            return;
+
+        }
+
+        button.disabled = loading;
+
+        button.innerText = loading
+
+            ? "ĐANG ĐĂNG NHẬP..."
+
+            : "ĐĂNG NHẬP";
+
+    }
+
     return{
 
-        showLoading,
-        hideLoading,
-        focusEmail,
-        showError
+        showError,
+
+        setLoading
 
     };
 
