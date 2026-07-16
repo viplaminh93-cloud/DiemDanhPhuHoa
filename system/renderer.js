@@ -1,249 +1,313 @@
 //======================================
 // RENDERER
+// Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
+/**
+ * ======================================
+ * RENDERER MODULE
+ *
+ * Quản lý các thao tác render giao diện.
+ *
+ * Chức năng:
+ * - Text
+ * - HTML
+ * - Image
+ * - Value
+ * - Class
+ * - Show / Hide
+ *
+ * Không chứa business.
+ * Không fetch.
+ * ======================================
+ */
 
-//======================================
-// RENDER TEXT
-//======================================
+const Renderer = (()=>{
 
-function renderText(elementId,value){
+    //======================================
+    // TEXT
+    //======================================
 
-    const obj=id(elementId);
+    function text(
 
-    if(!obj){
+        elementId,
 
-        return;
+        value = ""
+
+    ){
+
+        const element =
+
+            Utils.id(elementId);
+
+        if(!element){
+
+            return;
+
+        }
+
+        element.innerText = value;
 
     }
 
-    obj.innerText=value??"";
+    //======================================
+    // HTML
+    //======================================
 
-}
+    function html(
 
+        elementId,
 
-//======================================
-// RENDER IMAGE
-//======================================
+        value = ""
 
-function renderImage(elementId,url){
+    ){
 
-    const img=id(elementId);
+        const element =
 
-    if(!img){
+            Utils.id(elementId);
 
-        return;
+        if(!element){
+
+            return;
+
+        }
+
+        element.innerHTML = value;
 
     }
 
-    img.src=url||"";
+    //======================================
+    // IMAGE
+    //======================================
 
-}
+    function image(
 
+        elementId,
 
+        src = ""
 
-//======================================
-// SHOW ELEMENT
-//======================================
+    ){
 
-function renderShow(elementId){
+        const element =
 
-    show(id(elementId));
+            Utils.id(elementId);
 
-}
+        if(!element){
 
+            return;
 
+        }
 
-//======================================
-// HIDE ELEMENT
-//======================================
-
-function renderHide(elementId){
-
-    hide(id(elementId));
-
-}
-
-
-
-
-
-
-
-//======================================
-// STUDENT
-//======================================
-
-function renderStudentName(hocSinh){
-
-    renderText(
-
-        "overlayName",
-
-        layHoTen(hocSinh)
-
-    );
-
-}
-
-
-function renderStudentClass(hocSinh){
-
-    renderText(
-
-        "overlayClass",
-
-        layLop(hocSinh)
-
-    );
-
-}
-
-
-
-function renderStudentKhoi(hocSinh){
-
-    renderText(
-
-        "overlayKhoi",
-
-        layKhoi(hocSinh)
-
-    );
-
-}
-
-
-function renderStudentCode(hocSinh){
-
-    renderText(
-
-        "overlayCode",
-
-        layMaSo(hocSinh)
-
-    );
-
-}
-
-
-
-function renderStudentPhoto(hocSinh){
-
-    renderImage(
-
-        "overlayPhoto",
-
-        layAnh(hocSinh)
-
-    );
-
-}
-
-
-
-
-//======================================
-// RENDER STUDENT
-//======================================
-
-function renderStudent(data){
-
-    renderStudentName(data);
-
-    renderStudentKhoi(data);
-
-    renderStudentClass(data);
-
-    renderStudentCode(data);
-
-    renderStudentPhoto(data);
-
-}
-
-
-
-
-
-//======================================
-// RENDER POPUP
-//======================================
-
-function renderPopup(data){
-
-    renderStudent(data);
-
-}
-
-
-
-
-
-//======================================
-// QUEUE BADGE
-//======================================
-
-function renderQueueBadge(){
-
-    const count = queueLength();
-
-    renderText(
-
-        "queueCount",
-
-        count
-
-    );
-
-    const badge = id("queueBadge");
-
-    if(!badge){
-
-        return;
+        element.src = src;
 
     }
 
-    if(count===0){
+    //======================================
+    // VALUE
+    //======================================
 
-        hide(badge);
+    function value(
 
-        return;
+        elementId,
 
-    }
+        value = ""
 
-    show(badge);
+    ){
 
-    if(App.syncing){
+        const element =
 
-        badge.innerHTML=
-        
-            "<span class='queueIcon'>🔄</span> <span id='queueCount'>"
-        
-            + count +
-        
-            "</span>";
-        
-        badge.classList.add("syncing");
+            Utils.id(elementId);
 
-    }
+        if(!element){
 
-    else{
+            return;
 
-        badge.innerHTML=
-        
-            "<span class='queueIcon'>📤</span> <span id='queueCount'>"
-        
-            + count +
-        
-            "</span>";
+        }
 
-        badge.classList.remove("syncing");
+        element.value = value;
 
     }
 
-}
+    //======================================
+    // SHOW
+    //======================================
 
+    function show(elementId){
 
-console.log("renderer.js loaded");
+        Utils.show(
+
+            Utils.id(elementId)
+
+        );
+
+    }
+
+    //======================================
+    // HIDE
+    //======================================
+
+    function hide(elementId){
+
+        Utils.hide(
+
+            Utils.id(elementId)
+
+        );
+
+    }
+
+    //======================================
+    // TOGGLE
+    //======================================
+
+    function toggle(elementId){
+
+        Utils.toggle(
+
+            Utils.id(elementId)
+
+        );
+
+    }
+
+    //======================================
+    // ADD CLASS
+    //======================================
+
+    function addClass(
+
+        elementId,
+
+        className
+
+    ){
+
+        const element =
+
+            Utils.id(elementId);
+
+        if(!element){
+
+            return;
+
+        }
+
+        element.classList.add(
+
+            className
+
+        );
+
+    }
+
+    //======================================
+    // REMOVE CLASS
+    //======================================
+
+    function removeClass(
+
+        elementId,
+
+        className
+
+    ){
+
+        const element =
+
+            Utils.id(elementId);
+
+        if(!element){
+
+            return;
+
+        }
+
+        element.classList.remove(
+
+            className
+
+        );
+
+    }
+
+    //======================================
+    // HAS CLASS
+    //======================================
+
+    function hasClass(
+
+        elementId,
+
+        className
+
+    ){
+
+        const element =
+
+            Utils.id(elementId);
+
+        if(!element){
+
+            return false;
+
+        }
+
+        return element.classList.contains(
+
+            className
+
+        );
+
+    }
+
+    //======================================
+    // CLEAR
+    //======================================
+
+    function clear(
+
+        elementId
+
+    ){
+
+        html(
+
+            elementId,
+
+            ""
+
+        );
+
+    }
+
+    //======================================
+
+    return{
+
+        text,
+
+        html,
+
+        image,
+
+        value,
+
+        show,
+
+        hide,
+
+        toggle,
+
+        addClass,
+
+        removeClass,
+
+        hasClass,
+
+        clear
+
+    };
+
+})();
