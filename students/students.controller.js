@@ -3,14 +3,6 @@
 //
 // Điều phối module Students
 //
-// Chức năng:
-//
-// - Khởi tạo
-// - Load dữ liệu
-// - Search
-// - Mở popup
-// - Đóng popup
-//
 //==================================================
 
 "use strict";
@@ -30,7 +22,7 @@ window.addEventListener(
 );
 
 //======================================
-// INIT MODULE
+// INIT
 //======================================
 
 async function initStudents(){
@@ -90,7 +82,7 @@ function onSearch(){
 }
 
 //======================================
-// MODAL
+// CLOSE MODAL
 //======================================
 
 id("studentModal")
