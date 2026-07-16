@@ -5,271 +5,288 @@
 
 "use strict";
 
+/**
+ * ======================================
+ * UTILS MODULE
+ *
+ * Chứa các hàm dùng chung toàn hệ thống.
+ *
+ * Bao gồm:
+ * - DOM
+ * - UI
+ * - Device
+ * - Time
+ * - String
+ * - Object
+ * - Console
+ *
+ * Không chứa business.
+ * Không phụ thuộc module khác.
+ * ======================================
+ */
 
-//======================================
-// DOM
-//======================================
+const Utils = (()=>{
 
-function id(name){
+    //======================================
+    // DOM
+    //======================================
 
-    return document.getElementById(name);
+    function id(name){
 
-}
-
-
-function qs(selector){
-
-    return document.querySelector(selector);
-
-}
-
-
-function qsa(selector){
-
-    return document.querySelectorAll(selector);
-
-}
-
-
-function create(tag){
-
-    return document.createElement(tag);
-
-}
-
-
-
-//======================================
-// UI
-//======================================
-
-function show(element){
-
-    if(!element){
-
-        return;
+        return document.getElementById(name);
 
     }
 
-    element.classList.remove("hidden");
+    function qs(selector){
 
-}
-
-
-function hide(element){
-
-    if(!element){
-
-        return;
+        return document.querySelector(selector);
 
     }
 
-    element.classList.add("hidden");
+    function qsa(selector){
 
-}
-
-
-function toggle(element){
-
-    if(!element){
-
-        return;
+        return document.querySelectorAll(selector);
 
     }
 
-    element.classList.toggle("hidden");
+    function create(tag){
 
-}
-
-
-function isHidden(element){
-
-    if(!element){
-
-        return true;
+        return document.createElement(tag);
 
     }
 
-    return element.classList.contains("hidden");
+    //======================================
+    // UI
+    //======================================
 
-}
+    function show(element){
 
+        if(!element){
 
+            return;
 
-//======================================
-// DEVICE
-//======================================
+        }
 
-function vibrate(
-
-    ms = CONFIG.CAMERA.VIBRATE
-
-){
-
-    if(!navigator.vibrate){
-
-        return;
+        element.classList.remove("hidden");
 
     }
 
-    navigator.vibrate(ms);
+    function hide(element){
 
-}
+        if(!element){
 
+            return;
 
-function sleep(ms){
+        }
 
-    return new Promise(resolve=>{
+        element.classList.add("hidden");
 
-        setTimeout(
+    }
 
-            resolve,
+    function toggle(element){
 
-            ms
+        if(!element){
+
+            return;
+
+        }
+
+        element.classList.toggle("hidden");
+
+    }
+
+    function isHidden(element){
+
+        if(!element){
+
+            return true;
+
+        }
+
+        return element.classList.contains(
+
+            "hidden"
 
         );
 
-    });
+    }
 
-}
+    //======================================
+    // DEVICE
+    //======================================
 
+    function vibrate(
 
+        ms = Config.CAMERA.VIBRATE
 
-//======================================
-// TIME
-//======================================
+    ){
 
-function now(){
+        if(!navigator.vibrate){
 
-    return new Date();
+            return;
 
-}
+        }
 
+        navigator.vibrate(ms);
 
-function formatTime(date = new Date()){
+    }
 
-    return date.toLocaleTimeString(
+    function sleep(ms){
 
-        "vi-VN"
+        return new Promise(resolve=>{
 
-    );
+            setTimeout(
 
-}
+                resolve,
 
+                ms
 
-function formatDate(date = new Date()){
+            );
 
-    return date.toLocaleDateString(
+        });
 
-        "vi-VN"
+    }
 
-    );
+    //======================================
+    // TIME
+    //======================================
 
-}
+    function now(){
 
+        return new Date();
 
+    }
 
-//======================================
-// STRING
-//======================================
+    function formatTime(
 
-function upper(text){
+        date = new Date()
 
-    return String(text)
+    ){
 
-        .toUpperCase();
+        return date.toLocaleTimeString(
 
-}
+            "vi-VN"
 
+        );
 
-function lower(text){
+    }
 
-    return String(text)
+    function formatDate(
 
-        .toLowerCase();
+        date = new Date()
 
-}
+    ){
 
+        return date.toLocaleDateString(
 
-function trim(text){
+            "vi-VN"
 
-    return String(text)
+        );
 
-        .trim();
+    }
 
-}
+    //======================================
+    // STRING
+    //======================================
 
+    function upper(text){
 
+        return String(text)
 
-//======================================
-// OBJECT
-//======================================
+            .toUpperCase();
 
-function clone(object){
+    }
 
-    return structuredClone(object);
+    function lower(text){
 
-}
+        return String(text)
 
+            .toLowerCase();
 
+    }
 
-//======================================
-// DEBUG
-//======================================
+    function trim(text){
 
-function log(...args){
+        return String(text)
 
-    console.log(
+            .trim();
 
-        ...args
+    }
 
-    );
+    //======================================
+    // OBJECT
+    //======================================
 
-}
+    function clone(object){
 
+        return structuredClone(
 
-function warn(...args){
+            object
 
-    console.warn(
+        );
 
-        ...args
+    }
 
-    );
+    //======================================
+    // CONSOLE
+    //======================================
 
-}
+    function log(...args){
 
+        console.log(...args);
 
-function error(...args){
+    }
 
-    console.error(
+    function warn(...args){
 
-        ...args
+        console.warn(...args);
 
-    );
+    }
 
-}
+    function error(...args){
 
+        console.error(...args);
 
-//======================================
-// TOKEN
-//======================================
+    }
 
-function setToken(token){
+    //======================================
 
-    CONFIG.AUTH.TOKEN = token;
+    return{
 
-}
+        // DOM
+        id,
+        qs,
+        qsa,
+        create,
 
-function getToken(){
+        // UI
+        show,
+        hide,
+        toggle,
+        isHidden,
 
-    return CONFIG.AUTH.TOKEN || "";
+        // DEVICE
+        vibrate,
+        sleep,
 
-}
+        // TIME
+        now,
+        formatTime,
+        formatDate,
 
-function setUser(email,role){
+        // STRING
+        upper,
+        lower,
+        trim,
 
-    CONFIG.AUTH.EMAIL = email;
+        // OBJECT
+        clone,
 
-    CONFIG.AUTH.ROLE = role;
+        // CONSOLE
+        log,
+        warn,
+        error
 
-}
+    };
+
+})();
