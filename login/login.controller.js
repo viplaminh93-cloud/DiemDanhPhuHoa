@@ -28,7 +28,7 @@ window.addEventListener(
 
 function initLogin(){
 
-    const button = utils.id("btnLogin");
+    const button = Utils.id("btnLogin");
 
     if(!button){
 
