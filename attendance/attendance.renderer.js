@@ -31,7 +31,7 @@ const AttendanceRenderer = (()=>{
 
             home.style.display = "";
 
-            show(home);
+            Renderer.show(home);
 
         }
 
@@ -43,9 +43,9 @@ const AttendanceRenderer = (()=>{
 
     function showScanner(){
 
-        show(
+        Renderer.show(
 
-            id("scannerBox")
+            Utils.id("scannerBox")
 
         );
 
@@ -53,9 +53,9 @@ const AttendanceRenderer = (()=>{
 
     function hideScanner(){
 
-        hide(
+        Renderer.hide(
 
-            id("scannerBox")
+            Utils.id("scannerBox")
 
         );
 
