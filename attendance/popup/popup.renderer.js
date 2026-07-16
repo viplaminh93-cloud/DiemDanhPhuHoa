@@ -22,7 +22,7 @@ const PopupRenderer = (()=>{
 
     function reset(){
 
-        const overlay = id("overlay");
+        const overlay = Utils.id("overlay");
 
         if(!overlay){
 
@@ -32,7 +32,7 @@ const PopupRenderer = (()=>{
 
         overlay.classList.add("hidden");
 
-        Object.values(CONFIG.KHOI)
+        Object.values(Config.KHOI)
 
             .forEach(item=>{
 
