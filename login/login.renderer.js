@@ -24,7 +24,7 @@ const LoginRenderer = (()=>{
 
     function showLoading(){
 
-        const button = id("btnLogin");
+        const button = Utils.id("btnLogin");
 
         if(!button){
 
@@ -48,7 +48,7 @@ const LoginRenderer = (()=>{
 
     function hideLoading(){
 
-        const button = id("btnLogin");
+        const button = Utils.id("btnLogin");
 
         if(!button){
 
@@ -72,7 +72,7 @@ const LoginRenderer = (()=>{
 
     function focusEmail(){
 
-        id("txtEmail")?.focus();
+        Utils.id("txtEmail")?.focus();
 
     }
 
