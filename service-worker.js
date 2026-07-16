@@ -1,137 +1,313 @@
 //======================================
 // SERVICE WORKER
+// Giáo xứ Phú Hòa
 //======================================
 
-const APP_VERSION = "1.0.0";
+"use strict";
+
+/**
+ * ======================================
+ * SERVICE WORKER
+ *
+ * Chức năng:
+ * - Cache App Shell
+ * - Offline First
+ * - Version Cache
+ *
+ * Không chứa business.
+ * ======================================
+ */
 
 const CACHE_NAME =
 
     "phuhoa-" +
 
-    APP_VERSION;
+    APP_VERSION.VERSION;
 
-const FILES = [
 
-    "./",
+//======================================
+// APP SHELL
+//======================================
 
-    "./attendance/attendance.html",
+const APP_FILES = [
 
-    "./manifest.json",
-    "./system/version.js",
-    "./admin.html",
-    "./attendance/attendance.css",
+    //----------------------------------
+    // Attendance
+    //----------------------------------
 
-    "./system/config.js",
-    "./system/constants.js",
-    "./system/model.js",
-    "./system/core.js",
-    "./system/renderer.js",
-    "./system/debug.js",
-    "./system/utils.js",
-    "./attendance/camera.js",
-    "./system/offline.js",
-    "./attendance/attendance.js",
-    "./attendance/api.js",
-    "./attendance/popup.js",
-    "./dashboard/dashboard.js",
-    "./attendance/app.js"
-    
+    "/attendance/attendance.html",
+
+    "/attendance/attendance.css",
+
+    "/attendance/attendance.controller.js",
+
+    "/attendance/attendance.service.js",
+
+    "/attendance/attendance.renderer.js",
+
+    "/attendance/api.js",
+
+    "/attendance/app.js",
+
+    "/attendance/offline.js",
+
+    "/attendance/popup.service.js",
+
+    "/attendance/popup.renderer.js",
+
+    //----------------------------------
+    // Dashboard
+    //----------------------------------
+
+    "/dashboard/dashboard.html",
+
+    "/dashboard/dashboard.css",
+
+    "/dashboard/dashboard.controller.js",
+
+    "/dashboard/dashboard.service.js",
+
+    "/dashboard/dashboard.renderer.js",
+
+    //----------------------------------
+    // Students
+    //----------------------------------
+
+    "/students/students.html",
+
+    "/students/students.css",
+
+    "/students/students.controller.js",
+
+    "/students/students.service.js",
+
+    "/students/students.renderer.js",
+
+    //----------------------------------
+    // Login
+    //----------------------------------
+
+    "/login/login.html",
+
+    "/login/login.css",
+
+    "/login/login.controller.js",
+
+    "/login/login.service.js",
+
+    "/login/login.renderer.js",
+
+    //----------------------------------
+    // System
+    //----------------------------------
+
+    "/system/version.js",
+
+    "/system/config.js",
+
+    "/system/constants.js",
+
+    "/system/core.js",
+
+    "/system/utils.js",
+
+    "/system/debug.js",
+
+    "/system/model.js",
+
+    "/system/renderer.js",
+
+    "/system/auth.js",
+
+    //----------------------------------
+    // Assets
+    //----------------------------------
+
+    "/manifest.json",
+
+    "/icons/icon-192.png",
+
+    "/icons/icon-512.png",
+
+    "/icons/maskable-512.png"
+
 ];
 
 
+//======================================
+// INSTALL
+//======================================
 
-//==========================
-// Install
-//==========================
+self.addEventListener(
 
-self.addEventListener("install",event=>{
+    "install",
 
-    event.waitUntil(
+    event=>{
 
-        caches
-            .open(CACHE_NAME)
-            .then(cache=>cache.addAll(FILES))
+        event.waitUntil(
 
-    );
+            caches
 
-    self.skipWaiting();
+                .open(CACHE_NAME)
 
-});
+                .then(cache=>{
 
+                    return cache.addAll(
 
+                        APP_FILES
 
-//==========================
-// Activate
-//==========================
+                    );
 
-self.addEventListener("activate",event=>{
-
-    event.waitUntil(
-    
-        caches.keys().then(keys=>{
-    
-            return Promise.all(
-    
-                keys.map(key=>{
-    
-                    if(key!==CACHE_NAME){
-    
-                        return caches.delete(key);
-    
-                    }
-    
                 })
-    
-            );
-    
-        }).then(()=>self.clients.claim())
-    
-    );
 
-});
+        );
 
-
-
-//==========================
-// Fetch
-//==========================
-
-self.addEventListener("fetch",event=>{
-
-    if(event.request.method!=="GET"){
-
-        return;
+        self.skipWaiting();
 
     }
 
-    if(event.request.mode==="navigate"){
+);
+
+
+//======================================
+// ACTIVATE
+//======================================
+
+self.addEventListener(
+
+    "activate",
+
+    event=>{
+
+        event.waitUntil(
+
+            caches.keys()
+
+                .then(keys=>{
+
+                    return Promise.all(
+
+                        keys.map(key=>{
+
+                            if(
+
+                                key !== CACHE_NAME
+
+                            ){
+
+                                return caches.delete(
+
+                                    key
+
+                                );
+
+                            }
+
+                        })
+
+                    );
+
+                })
+
+                .then(()=>{
+
+                    return self.clients.claim();
+
+                })
+
+        );
+
+    }
+
+);
+
+
+//======================================
+// FETCH
+//======================================
+
+self.addEventListener(
+
+    "fetch",
+
+    event=>{
+
+        //----------------------------------
+        // Chỉ cache GET
+        //----------------------------------
+
+        if(
+
+            event.request.method !== "GET"
+
+        ){
+
+            return;
+
+        }
+
+        //----------------------------------
+        // Điều hướng trang
+        //----------------------------------
+
+        if(
+
+            event.request.mode ===
+
+            "navigate"
+
+        ){
+
+            event.respondWith(
+
+                fetch(event.request)
+
+                .catch(()=>{
+
+                    return caches.match(
+
+                        "/attendance/attendance.html"
+
+                    );
+
+                })
+
+            );
+
+            return;
+
+        }
+
+        //----------------------------------
+        // Offline First
+        //----------------------------------
 
         event.respondWith(
 
-            fetch(event.request)
+            caches.match(
 
-            .catch(()=>{
+                event.request
 
-                return caches.match("./index.html");
+            )
+
+            .then(cache=>{
+
+                if(cache){
+
+                    return cache;
+
+                }
+
+                return fetch(
+
+                    event.request
+
+                );
 
             })
 
         );
 
-        return;
-
     }
 
-    event.respondWith(
-
-        caches.match(event.request)
-
-        .then(cache=>{
-
-            return cache || fetch(event.request);
-
-        })
-
-    );
-
-});
+);
