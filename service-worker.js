@@ -22,7 +22,7 @@ const CACHE_NAME =
 
     "phuhoa-" +
 
-    APP_VERSION.VERSION;
+    APP_VERSION;
 
 
 //======================================
