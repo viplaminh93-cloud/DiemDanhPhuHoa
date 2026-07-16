@@ -12,27 +12,70 @@
 
     <title>
 
-        Điểm danh QR
+        Điểm danh Thiếu nhi Giáo xứ Phú Hòa
 
     </title>
 
+    <!--==================================
+    PWA
+    ===================================-->
+
+    <link
+        rel="manifest"
+        href="../manifest.json">
+
+    <meta
+        name="theme-color"
+        content="#1565c0">
+
+    <meta
+        name="description"
+        content="Hệ thống điểm danh Thiếu nhi Giáo xứ Phú Hòa">
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes">
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes">
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default">
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Điểm danh QR">
+
+    <link
+        rel="icon"
+        href="../icons/icon-192.png">
+
+    <link
+        rel="apple-touch-icon"
+        href="../icons/icon-192.png">
+
+    <!--==================================
+    CSS
+    ===================================-->
+
     <link
         rel="stylesheet"
-        href="../css/style.css">
+        href="attendance.css">
 
 </head>
 
 <body>
 
-    <!--======================================
-        Badge Offline Queue
-    =======================================-->
+    <!--==================================
+    QUEUE
+    ===================================-->
 
-    <div
-        id="queueBadge"
-        class="queue-badge">
+    <div id="queueBadge" class="queue-badge">
 
         📤
+
         <span id="queueCount">
 
             0
@@ -41,18 +84,25 @@
 
     </div>
 
+    <!--==================================
+    CONTAINER
+    ===================================-->
 
     <div class="container">
 
-        <!--======================================
-            HOME
-        =======================================-->
+        <!--==============================
+        HOME
+        ==============================-->
 
         <div class="card home">
 
             <img
+
                 class="logo"
-                src="https://drive.google.com/uc?export=view&id=1pI05_C7SCHHwkGwZGNH47r6WcfZdwwlD">
+
+                src="https://drive.google.com/uc?export=view&id=1pI05_C7SCHHwkGwZGNH47r6WcfZdwwlD"
+
+                alt="Logo">
 
             <h1>
 
@@ -67,23 +117,29 @@
             </div>
 
             <button
-                id="btnMass"
-                class="btn">
+
+                class="btn"
+
+                onclick="AttendanceController.start(LOAI.LE)">
 
                 DỰ LỄ
 
             </button>
 
             <button
-                id="btnCatechism"
-                class="btn">
+
+                class="btn"
+
+                onclick="AttendanceController.start(LOAI.GIAOLY)">
 
                 GIÁO LÝ
 
             </button>
 
             <button
+
                 id="installBtn"
+
                 class="btn install hidden">
 
                 CÀI ĐẶT ỨNG DỤNG
@@ -92,38 +148,35 @@
 
         </div>
 
-
-
-        <!--======================================
-            SCANNER
-        =======================================-->
+        <!--==============================
+        SCANNER
+        ==============================-->
 
         <div
+
             id="scannerBox"
+
             class="card hidden">
 
-            <div
-                id="typeTitle">
-
-            </div>
+            <div id="typeTitle"></div>
 
             <div
+
                 id="todayCount"
+
                 class="todayCount">
 
-                Đã điểm danh hôm nay:
-                <b>0</b>
+                Đã điểm danh hôm nay: 0 em
 
             </div>
 
-            <div
-                id="reader">
-
-            </div>
+            <div id="reader"></div>
 
             <button
-                id="btnBack"
-                class="back">
+
+                class="back"
+
+                onclick="CameraController.backHome()">
 
                 QUAY LẠI
 
@@ -133,21 +186,19 @@
 
     </div>
 
-
-
-    <!--======================================
-        POPUP
-    =======================================-->
+    <!--==================================
+    POPUP
+    ===================================-->
 
     <div
+
         id="overlay"
+
         class="hidden">
 
         <div id="overlayCard">
 
-            <div id="overlayTitle">
-
-            </div>
+            <div id="overlayTitle"></div>
 
             <img id="overlayPhoto">
 
@@ -161,24 +212,20 @@
 
             <div id="overlayTime"></div>
 
-            <div id="overlayHint">
-
-                Chạm màn hình để tiếp tục
-
-            </div>
+            <div id="overlayHint"></div>
 
         </div>
 
     </div>
 
-
-
-    <!--======================================
-        DEBUG
-    =======================================-->
+    <!--==================================
+    DEBUG
+    ===================================-->
 
     <div
+
         id="debugButton"
+
         class="hidden">
 
         🐞
@@ -186,7 +233,9 @@
     </div>
 
     <div
+
         id="debugPanel"
+
         class="hidden">
 
         <div id="debugHeader">
@@ -199,55 +248,56 @@
 
     </div>
 
-
-
-    <!--======================================
-        LIBRARY
-    =======================================-->
+    <!--==================================
+    LIBRARY
+    ===================================-->
 
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-
-
-    <!--======================================
-        SYSTEM
-    =======================================-->
+    <!--==================================
+    SYSTEM
+    ===================================-->
 
     <script src="../system/version.js"></script>
-
     <script src="../system/config.js"></script>
-
     <script src="../system/constants.js"></script>
-
-    <script src="../system/core.js"></script>
-
     <script src="../system/model.js"></script>
-
-    <script src="../system/utils.js"></script>
-
+    <script src="../system/core.js"></script>
+    <script src="../system/renderer.js"></script>
     <script src="../system/debug.js"></script>
-
+    <script src="../system/utils.js"></script>
     <script src="../system/auth.js"></script>
 
-    <script src="../system/offline.js"></script>
-
-    <script src="../system/camera.js"></script>
-
-    <script src="../system/api.js"></script>
-
-    <script src="../system/popup.js"></script>
-
-
-
-    <!--======================================
-        ATTENDANCE MODULE
-    =======================================-->
-
-    <script src="attendance.service.js"></script>
+    <!--==================================
+    ATTENDANCE
+    ===================================-->
 
     <script src="attendance.renderer.js"></script>
-
+    <script src="attendance.service.js"></script>
     <script src="attendance.controller.js"></script>
+
+    <script src="offline.js"></script>
+    <script src="api.js"></script>
+
+    <!--==================================
+    CAMERA
+    ===================================-->
+
+    <script src="camera/camera.service.js"></script>
+    <script src="camera/camera.controller.js"></script>
+
+    <!--==================================
+    POPUP
+    ===================================-->
+
+    <script src="popup/popup.renderer.js"></script>
+    <script src="popup/popup.service.js"></script>
+
+    <!--==================================
+    APP
+    ===================================-->
+
+    <script src="app.js"></script>
 
 </body>
 
