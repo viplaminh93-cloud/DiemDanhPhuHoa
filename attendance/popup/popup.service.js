@@ -52,7 +52,7 @@ const PopupService = (()=>{
 
         await Utils.sleep(150);
 
-        App.dangXuLy = false;
+        window.daQuet = false;
 
         await CameraService.resume()
 
