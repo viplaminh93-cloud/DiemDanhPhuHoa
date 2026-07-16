@@ -4,62 +4,89 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1">
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1">
 
-<title>
+    <title>
 
-Đăng nhập
+        Đăng nhập
 
-</title>
+    </title>
 
-<link
-rel="stylesheet"
-href="../login/login.css">
+    <!--=========================
+            CSS
+    ==========================-->
+
+    <link
+        rel="stylesheet"
+        href="./login.css">
 
 </head>
 
 <body>
 
-<div class="login-box">
+    <div class="login-box">
 
-<h1>
+        <h1>
 
-GIÁO XỨ PHÚ HÒA
+            GIÁO XỨ PHÚ HÒA
 
-</h1>
+        </h1>
 
-<h2>
+        <h2>
 
-HỆ THỐNG ĐIỂM DANH
+            HỆ THỐNG ĐIỂM DANH
 
-</h2>
+        </h2>
 
-<input
+        <!--=========================
+                EMAIL
+        ==========================-->
 
-id="txtEmail"
+        <input
 
-type="email"
+            id="txtEmail"
 
-placeholder="Email Google">
+            type="email"
 
-<button
+            placeholder="Email Google">
 
-id="btnLogin">
+        <!--=========================
+                LOGIN
+        ==========================-->
 
-ĐĂNG NHẬP
+        <button
 
-</button>
+            id="btnLogin">
 
-</div>
+            ĐĂNG NHẬP
 
-<script src="../system/config.js"></script>
-<script src="../system/utils.js"></script>
-<script src="../system/auth.js"></script>
-<script src="../login/login.js"></script>
+        </button>
+
+    </div>
+
+    <!--=========================
+            SYSTEM
+    ==========================-->
+
+    <script src="../../system/config.js"></script>
+
+    <script src="../../system/utils.js"></script>
+
+    <script src="../../system/auth.js"></script>
+
+    <!--=========================
+            LOGIN
+    ==========================-->
+
+    <script src="./login.service.js"></script>
+
+    <script src="./login.renderer.js"></script>
+
+    <script src="./login.controller.js"></script>
 
 </body>
 
