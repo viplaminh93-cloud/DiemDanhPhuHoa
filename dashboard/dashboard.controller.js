@@ -7,157 +7,179 @@
 
 /**
  * ======================================
- * Dashboard Controller
- * --------------------------------------
- * Điều khiển toàn bộ Dashboard
- * Không xử lý API
- * Không render HTML
+ * DASHBOARD CONTROLLER
+ *
+ * Dashboard là Menu chính.
+ * Không tải dữ liệu.
+ * Không render thống kê.
+ * Chỉ điều hướng.
  * ======================================
  */
-
-const DashboardController = (() => {
-
-    //----------------------------------
-    // State
-    //----------------------------------
-
-    let currentType = "Dự lễ";
-
-    let dashboardData = null;
-
-    //----------------------------------
-    // Khởi tạo
-    //----------------------------------
-
-    function init() {
-
-        Auth.requireLogin();
-
-        bindEvents();
-
-        load();
-
-    }
-
-    //----------------------------------
-    // Gắn sự kiện
-    //----------------------------------
-
-    function bindEvents() {
-
-/*        Utils.id("btnRefresh")
-            .addEventListener(
-                "click",
-                load
-            );   */
-
-        Utils.id("btnLe")
-            .addEventListener(
-                "click",
-                showMass
-            );
-
-        Utils.id("btnGiaoLy")
-            .addEventListener(
-                "click",
-                showCatechism
-            );
-
-    }
-
-    //----------------------------------
-    // Load Dashboard
-    //----------------------------------
-
-    async function load() {
-
-        try {
-
-            dashboardData =
-                await DashboardService.load();
-
-            DashboardRenderer.renderSummary(
-                dashboardData
-            );
-
-            DashboardRenderer.renderTable(
-                dashboardData,
-                currentType
-            );
-
-        }
-
-        catch (err) {
-
-            console.error(err);
-
-            alert(
-                "Không kết nối được máy chủ."
-            );
-
-        }
-
-    }
-
-    //----------------------------------
-    // Hiển thị Dự lễ
-    //----------------------------------
-
-    function showMass() {
-
-        currentType = "Dự lễ";
-
-        DashboardRenderer.setActiveButton(
-            currentType
-        );
-
-        DashboardRenderer.renderTable(
-            dashboardData,
-            currentType
-        );
-
-    }
-
-    //----------------------------------
-    // Hiển thị Giáo lý
-    //----------------------------------
-
-    function showCatechism() {
-
-        currentType = "Giáo lý";
-
-        DashboardRenderer.setActiveButton(
-            currentType
-        );
-
-        DashboardRenderer.renderTable(
-            dashboardData,
-            currentType
-        );
-
-    }
-
-    //----------------------------------
-    // Public
-    //----------------------------------
-
-    return {
-
-        init
-
-    };
-
-})();
-
-
-//======================================
-// START
-//======================================
 
 window.addEventListener(
 
     "load",
 
-    DashboardController.init
+    init
 
 );
+
+/**
+ * ======================================
+ * KHỞI TẠO
+ * ======================================
+ */
+
+function init(){
+
+    //----------------------------------
+    // Kiểm tra đăng nhập
+    //----------------------------------
+
+    Auth.requireLogin();
+
+    //----------------------------------
+    // Gắn sự kiện
+    //----------------------------------
+
+    bindEvents();
+
+}
+
+/**
+ * ======================================
+ * GẮN SỰ KIỆN
+ * ======================================
+ */
+
+function bindEvents(){
+
+    bind(
+
+        "btnAttendance",
+
+        openAttendance
+
+    );
+
+    bind(
+
+        "btnStudents",
+
+        openStudents
+
+    );
+
+    bind(
+
+        "btnReport",
+
+        openReport
+
+    );
+
+    bind(
+
+        "btnLogout",
+
+        logout
+
+    );
+
+}
+
+/**
+ * ======================================
+ * BIND EVENT AN TOÀN
+ * ======================================
+ */
+
+function bind(id,callback){
+
+    const element =
+
+        Utils.id(id);
+
+    if(!element){
+
+        Debug.warn(
+
+            "Không tìm thấy:",
+
+            id
+
+        );
+
+        return;
+
+    }
+
+    element.addEventListener(
+
+        "click",
+
+        callback
+
+    );
+
+}
+
+/**
+ * ======================================
+ * ĐIỂM DANH
+ * ======================================
+ */
+
+function openAttendance(){
+
+    location.href =
+
+        "../attendance/attendance.html";
+
+}
+
+/**
+ * ======================================
+ * DANH SÁCH
+ * ======================================
+ */
+
+function openStudents(){
+
+    location.href =
+
+        "../students/students.html";
+
+}
+
+/**
+ * ======================================
+ * BÁO CÁO
+ * ======================================
+ */
+
+function openReport(){
+
+    //----------------------------------
+    // Tạm thời
+    //----------------------------------
+
+    alert(
+
+        "Chức năng đang phát triển."
+
+    );
+
+}
+
+/**
+ * ======================================
+ * ĐĂNG XUẤT
+ * ======================================
+ */
+
+function logout(){
+
+    Auth.logout();
+
+}
