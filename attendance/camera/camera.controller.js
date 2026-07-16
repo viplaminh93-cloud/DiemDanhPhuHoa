@@ -8,16 +8,23 @@
 /**
  * ======================================
  * CAMERA CONTROLLER
- * Điều khiển Camera
- * Không thao tác Html5Qrcode trực tiếp
+ *
+ * Điều khiển Camera.
+ * Không thao tác Html5Qrcode trực tiếp.
  * ======================================
  */
 
-//======================================
-// START CAMERA
-//======================================
+window.daQuet = false;
+
+/**
+ * ======================================
+ * START CAMERA
+ * ======================================
+ */
 
 async function startCamera(){
+
+    window.daQuet = false;
 
     await CameraService.start(
 
@@ -27,9 +34,11 @@ async function startCamera(){
 
 }
 
-//======================================
-// STOP CAMERA
-//======================================
+/**
+ * ======================================
+ * STOP CAMERA
+ * ======================================
+ */
 
 async function stopCamera(){
 
@@ -37,9 +46,11 @@ async function stopCamera(){
 
 }
 
-//======================================
-// PAUSE CAMERA
-//======================================
+/**
+ * ======================================
+ * PAUSE CAMERA
+ * ======================================
+ */
 
 async function pauseCamera(){
 
@@ -47,88 +58,99 @@ async function pauseCamera(){
 
 }
 
-//======================================
-// RESUME CAMERA
-//======================================
+/**
+ * ======================================
+ * RESUME CAMERA
+ * ======================================
+ */
 
 async function resumeCamera(){
+
+    window.daQuet = false;
 
     await CameraService.resume();
 
 }
 
-//======================================
-// BACK HOME
-//======================================
+/**
+ * ======================================
+ * QR SUCCESS
+ * ======================================
+ */
 
-async function backHome(){
+async function qrSuccess(qrText){
 
-    debug(
-        MODULE.APP,
-        "Back Home"
-    );
+    //----------------------------------
+    // Chống quét liên tục
+    //----------------------------------
 
-    hide(
-
-        id("scannerBox")
-
-    );
-
-    qs(".home").style.display = "";
-
-    show(
-
-        qs(".home")
-
-    );
-
-    App.dangXuLy = false;
-
-    await stopCamera();
-
-}
-
-//======================================
-// QR SUCCESS
-//======================================
-
-async function qrSuccess(text){
-
-    if(App.dangXuLy){
+    if(window.daQuet){
 
         return;
 
     }
 
-    debug(
+    window.daQuet = true;
 
-        MODULE.CAMERA,
-
-        "QR : " + text
-
-    );
-
-    App.dangXuLy = true;
+    //----------------------------------
+    // Dừng Camera
+    //----------------------------------
 
     await pauseCamera();
 
-    vibrate();
+    //----------------------------------
+    // Rung
+    //----------------------------------
 
-    if(typeof App.onQRCode !== "function"){
+    if(navigator.vibrate){
 
-        App.dangXuLy = false;
-
-        return;
+        navigator.vibrate(100);
 
     }
 
-    await App.onQRCode(text);
+    //----------------------------------
+    // Gửi Attendance
+    //----------------------------------
+
+    try{
+
+        if(
+
+            typeof AttendanceController !== "undefined"
+
+            &&
+
+            typeof AttendanceController.onQRCode === "function"
+
+        ){
+
+            await AttendanceController.onQRCode(
+
+                qrText
+
+            );
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        window.daQuet = false;
+
+        await resumeCamera();
+
+    }
 
 }
 
-//======================================
-// TAB ACTIVE
-//======================================
+/**
+ * ======================================
+ * TAB ACTIVE
+ * ======================================
+ */
 
 document.addEventListener(
 
@@ -146,13 +168,19 @@ document.addEventListener(
 
             CameraService.exists()
 
-            &&
-
-            !isHidden(id("scannerBox"))
-
         ){
 
-            await resumeCamera();
+            try{
+
+                await resumeCamera();
+
+            }
+
+            catch(error){
+
+                console.error(error);
+
+            }
 
         }
 
