@@ -49,9 +49,13 @@ const APP_FILES = [
 
     "/attendance/offline.js",
 
-    "/attendance/popup.service.js",
+    "/attendance/popup/popup.service.js",
 
-    "/attendance/popup.renderer.js",
+    "/attendance/popup/popup.renderer.js",
+
+    "/attendance/camera/camera.service.js",
+
+    "/attendance/camera/camera.controller.js",
 
     //----------------------------------
     // Dashboard
@@ -60,6 +64,8 @@ const APP_FILES = [
     "/dashboard/dashboard.html",
 
     "/dashboard/dashboard.css",
+
+    "/dashboard/dashboard.state.js",
 
     "/dashboard/dashboard.controller.js",
 
@@ -127,7 +133,7 @@ const APP_FILES = [
 
     "/icons/icon-512.png",
 
-    "/icons/maskable-512.png"
+//    "/icons/maskable-512.png"
 
 ];
 
