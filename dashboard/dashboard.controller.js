@@ -36,7 +36,7 @@ function init(){
     // Kiểm tra đăng nhập
     //----------------------------------
 
-     Auth.requireLogin();
+     if (!Auth.requireLogin()) return;
 
     //----------------------------------
     // Hiển thị người dùng
@@ -45,6 +45,13 @@ function init(){
     loadUser();
     const role = Auth.getRole(); // Lấy quyền
 
+    // Nếu là TAM_KHOA, chặn ngay từ đầu
+        if (role === "TAM_KHOA") {
+            alert("Tài khoản của bạn chưa được cấp quyền sử dụng hệ thống.");
+            Auth.logout();
+            return;
+        }
+    
     // Ẩn/Hiện nút dựa trên quyền
         if (role === "QUET_MA") {
             Utils.id("btnReports").style.display = "none";
@@ -84,7 +91,8 @@ function bindEvents(){
     );
 
     Utils.id("btnReports").addEventListener("click", () => {
-        if (Auth.getRole() !== "ADMIN" || "QUAN_LY") {
+        const role = Auth.getRole();
+        if (role !== "ADMIN" && role !== "QUAN_LY") {
                 alert("Bạn không có quyền truy cập trang này!");
                 return;
         }
