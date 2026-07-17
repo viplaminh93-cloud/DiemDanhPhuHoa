@@ -1,244 +1,181 @@
 //======================================
-// CAMERA SERVICE
+// CAMERA CONTROLLER
 // Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
-const CameraService = (()=>{
+/**
+ * ======================================
+ * CAMERA CONTROLLER
+ *
+ * Điều khiển Camera.
+ * Không làm việc với Html5Qrcode.
+ * ======================================
+ */
+
+window.daQuet = false;
+
+//======================================
+// START
+//======================================
+
+async function startCamera(){
+
+    window.daQuet = false;
+
+    await CameraService.start(
+
+        qrSuccess
+
+    );
+
+}
+
+//======================================
+// STOP
+//======================================
+
+async function stopCamera(){
+
+    window.daQuet = false;
+
+    await CameraService.stop();
+
+}
+
+//======================================
+// PAUSE
+//======================================
+
+async function pauseCamera(){
+
+    await CameraService.pause();
+
+}
+
+//======================================
+// RESUME
+//======================================
+
+async function resumeCamera(){
+
+    window.daQuet = false;
+
+    await CameraService.resume();
+
+}
+
+//======================================
+// BACK HOME
+//======================================
+
+async function backHome(){
+
+    await AttendanceController.backHome();
+
+}
+
+//======================================
+// QR SUCCESS
+//======================================
+
+async function qrSuccess(qrText){
 
     //----------------------------------
-    // Scanner
+    // Chống quét liên tục
     //----------------------------------
 
-    let scanner = null;
+    if(window.daQuet){
+
+        return;
+
+    }
+
+    window.daQuet = true;
 
     //----------------------------------
-    // START
+    // Pause Camera
     //----------------------------------
 
-    async function start(onSuccess){
+    await pauseCamera();
 
-        debug(
+    //----------------------------------
+    // Rung
+    //----------------------------------
 
-            MODULE.CAMERA,
+    if(navigator.vibrate){
 
-            "Start Camera"
+        navigator.vibrate(100);
 
-        );
+    }
 
-        if(scanner){
+    //----------------------------------
+    // Gửi Controller
+    //----------------------------------
 
-            await stop();
+    try{
 
-        }
+        await AttendanceController.onQRCode(
 
-        scanner = new Html5Qrcode(
-
-            "reader"
-
-        );
-
-        await scanner.start(
-
-            {
-
-                facingMode:
-
-                    Config.CAMERA.FACING_MODE
-
-            },
-
-            {
-
-                fps:
-
-                    Config.CAMERA.FPS,
-
-                qrbox:{
-
-                    width:
-
-                        Config.CAMERA.WIDTH,
-
-                    height:
-
-                        Config.CAMERA.HEIGHT
-
-                },
-
-                rememberLastUsedCamera:
-
-                    Config.CAMERA.REMEMBER_CAMERA,
-
-                disableFlip:
-
-                    Config.CAMERA.DISABLE_FLIP
-
-            },
-
-            onSuccess
-
-        );
-
-        debug(
-
-            MODULE.CAMERA,
-
-            "Camera Started"
+            qrText
 
         );
 
     }
 
-    //----------------------------------
-    // STOP
-    //----------------------------------
+    catch(error){
 
-    async function stop(){
+        console.error(error);
 
-        if(!scanner){
+        window.daQuet = false;
+
+        await resumeCamera();
+
+    }
+
+}
+
+//======================================
+// TAB ACTIVE
+//======================================
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    async()=>{
+
+        if(document.hidden){
 
             return;
 
         }
 
-        try{
+        if(
 
-            await scanner.stop();
+            CameraService.exists()
 
-        }
+            &&
 
-        catch(error){
+            !window.daQuet
 
-            console.error(error);
+        ){
 
-        }
+            try{
 
-        try{
+                await resumeCamera();
 
-            await scanner.clear();
+            }
 
-        }
+            catch(error){
 
-        catch(error){
+                console.error(error);
 
-            console.error(error);
-
-        }
-
-        scanner = null;
-
-        const reader =
-
-            Utils.id("reader");
-
-        if(reader){
-
-            reader.innerHTML = "";
-
-        }
-
-        debug(
-
-            MODULE.CAMERA,
-
-            "Camera Stopped"
-
-        );
-
-    }
-
-    //----------------------------------
-    // PAUSE
-    //----------------------------------
-
-    async function pause(){
-
-        if(!scanner){
-
-            return;
-
-        }
-
-        try{
-
-            scanner.pause(true);
-
-        }
-
-        catch(error){
-
-            console.error(error);
+            }
 
         }
 
     }
 
-    //----------------------------------
-    // RESUME
-    //----------------------------------
-
-    async function resume(){
-
-        if(!scanner){
-
-            return;
-
-        }
-
-        try{
-
-            scanner.resume();
-
-        }
-
-        catch(error){
-
-            console.error(error);
-
-        }
-
-    }
-
-    //----------------------------------
-    // EXISTS
-    //----------------------------------
-
-    function exists(){
-
-        return scanner !== null;
-
-    }
-
-    //----------------------------------
-    // INSTANCE
-    //----------------------------------
-
-    function getInstance(){
-
-        return scanner;
-
-    }
-
-    //----------------------------------
-    // PUBLIC
-    //----------------------------------
-
-    return{
-
-        start,
-
-        stop,
-
-        pause,
-
-        resume,
-
-        exists,
-
-        getInstance
-
-    };
-
-})();
+);
