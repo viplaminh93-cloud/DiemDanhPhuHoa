@@ -43,7 +43,7 @@ const Config = Object.freeze({
 
         DEBUG :
 
-            false
+            true
 
     }),
 
