@@ -1,33 +1,112 @@
+//======================================
+// ATTENDANCE RENDERER
+// Giáo xứ Phú Hòa
+//======================================
+
 "use strict";
 
-const AttendanceRenderer = (() => {
+const AttendanceRenderer = (()=>{
 
-    function showHome() {
-        Renderer.show(Utils.id("homeBox"));
+    //----------------------------------
+    // HOME
+    //----------------------------------
+
+    function showHome(){
+
+        Renderer.show("homeBox");
+
         hideScanner();
+
     }
 
-    function hideHome() {
-        Renderer.hide(Utils.id("homeBox"));
+    function hideHome(){
+
+        Renderer.hide("homeBox");
+
     }
 
-    function showScanner(loai) {
+    //----------------------------------
+    // SCANNER
+    //----------------------------------
+
+    function showScanner(loai){
+
         hideHome();
-        Renderer.show(Utils.id("scannerBox"));
+
+        Renderer.show("scannerBox");
+
         renderType(loai);
+
     }
 
-    function hideScanner() {
-        Renderer.hide(Utils.id("scannerBox"));
+    function hideScanner(){
+
+        Renderer.hide("scannerBox");
+
     }
 
-    function renderType(loai) {
-        Renderer.text("typeTitle", "Điểm danh: " + loai);
+    //----------------------------------
+    // TYPE
+    //----------------------------------
+
+    function renderType(loai){
+
+        Renderer.text(
+
+            "typeTitle",
+
+            "Điểm danh: " + loai
+
+        );
+
     }
 
-    function renderTodayCounter(total) {
-        Renderer.text("todayCount", "Đã điểm danh hôm nay: " + total + " em");
+    //----------------------------------
+    // TODAY COUNTER
+    //----------------------------------
+
+    function renderTodayCounter(total){
+
+        Renderer.text(
+
+            "todayCount",
+
+            "Đã điểm danh hôm nay: " + total + " em"
+
+        );
+
     }
 
-    return { showHome, hideHome, showScanner, hideScanner, renderType, renderTodayCounter };
+    //----------------------------------
+    // RESET
+    //----------------------------------
+
+    function reset(){
+
+        renderType("");
+
+        renderTodayCounter(0);
+
+    }
+
+    //----------------------------------
+
+    return{
+
+        showHome,
+
+        hideHome,
+
+        showScanner,
+
+        hideScanner,
+
+        renderType,
+
+        renderTodayCounter,
+
+        reset
+
+    };
+
 })();
