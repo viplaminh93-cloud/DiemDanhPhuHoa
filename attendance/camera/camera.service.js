@@ -4,48 +4,155 @@
 
 "use strict";
 
-const CameraService = (() => {
+const CameraService = (()=>{
 
     let scanner = null;
+
+    let started = false;
+
     let paused = false;
 
-    async function start(onSuccess){
+    let readerId = "reader";
+
+    //----------------------------------
+    // CREATE
+    //----------------------------------
+
+    function create(){
 
         if(scanner){
 
-            await stop();
+            return;
 
         }
 
-        scanner = new Html5Qrcode("reader");
+        scanner = new Html5Qrcode(readerId);
 
-        paused = false;
+    }
+
+    //----------------------------------
+    // START
+    //----------------------------------
+
+    async function start(onSuccess){
+
+        if(started){
+
+            return;
+
+        }
+
+        create();
 
         await scanner.start(
 
             {
+
                 facingMode:"environment"
+
             },
 
             {
+
                 fps:10,
+
                 qrbox:{
+
                     width:250,
+
                     height:250
-                }
+
+                },
+
+                rememberLastUsedCamera:true,
+
+                disableFlip:false
+
             },
 
-            onSuccess,
+            decodedText=>{
+
+                onSuccess(decodedText);
+
+            },
 
             ()=>{}
 
         );
 
+        started = true;
+
+        paused = false;
+
     }
+
+    //----------------------------------
+    // PAUSE
+    //----------------------------------
+
+    async function pause(){
+
+        if(
+
+            !scanner ||
+
+            !started ||
+
+            paused
+
+        ){
+
+            return;
+
+        }
+
+        scanner.pause(true);
+
+        paused = true;
+
+    }
+
+    //----------------------------------
+    // RESUME
+    //----------------------------------
+
+    async function resume(){
+
+        if(
+
+            !scanner ||
+
+            !started ||
+
+            !paused
+
+        ){
+
+            return;
+
+        }
+
+        scanner.resume();
+
+        paused = false;
+
+    }
+
+    //----------------------------------
+    // STOP
+    //----------------------------------
 
     async function stop(){
 
-        if(!scanner){
+        if(
+
+            !scanner ||
+
+            !started
+
+        ){
+
+            destroy();
 
             return;
 
@@ -55,7 +162,10 @@ const CameraService = (() => {
 
             if(paused){
 
-                await scanner.resume();
+                scanner.resume();
+
+                paused = false;
+
             }
 
         }catch(e){}
@@ -66,70 +176,55 @@ const CameraService = (() => {
 
         }catch(e){}
 
+        destroy();
+
+    }
+
+    //----------------------------------
+    // DESTROY
+    //----------------------------------
+
+    function destroy(){
+
         try{
 
-            await scanner.clear();
+            if(scanner){
+
+                scanner.clear();
+
+            }
 
         }catch(e){}
 
         scanner = null;
 
+        started = false;
+
         paused = false;
 
-        const reader=document.getElementById("reader");
+        const reader = document.getElementById(readerId);
 
         if(reader){
 
-            reader.innerHTML="";
-        }
-
-    }
-
-    async function pause(){
-
-        if(!scanner || paused){
-
-            return;
-        }
-
-        try{
-
-            scanner.pause(true);
-
-            paused=true;
-
-        }catch(e){
-
-            console.error(e);
+            reader.innerHTML = "";
 
         }
 
     }
 
-    async function resume(){
-
-        if(!scanner || !paused){
-
-            return;
-        }
-
-        try{
-
-            scanner.resume();
-
-            paused=false;
-
-        }catch(e){
-
-            console.error(e);
-
-        }
-
-    }
+    //----------------------------------
+    // STATUS
+    //----------------------------------
 
     function exists(){
 
-        return scanner!==null;
+        return scanner !== null;
+
+    }
+
+    function isStarted(){
+
+        return started;
 
     }
 
@@ -139,13 +234,24 @@ const CameraService = (() => {
 
     }
 
+    //----------------------------------
+    // PUBLIC
+    //----------------------------------
+
     return{
 
         start,
+
         stop,
+
         pause,
+
         resume,
+
         exists,
+
+        isStarted,
+
         isPaused
 
     };
