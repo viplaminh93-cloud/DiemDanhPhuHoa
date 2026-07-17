@@ -9,105 +9,27 @@ Auth.requireLogin();
 
 const AttendanceController = (()=>{
 
-    let currentType = "";
+    //----------------------------------
+    // Đang xử lý QR
+    //----------------------------------
 
     let processing = false;
 
-    let todayCounter = 0;
+    //----------------------------------
+    // START
+    //----------------------------------
 
-    /**
-     * ======================================
-     * BẮT ĐẦU ĐIỂM DANH
-     * ======================================
-     */
-
-    async function start(type){
-
-        currentType = type;
+    async function start(loai){
 
         processing = false;
 
-        //----------------------------------
-        // Đồng bộ Offline
-        //----------------------------------
-
-        if(
-
-            navigator.onLine
-
-            &&
-
-            typeof Offline !== "undefined"
-
-            &&
-
-            Offline.hasQueue()
-
-        ){
-
-            await Offline.sync();
-
-        }
-
-        //----------------------------------
-        // Hiển thị giao diện
-        //----------------------------------
-
-        AttendanceRenderer.showScanner(type);
-
-        //----------------------------------
-        // Tổng hôm nay
-        //----------------------------------
-
-        await loadTodayCounter();
-
-        //----------------------------------
-        // Camera
-        //----------------------------------
-
-        await startCamera();
+        await AttendanceService.start(loai);
 
     }
 
-    /**
-     * ======================================
-     * LOAD COUNTER
-     * ======================================
-     */
-
-    async function loadTodayCounter(){
-
-        try{
-
-            todayCounter =
-
-                await AttendanceService.getTodayCounter(
-
-                    currentType
-
-                );
-
-            AttendanceRenderer.renderTodayCounter(
-
-                todayCounter
-
-            );
-
-        }
-
-        catch(error){
-
-            console.error(error);
-
-        }
-
-    }
-
-    /**
-     * ======================================
-     * QR SUCCESS
-     * ======================================
-     */
+    //----------------------------------
+    // QR SUCCESS
+    //----------------------------------
 
     async function onQRCode(qrText){
 
@@ -125,9 +47,7 @@ const AttendanceController = (()=>{
 
                 await AttendanceService.sendAttendance(
 
-                    qrText,
-
-                    currentType
+                    qrText
 
                 );
 
@@ -137,13 +57,7 @@ const AttendanceController = (()=>{
 
             if(result.success){
 
-                todayCounter++;
-
-                AttendanceRenderer.renderTodayCounter(
-
-                    todayCounter
-
-                );
+                AttendanceService.increaseCounter();
 
             }
 
@@ -167,11 +81,9 @@ const AttendanceController = (()=>{
 
     }
 
-    /**
-     * ======================================
-     * ĐÓNG POPUP
-     * ======================================
-     */
+    //----------------------------------
+    // CLOSE POPUP
+    //----------------------------------
 
     async function closePopup(){
 
@@ -181,21 +93,37 @@ const AttendanceController = (()=>{
 
     }
 
-    /**
-     * ======================================
-     * QUAY VỀ
-     * ======================================
-     */
+    //----------------------------------
+    // BACK HOME
+    //----------------------------------
 
     async function backHome(){
+
+        processing = false;
+
+        PopupRenderer.hide();
 
         await stopCamera();
 
         AttendanceRenderer.showHome();
 
-        processing = false;
+        AttendanceService.reset();
 
     }
+
+    //----------------------------------
+    // Đang xử lý?
+    //----------------------------------
+
+    function isProcessing(){
+
+        return processing;
+
+    }
+
+    //----------------------------------
+    // PUBLIC
+    //----------------------------------
 
     return{
 
@@ -205,7 +133,9 @@ const AttendanceController = (()=>{
 
         closePopup,
 
-        backHome
+        backHome,
+
+        isProcessing
 
     };
 
