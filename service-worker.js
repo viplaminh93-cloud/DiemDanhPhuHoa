@@ -32,101 +32,34 @@ const CACHE_NAME = "phuhoa-" + CACHE_VERSION;
 
 const APP_FILES = [
 
-    //----------------------------------
-    // Root
-    //----------------------------------
-
-    "./",
-
     "./manifest.json",
 
-    //----------------------------------
-    // Attendance
-    //----------------------------------
-
     "./attendance/attendance.html",
-
     "./attendance/attendance.css",
 
-    "./attendance/attendance.controller.js",
-
-    "./attendance/attendance.service.js",
-
-    "./attendance/attendance.renderer.js",
-
-    "./attendance/api.js",
-
     "./attendance/app.js",
-
-    "./attendance/camera/camera.service.js",
-
-    "./attendance/camera/camera.controller.js",
-
+    "./attendance/api.js",
     "./attendance/offline.js",
 
-    "./attendance/popup/popup.service.js",
+    "./attendance/attendance.controller.js",
+    "./attendance/attendance.service.js",
+    "./attendance/attendance.renderer.js",
+
+    "./attendance/camera/camera.service.js",
+    "./attendance/camera/camera.controller.js",
 
     "./attendance/popup/popup.renderer.js",
-
-    //----------------------------------
-    // Dashboard
-    //----------------------------------
-
-    "./dashboard/dashboard.html",
-
-    "./dashboard/dashboard.css",
-
-    "./dashboard/dashboard.controller.js",
-
-    //----------------------------------
-    // Students
-    //----------------------------------
-
-    "./students/students.html",
-
-    "./students/students.css",
-
-    "./students/students.controller.js",
-
-    "./students/students.service.js",
-
-    "./students/students.renderer.js",
-
-    //----------------------------------
-    // Login
-    //----------------------------------
-
-    "./login/login.html",
-
-    "./login/login.css",
-
-    "./login/login.controller.js",
-
-    "./login/login.service.js",
-
-    "./login/login.renderer.js",
-
-    //----------------------------------
-    // System
-    //----------------------------------
+    "./attendance/popup/popup.service.js",
 
     "./system/version.js",
-
     "./system/config.js",
-
     "./system/constants.js",
-
     "./system/core.js",
-
     "./system/model.js",
-
     "./system/utils.js",
-
     "./system/debug.js",
-
     "./system/renderer.js",
-
-    "./system/auth.js",
+    "./system/auth.js"
 
     //----------------------------------
     // Icons
@@ -147,27 +80,35 @@ self.addEventListener("install", event => {
 
     event.waitUntil(
 
-        (async()=>{
+        caches.open(CACHE_NAME).then(async cache => {
 
-            const cache = await caches.open(CACHE_NAME);
+            for (const file of APP_FILES) {
 
-            for(const file of APP_FILES){
+                try {
 
-                try{
+                    const response = await fetch(file);
 
-                    await cache.add(file);
+                    if (!response.ok) {
+
+                        console.error("404:", file);
+
+                        continue;
+
+                    }
+
+                    await cache.put(file, response.clone());
 
                 }
 
-                catch(e){
+                catch (e) {
 
-                    console.error("CACHE FAIL:",file);
+                    console.error("CACHE FAIL:", file, e);
 
                 }
 
             }
 
-        })()
+        })
 
     );
 
