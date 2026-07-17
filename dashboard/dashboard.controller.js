@@ -157,8 +157,8 @@ function bind(id,callback){
 
 function loadUser() {
 
-    const username = Auth.getName() || "Bạn hiền";
-    const role = Auth.getRole() || "Người dùng";
+    const username = Auth.getName(); //tên user
+    const role = Auth.getRole(); //phân quyền
 
     const nameEl = Utils.id("txtEmail");
     const roleEl = Utils.id("txtRole");
