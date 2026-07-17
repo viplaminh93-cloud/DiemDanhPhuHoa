@@ -7,25 +7,21 @@
 
 const PopupService = (()=>{
 
+    let showing = false;
+
     //----------------------------------
     // SHOW
     //----------------------------------
 
     function show(data){
 
-        debug(
-
-            MODULE.POPUP,
-
-            "Show Popup"
-
-        );
+        showing = true;
 
         PopupRenderer.reset();
 
-        PopupRenderer.renderStudent(data);
-
         PopupRenderer.renderTitle(data);
+
+        PopupRenderer.renderStudent(data);
 
         PopupRenderer.renderHint();
 
@@ -39,70 +35,52 @@ const PopupService = (()=>{
 
     async function close(){
 
-        debug(
+        if(!showing){
 
-            MODULE.POPUP,
+            return;
 
-            "Close Popup"
+        }
 
-        );
+        showing = false;
 
         PopupRenderer.hide();
 
         await Utils.sleep(150);
 
-        window.daQuet = false;
-
-        await resumeCamera();
+        AttendanceController.closePopup();
 
     }
 
     //----------------------------------
-    // PUBLIC
+    // STATUS
+    //----------------------------------
+
+    function isShowing(){
+
+        return showing;
+
+    }
+
+    //----------------------------------
+
+    Utils.id("overlay").addEventListener(
+
+        "click",
+
+        close
+
+    );
+
     //----------------------------------
 
     return{
 
         show,
 
-        close
+        close,
+
+        isShowing
 
     };
 
 })();
-
-//======================================
-// CLICK OVERLAY
-//======================================
-
-window.addEventListener(
-
-    "DOMContentLoaded",
-
-    ()=>{
-
-        const overlay =
-
-            Utils.id("overlay");
-
-        if(!overlay){
-
-            return;
-
-        }
-
-        overlay.addEventListener(
-
-            "click",
-
-            ()=>{
-
-                AttendanceController.closePopup();
-
-            }
-
-        );
-
-    }
-
-);
