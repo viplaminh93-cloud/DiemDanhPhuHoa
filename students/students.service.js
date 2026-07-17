@@ -1,189 +1,74 @@
 //==================================================
 // STUDENTS SERVICE
-//
-// Làm việc với dữ liệu Thiếu nhi
-//
-// Bao gồm
-//
-// - Load từ Apps Script
-// - Cache danh sách
-// - Search
-// - Getter
-//
+// Xử lý dữ liệu Thiếu nhi (Load, Cache, Search, Getter)
 //==================================================
 
 "use strict";
 
-const StudentService = (()=>{
+const StudentService = (() => {
 
-    //======================================
-    // PRIVATE DATA
-    //======================================
-
+    // Dữ liệu cache nội bộ
     let students = [];
 
-    //======================================
-    // LOAD
-    //======================================
+    /**
+     * Tải danh sách thiếu nhi từ server
+     */
+    async function load() {
+        try {
+            const data = await Auth.post({ action: "students" });
 
-    async function load(){
-
-        try{
-
-            const data = await Auth.post({
-
-                action : "students"
-
-            });
-
-            //----------------------------------
-            // Token hết hạn
-            //----------------------------------
-
-            if(
-
-                !data.success &&
-
-                data.message === "Phiên đăng nhập hết hạn."
-
-            ){
-
-                Auth.logout();
-
-                alert(
-
-                    "Phiên đăng nhập đã hết hạn."
-
-                );
-
+            // Xử lý lỗi xác thực hoặc lỗi từ server
+            if (!data.success) {
+                if (data.message === "Phiên đăng nhập hết hạn.") {
+                    Auth.logout();
+                    alert("Phiên đăng nhập đã hết hạn.");
+                } else {
+                    alert(data.message);
+                }
                 return;
-
             }
-
-            //----------------------------------
-            // Server Error
-            //----------------------------------
-
-            if(!data.success){
-
-                alert(
-
-                    data.message
-
-                );
-
-                return;
-
-            }
-
-            //----------------------------------
 
             students = data.list || [];
-
-        }
-
-        catch(err){
-
+        } catch (err) {
             console.error(err);
-
-            alert(
-
-                "Không kết nối được máy chủ."
-
-            );
-
+            alert("Không kết nối được máy chủ.");
         }
-
     }
 
-    //======================================
-    // GET ALL
-    //======================================
-
-    function getAll(){
-
+    /**
+     * Lấy toàn bộ danh sách thiếu nhi
+     */
+    function getAll() {
         return students;
-
     }
 
-    //======================================
-    // GET ONE
-    //======================================
-
-    function getByCode(maso){
-
-        return students.find(item=>{
-
-            return item.maso === maso;
-
-        });
-
+    /**
+     * Tìm thiếu nhi theo mã số
+     * @param {string|number} maso 
+     */
+    function getByCode(maso) {
+        return students.find(item => item.maso === maso);
     }
 
-    //======================================
-    // SEARCH
-    //======================================
-
-    function search(keyword){
-
-        keyword =
-
-            keyword
-
-            .trim()
-
-            .toLowerCase();
-
-        return students.filter(student=>{
-
-            return (
-
-                String(student.maso)
-
-                .toLowerCase()
-
-                .includes(keyword)
-
-                ||
-
-                String(student.hoten)
-
-                .toLowerCase()
-
-                .includes(keyword)
-
-            );
-
-        });
-
+    /**
+     * Tìm kiếm thiếu nhi theo mã số hoặc họ tên
+     * @param {string} keyword 
+     */
+    function search(keyword) {
+        const term = keyword.trim().toLowerCase();
+        return students.filter(s => 
+            String(s.maso).toLowerCase().includes(term) || 
+            String(s.hoten).toLowerCase().includes(term)
+        );
     }
 
-    //======================================
-    // COUNT
-    //======================================
-
-    function count(){
-
+    /**
+     * Đếm tổng số lượng thiếu nhi
+     */
+    function count() {
         return students.length;
-
     }
 
-    //======================================
-    // PUBLIC
-    //======================================
-
-    return{
-
-        load,
-
-        getAll,
-
-        getByCode,
-
-        search,
-
-        count
-
-    };
-
+    // Export các phương thức public
+    return { load, getAll, getByCode, search, count };
 })();
