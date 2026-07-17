@@ -141,11 +141,11 @@ function loadUser(){
 
     const email =
 
-        Auth.getToken(TOKEN_KEY) || "Chưa xác định";
+        Auth.getEmail() || "Chưa xác định";
 
     const role =
 
-        Auth.getRole(TOKEN_KEY) || "Người dùng";
+        Auth.getRole() || "Người dùng";
 
     Utils.id("txtEmail").innerText =
 
