@@ -23,7 +23,13 @@ const AttendanceController = (()=>{
 
         processing = false;
 
-        await AttendanceService.start(loai);
+        AttendanceRenderer.showScanner(loai);
+        
+        todayCounter = await AttendanceService.getTodayCounter(loai);
+        
+        AttendanceRenderer.renderTodayCounter(todayCounter);
+        
+        await startCamera();
 
     }
 
