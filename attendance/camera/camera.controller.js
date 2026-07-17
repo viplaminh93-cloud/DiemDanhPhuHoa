@@ -4,11 +4,18 @@ window.daQuet = false;
 
 async function startCamera() {
     window.daQuet = false;
-    // Kiểm tra để tránh lỗi nếu CameraService chưa load xong
+    
+    // Cơ chế đợi tối đa 2 giây nếu CameraService chưa sẵn sàng
+    let attempts = 0;
+    while (typeof CameraService === 'undefined' && attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+    }
+
     if (typeof CameraService !== 'undefined') {
         await CameraService.start(qrSuccess);
     } else {
-        Utils.error("CameraService chưa được định nghĩa!");
+        Utils.error("CameraService vẫn không phản hồi sau 2 giây!");
     }
 }
 
