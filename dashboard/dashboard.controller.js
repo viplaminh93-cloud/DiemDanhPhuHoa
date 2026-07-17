@@ -141,15 +141,11 @@ function loadUser(){
 
     const email =
 
-        Auth.getEmail?.() ||
-
-        "Chưa xác định";
+        Auth.getEmail.() || "Chưa xác định";
 
     const role =
 
-        Auth.getRole?.() ||
-
-        "Người dùng";
+        Auth.getRole.() || "Người dùng";
 
     Utils.id("txtEmail").innerText =
 
