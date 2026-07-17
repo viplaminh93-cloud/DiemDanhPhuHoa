@@ -1,52 +1,35 @@
 //======================================
-// OFFLINE
+// OFFLINE SERVICE
 // Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
-/**
- * ======================================
- * OFFLINE MODULE
- *
- * Chức năng
- * - Quản lý Queue
- * - Đồng bộ Queue
- * - Không xử lý UI
- * ======================================
- */
-
 const OfflineService = (()=>{
 
-    //======================================
-    // LOAD QUEUE
-    //======================================
+    //----------------------------------
+    // LOAD
+    //----------------------------------
 
     function load(){
 
-        const json =
+        try{
 
-            localStorage.getItem(
+            return JSON.parse(
 
-                CONFIG.OFFLINE.STORAGE_KEY
+                localStorage.getItem(
+
+                    Config.OFFLINE.STORAGE_KEY
+
+                ) || "[]"
 
             );
 
-        if(!json){
-
-            return [];
-
         }
 
-        try{
+        catch(error){
 
-            return JSON.parse(json);
-
-        }
-
-        catch(err){
-
-            console.error(err);
+            console.error(error);
 
             return [];
 
@@ -54,25 +37,27 @@ const OfflineService = (()=>{
 
     }
 
-    //======================================
-    // SAVE QUEUE
-    //======================================
+    //----------------------------------
+    // SAVE
+    //----------------------------------
 
     function save(queue){
 
         localStorage.setItem(
 
-            CONFIG.OFFLINE.STORAGE_KEY,
+            Config.OFFLINE.STORAGE_KEY,
 
             JSON.stringify(queue)
 
         );
 
+        renderQueueBadge();
+
     }
 
-    //======================================
+    //----------------------------------
     // PUSH
-    //======================================
+    //----------------------------------
 
     function push(request){
 
@@ -82,53 +67,51 @@ const OfflineService = (()=>{
 
         save(queue);
 
-        renderQueueBadge();
-
     }
 
-    //======================================
+    //----------------------------------
     // PEEK
-    //======================================
+    //----------------------------------
 
     function peek(){
 
-        return load()[0];
+        const queue = load();
+
+        return queue.length
+
+            ? queue[0]
+
+            : null;
 
     }
 
-    //======================================
+    //----------------------------------
     // POP
-    //======================================
+    //----------------------------------
 
     function pop(){
 
         const queue = load();
 
-        const item = queue.shift();
+        queue.shift();
 
         save(queue);
 
-        renderQueueBadge();
-
-        return item;
-
     }
 
-    //======================================
+    //----------------------------------
     // CLEAR
-    //======================================
+    //----------------------------------
 
     function clear(){
 
         save([]);
 
-        renderQueueBadge();
-
     }
 
-    //======================================
+    //----------------------------------
     // LENGTH
-    //======================================
+    //----------------------------------
 
     function length(){
 
@@ -136,9 +119,9 @@ const OfflineService = (()=>{
 
     }
 
-    //======================================
-    // HAS DATA
-    //======================================
+    //----------------------------------
+    // HAS QUEUE
+    //----------------------------------
 
     function hasQueue(){
 
@@ -146,17 +129,29 @@ const OfflineService = (()=>{
 
     }
 
-    //======================================
+    //----------------------------------
     // SYNC
-    //======================================
+    //----------------------------------
 
     async function sync(){
+
+        if(!navigator.onLine){
+
+            return;
+
+        }
+
+        if(!hasQueue()){
+
+            return;
+
+        }
 
         debug(
 
             MODULE.OFFLINE,
 
-            "Sync Start"
+            "Start Sync"
 
         );
 
@@ -168,9 +163,15 @@ const OfflineService = (()=>{
 
             const request = peek();
 
+            if(!request){
+
+                break;
+
+            }
+
             try{
 
-                const response =
+                const result =
 
                     await AttendanceAPI.resend(
 
@@ -178,13 +179,7 @@ const OfflineService = (()=>{
 
                     );
 
-                if(
-
-                    response &&
-
-                    response.success
-
-                ){
+                if(result.success){
 
                     pop();
 
@@ -198,15 +193,9 @@ const OfflineService = (()=>{
 
             }
 
-            catch(err){
+            catch(error){
 
-                debug(
-
-                    MODULE.OFFLINE,
-
-                    err.message
-
-                );
+                console.error(error);
 
                 break;
 
@@ -222,13 +211,15 @@ const OfflineService = (()=>{
 
             MODULE.OFFLINE,
 
-            "Sync Finished"
+            "Finish Sync"
 
         );
 
     }
 
-    //======================================
+    //----------------------------------
+    // PUBLIC
+    //----------------------------------
 
     return{
 
@@ -238,9 +229,9 @@ const OfflineService = (()=>{
 
         push,
 
-        pop,
-
         peek,
+
+        pop,
 
         clear,
 
@@ -255,8 +246,6 @@ const OfflineService = (()=>{
 })();
 
 
-
-
 //======================================
 // ONLINE EVENT
 //======================================
@@ -266,14 +255,6 @@ window.addEventListener(
     "online",
 
     ()=>{
-
-        debug(
-
-            MODULE.OFFLINE,
-
-            "Network Online"
-
-        );
 
         OfflineService.sync();
 
