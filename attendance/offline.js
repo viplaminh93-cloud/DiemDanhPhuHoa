@@ -7,6 +7,8 @@
 
 const OfflineService = (()=>{
 
+    const STORAGE_KEY = "attendance_offline_queue";
+
     //----------------------------------
     // LOAD
     //----------------------------------
@@ -17,11 +19,9 @@ const OfflineService = (()=>{
 
             return JSON.parse(
 
-                localStorage.getItem(
+                localStorage.getItem(STORAGE_KEY)
 
-                    Config.OFFLINE.STORAGE_KEY
-
-                ) || "[]"
+                || "[]"
 
             );
 
@@ -45,7 +45,7 @@ const OfflineService = (()=>{
 
         localStorage.setItem(
 
-            Config.OFFLINE.STORAGE_KEY,
+            STORAGE_KEY,
 
             JSON.stringify(queue)
 
@@ -93,9 +93,13 @@ const OfflineService = (()=>{
 
         const queue = load();
 
-        queue.shift();
+        if(queue.length){
 
-        save(queue);
+            queue.shift();
+
+            save(queue);
+
+        }
 
     }
 
@@ -147,18 +151,6 @@ const OfflineService = (()=>{
 
         }
 
-        debug(
-
-            MODULE.OFFLINE,
-
-            "Start Sync"
-
-        );
-
-        App.syncing = true;
-
-        renderQueueBadge();
-
         while(hasQueue()){
 
             const request = peek();
@@ -203,22 +195,62 @@ const OfflineService = (()=>{
 
         }
 
-        App.syncing = false;
+    }
 
-        renderQueueBadge();
+    //----------------------------------
+    // BADGE
+    //----------------------------------
 
-        debug(
+    function renderQueueBadge(){
 
-            MODULE.OFFLINE,
+        const badge =
 
-            "Finish Sync"
+            Utils.id("queueBadge");
 
-        );
+        const count =
+
+            Utils.id("queueCount");
+
+        if(
+
+            !badge ||
+
+            !count
+
+        ){
+
+            return;
+
+        }
+
+        const total = length();
+
+        count.innerText = total;
+
+        if(total){
+
+            badge.classList.remove("hidden");
+
+        }
+
+        else{
+
+            badge.classList.add("hidden");
+
+        }
 
     }
 
     //----------------------------------
-    // PUBLIC
+
+    window.addEventListener(
+
+        "online",
+
+        sync
+
+    );
+
     //----------------------------------
 
     return{
@@ -239,25 +271,10 @@ const OfflineService = (()=>{
 
         hasQueue,
 
-        sync
+        sync,
+
+        renderQueueBadge
 
     };
 
 })();
-
-
-//======================================
-// ONLINE EVENT
-//======================================
-
-window.addEventListener(
-
-    "online",
-
-    ()=>{
-
-        OfflineService.sync();
-
-    }
-
-);
