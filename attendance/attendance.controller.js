@@ -6,12 +6,12 @@ const AttendanceController = (() => {
     async function start(loai) {
         AttendanceService.setCurrentType(loai);
         processing = false;
-        AttendanceRenderer.showScanner(loai);
         
+        AttendanceRenderer.showScanner(loai);
         const count = await AttendanceService.getTodayCounter();
         AttendanceRenderer.renderTodayCounter(count);
         
-        await startCamera(); // Hàm ở CameraController
+        await startCamera(); 
     }
 
     async function onQRCode(qrText) {
@@ -26,7 +26,7 @@ const AttendanceController = (() => {
             }
             PopupService.show(result);
         } catch (error) {
-            console.error(error);
+            Utils.error(error);
             processing = false;
             await resumeCamera();
         }
