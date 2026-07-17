@@ -96,7 +96,8 @@ function bindEvents(){
                 alert("Bạn không có quyền truy cập trang này!");
                 return;
         }
-        openReport
+        location.href = "../report/report.html";
+        
     });
     
 
