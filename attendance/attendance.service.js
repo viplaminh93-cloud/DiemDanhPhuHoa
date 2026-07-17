@@ -8,54 +8,26 @@
 const AttendanceService = (()=>{
 
     //----------------------------------
-    // Loại điểm danh
+    // GỬI ĐIỂM DANH
     //----------------------------------
 
-    let currentType = "";
+    async function sendAttendance(qrText, loai){
 
-    //----------------------------------
-    // Tổng hôm nay
-    //----------------------------------
+        return await AttendanceAPI.sendAttendance(
 
-    let todayCounter = 0;
+            qrText,
 
-    //----------------------------------
-    // START SESSION
-    //----------------------------------
+            loai
 
-    async function start(type){
-
-        currentType = type;
-
-        App.loaiDiemDanh = type;
-
-        if(
-
-            navigator.onLine
-
-            &&
-
-            OfflineService.hasQueue()
-
-        ){
-
-            await OfflineService.sync();
-
-        }
-
-        AttendanceRenderer.showScanner(type);
-
-        await loadTodayCounter();
-
-        await startCamera();
+        );
 
     }
 
     //----------------------------------
-    // LOAD COUNTER
+    // LẤY TỔNG HÔM NAY
     //----------------------------------
 
-    async function loadTodayCounter(){
+    async function getTodayCounter(loai){
 
         try{
 
@@ -63,23 +35,21 @@ const AttendanceService = (()=>{
 
                 action : "todayCounter",
 
-                loai : currentType
+                loai : loai
 
             });
 
-            if(response.success){
+            if(!response.success){
 
-                todayCounter =
-
-                    Number(response.total || 0);
+                return 0;
 
             }
 
-            else{
+            return Number(
 
-                todayCounter = 0;
+                response.total || 0
 
-            }
+            );
 
         }
 
@@ -87,77 +57,9 @@ const AttendanceService = (()=>{
 
             console.error(error);
 
-            todayCounter = 0;
+            return 0;
 
         }
-
-        AttendanceRenderer.renderTodayCounter(
-
-            todayCounter
-
-        );
-
-    }
-
-    //----------------------------------
-    // SEND ATTENDANCE
-    //----------------------------------
-
-    async function sendAttendance(qrText){
-
-        return await AttendanceAPI.sendAttendance(
-
-            qrText
-
-        );
-
-    }
-
-    //----------------------------------
-    // COUNTER ++
-    //----------------------------------
-
-    function increaseCounter(){
-
-        todayCounter++;
-
-        AttendanceRenderer.renderTodayCounter(
-
-            todayCounter
-
-        );
-
-    }
-
-    //----------------------------------
-    // GET COUNTER
-    //----------------------------------
-
-    function getCounter(){
-
-        return todayCounter;
-
-    }
-
-    //----------------------------------
-    // GET TYPE
-    //----------------------------------
-
-    function getCurrentType(){
-
-        return currentType;
-
-    }
-
-    //----------------------------------
-    // RESET
-    //----------------------------------
-
-    function reset(){
-
-        currentType = "";
-
-        todayCounter = 0;
 
     }
 
@@ -167,19 +69,9 @@ const AttendanceService = (()=>{
 
     return{
 
-        start,
-
-        loadTodayCounter,
-
         sendAttendance,
 
-        increaseCounter,
-
-        getCounter,
-
-        getCurrentType,
-
-        reset
+        getTodayCounter
 
     };
 
