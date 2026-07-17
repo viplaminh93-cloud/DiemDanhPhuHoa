@@ -1,247 +1,148 @@
 <!DOCTYPE html>
-
 <html lang="vi">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>
-Điểm danh Thiếu nhi
-</title>
+<title>Điểm danh Thiếu nhi</title>
 
-<link
-rel="manifest"
-href="../manifest.json">
+<link rel="manifest" href="../manifest.json">
 
-<meta
-name="theme-color"
-content="#1565c0">
+<meta name="theme-color" content="#1565c0">
 
-<link
-rel="icon"
-href="../icons/icon-192.png">
+<link rel="icon" href="../icons/icon-192.png">
 
-<link
-rel="apple-touch-icon"
-href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 
-<link
-rel="stylesheet"
-href="attendance.css">
+<link rel="stylesheet" href="attendance.css">
 
 </head>
 
 <body>
 
-<!--==============================
-QUEUE
-===============================-->
-
-<div
-id="queueBadge"
-class="queue-badge">
-
-📤
-
-<span id="queueCount">
-
-0
-
-</span>
-
+<div id="queueBadge" class="queue-badge">
+📤 <span id="queueCount">0</span>
 </div>
-
-<!--==============================
-MAIN
-===============================-->
 
 <div id="homeBox" class="container">
 
-<div
-class="card home">
+    <div class="card home">
 
-<img
+        <img
+            class="logo"
+            src="../icons/icon-192.png">
 
-class="logo"
+        <h1>GIÁO XỨ PHÚ HÒA</h1>
 
-src="../icons/icon-192.png"
+        <div class="subTitle">
+            HỆ THỐNG ĐIỂM DANH QR
+        </div>
 
-alt="Logo">
+        <button id="btnLe" class="btn btnBlue">
+            DỰ LỄ
+        </button>
 
-<h1>
+        <button id="btnGiaoLy" class="btn btnBlue">
+            GIÁO LÝ
+        </button>
 
-GIÁO XỨ PHÚ HÒA
+        <button
+            id="installBtn"
+            class="btn install hidden">
 
-</h1>
+            CÀI ĐẶT ỨNG DỤNG
 
-<div class="subTitle">
+        </button>
 
-HỆ THỐNG ĐIỂM DANH QR
+    </div>
 
-</div>
+    <div
+        id="scannerBox"
+        class="card hidden">
 
-<button
+        <div
+            id="typeTitle"
+            class="scannerTitle">
+        </div>
 
-id="btnLe"
+        <div
+            id="todayCount"
+            class="todayCount">
 
-class="btn btnBlue">
+            Đã điểm danh hôm nay: 0 em
 
-DỰ LỄ
+        </div>
 
-</button>
+        <div id="reader"></div>
 
-<button
+        <button
+            id="btnBack"
+            class="btn back">
 
-id="btnGiaoLy"
+            QUAY LẠI
 
-class="btn btnBlue">
+        </button>
 
-GIÁO LÝ
-
-</button>
-
-<button
-
-id="installBtn"
-
-class="btn install hidden">
-
-CÀI ĐẶT ỨNG DỤNG
-
-</button>
-
-</div>
-
-<!--==============================
-SCANNER
-===============================-->
-
-<div
-
-id="scannerBox"
-
-class="card hidden">
-
-<div
-id="typeTitle"
-class="scannerTitle">
+    </div>
 
 </div>
 
-<div
-id="todayCount"
-class="todayCount">
+<div id="overlay" class="hidden">
 
-Đã điểm danh hôm nay: 0 em
+    <div id="overlayCard">
 
-</div>
+        <div id="overlayTitle"></div>
 
-<div id="reader"></div>
+        <img id="overlayPhoto">
 
-<button
+        <div id="overlayName"></div>
 
-id="btnBack"
+        <div id="overlayKhoi"></div>
 
-class="btn back">
+        <div id="overlayClass"></div>
 
-QUAY LẠI
+        <div id="overlayCode"></div>
 
-</button>
+        <div id="overlayTime"></div>
 
-</div>
+        <div id="overlayHint"></div>
 
-</div>
-
-<!--==============================
-POPUP
-===============================-->
-
-<div
-
-id="overlay"
-
-class="hidden">
-
-<div id="overlayCard">
-
-<div id="overlayTitle"></div>
-
-<img id="overlayPhoto">
-
-<div id="overlayName"></div>
-
-<div id="overlayKhoi"></div>
-
-<div id="overlayClass"></div>
-
-<div id="overlayCode"></div>
-
-<div id="overlayTime"></div>
-
-<div id="overlayHint"></div>
+    </div>
 
 </div>
 
-</div>
-
-<!--==============================
-DEBUG
-===============================-->
-
-<div
-
-id="debugButton"
-
-class="hidden">
-
+<div id="debugButton" class="hidden">
 🐞
-
 </div>
 
-<div
+<div id="debugPanel" class="hidden">
 
-id="debugPanel"
+    <div id="debugHeader">
+        Developer Console
+    </div>
 
-class="hidden">
-
-<div id="debugHeader">
-
-Developer Console
+    <div id="debugContent"></div>
 
 </div>
-
-<div id="debugContent"></div>
-
-</div>
-
-<!--==============================
-LIBRARY
-===============================-->
 
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-<!--==============================
-SYSTEM
-===============================-->
+<!-- SYSTEM -->
 
 <script src="../system/version.js"></script>
 <script src="../system/config.js"></script>
 <script src="../system/constants.js"></script>
 <script src="../system/model.js"></script>
 <script src="../system/core.js"></script>
+<script src="../system/utils.js"></script>
 <script src="../system/renderer.js"></script>
 <script src="../system/debug.js"></script>
-<script src="../system/utils.js"></script>
 <script src="../system/auth.js"></script>
 
-<!--==============================
-ATTENDANCE
-===============================-->
+<!-- MODULE -->
 
 <script src="attendance.renderer.js"></script>
 <script src="attendance.service.js"></script>
@@ -250,23 +151,11 @@ ATTENDANCE
 <script src="api.js"></script>
 <script src="offline.js"></script>
 
-<!--==============================
-CAMERA
-===============================-->
-
 <script src="camera/camera.service.js"></script>
 <script src="camera/camera.controller.js"></script>
 
-<!--==============================
-POPUP
-===============================-->
-
 <script src="popup/popup.renderer.js"></script>
 <script src="popup/popup.service.js"></script>
-
-<!--==============================
-APP
-===============================-->
 
 <script src="app.js"></script>
 
@@ -316,6 +205,16 @@ window.addEventListener(
 
             );
 
+        Utils.id("overlay")
+
+            .addEventListener(
+
+                "click",
+
+                AttendanceController.closePopup
+
+            );
+
     }
 
 );
@@ -323,5 +222,4 @@ window.addEventListener(
 </script>
 
 </body>
-
 </html>
