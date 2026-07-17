@@ -63,15 +63,17 @@ async function handleLogin() {
     LoginRenderer.setLoading(true);
     try {
         const result = await LoginService.login(email);
+        
+        // CHẶN NGAY: Nếu success là false, không được chạy tiếp
         if (!result.success) {
             LoginRenderer.showError(result.message);
             return;
         }
 
-        // Truyền cả token và thông tin user vào đây
+
         await Auth.login(result.token, { 
-            email: email,
-            username: username,
+            email: result.email,
+            name: result.name,
             role: result.role || "Người dùng" 
         });
 
