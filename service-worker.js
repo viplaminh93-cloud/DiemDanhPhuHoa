@@ -143,35 +143,37 @@ const APP_FILES = [
 // INSTALL
 //======================================
 
-self.addEventListener(
+self.addEventListener("install", event => {
 
-    "install",
+    event.waitUntil(
 
-    event=>{
+        (async()=>{
 
-        event.waitUntil(
+            const cache = await caches.open(CACHE_NAME);
 
-            caches
+            for(const file of APP_FILES){
 
-                .open(CACHE_NAME)
+                try{
 
-                .then(cache=>{
+                    await cache.add(file);
 
-                    return cache.addAll(
+                }
 
-                        APP_FILES
+                catch(e){
 
-                    );
+                    console.error("CACHE FAIL:",file);
 
-                })
+                }
 
-        );
+            }
 
-        self.skipWaiting();
+        })()
 
-    }
+    );
 
-);
+    self.skipWaiting();
+
+});
 
 
 //======================================
