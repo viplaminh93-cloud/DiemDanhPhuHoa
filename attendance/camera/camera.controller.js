@@ -1,51 +1,97 @@
 //======================================
 // CAMERA CONTROLLER
+// Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
 const CameraController = (()=>{
 
-    window.daQuet=false;
+    let scanning = false;
+
+    //----------------------------------
+    // START
+    //----------------------------------
 
     async function start(){
 
-        window.daQuet=false;
+        scanning = true;
 
-        await CameraService.start(qrSuccess);
+        window.daQuet = false;
+
+        await CameraService.start(onScan);
 
     }
 
+    //----------------------------------
+    // STOP
+    //----------------------------------
+
     async function stop(){
 
-        window.daQuet=false;
+        scanning = false;
+
+        window.daQuet = false;
 
         await CameraService.stop();
 
     }
 
+    //----------------------------------
+    // PAUSE
+    //----------------------------------
+
     async function pause(){
 
-        await CameraService.pause();
+        CameraService.pause();
 
     }
+
+    //----------------------------------
+    // RESUME
+    //----------------------------------
 
     async function resume(){
 
-        window.daQuet=false;
+        if(!scanning){
 
-        await CameraService.resume();
+            return;
+
+        }
+
+        window.daQuet = false;
+
+        CameraService.resume();
 
     }
 
-    async function qrSuccess(qrText){
+    //----------------------------------
+    // RESTART
+    //----------------------------------
+
+    async function restart(){
+
+        await stop();
+
+        await Utils.sleep(150);
+
+        await start();
+
+    }
+
+    //----------------------------------
+    // QR SUCCESS
+    //----------------------------------
+
+    async function onScan(qrText){
 
         if(window.daQuet){
 
             return;
+
         }
 
-        window.daQuet=true;
+        window.daQuet = true;
 
         await pause();
 
@@ -65,7 +111,7 @@ const CameraController = (()=>{
 
             console.error(error);
 
-            window.daQuet=false;
+            window.daQuet = false;
 
             await resume();
 
@@ -73,46 +119,52 @@ const CameraController = (()=>{
 
     }
 
+    //----------------------------------
+    // TAB ACTIVE
+    //----------------------------------
+
+    document.addEventListener(
+
+        "visibilitychange",
+
+        ()=>{
+
+            if(document.hidden){
+
+                return;
+
+            }
+
+            if(
+
+                scanning &&
+
+                CameraService.exists() &&
+
+                CameraService.isPaused() &&
+
+                !window.daQuet
+
+            ){
+
+                CameraService.resume();
+
+            }
+
+        }
+
+    );
+
+    //----------------------------------
+
     return{
 
         start,
         stop,
         pause,
-        resume
+        resume,
+        restart
 
     };
 
 })();
-
-document.addEventListener(
-
-    "visibilitychange",
-
-    async()=>{
-
-        if(document.hidden){
-
-            return;
-        }
-
-        if(
-
-            CameraService.exists()
-
-            &&
-
-            CameraService.isPaused()
-
-            &&
-
-            !window.daQuet
-
-        ){
-
-            await CameraController.resume();
-
-        }
-
-    }
-
-);
