@@ -179,110 +179,24 @@ const AttendanceAPI = (()=>{
     // SEND REQUEST
     //======================================
 
-    async function send(request){
-
-        //----------------------------------
-        // OFFLINE
-        //----------------------------------
-
-        if(!navigator.onLine){
-
-            OfflineService.push(request);
-
-            return{
-
-                success : false,
-
-                offline : true,
-
-                maso : request.maso,
-
-                message :
-
-                    "Đã lưu, sẽ đồng bộ khi có mạng."
-
-            };
-
-        }
-
-        //----------------------------------
-        // ONLINE
-        //----------------------------------
-
-        try{
-
-            return await post(request);
-
-        }
-
-        catch(err){
-
-            console.error(err);
-
-            OfflineService.push(request);
-
-            return{
-
-                success : false,
-
-                offline : true,
-
-                maso : request.maso,
-
-                message :
-
-                    "Đã lưu, sẽ đồng bộ khi có mạng."
-
-            };
-
-        }
-
+    async function sendAttendance(maso){
+    
+        const request = createRequest(maso);
+    
+        return await send(request);
+    
     }
 
-    //======================================
-    // RECEIVE QR
-    //======================================
 
-    async function receiveQRCode(maso){
-
-        debug(
-
-            MODULE.API,
-
-            "Receive QR : " + maso
-
-        );
-
-        const request =
-
-            createRequest(maso);
-
-        const response =
-
-            await send(request);
-
-        AttendanceService.processResponse(
-
-            response
-
-        );
-
-    }
 
     //======================================
 
-    return{
+return{
 
-        createRequest,
+    sendAttendance,
 
-        receiveQRCode,
+    resend,
 
-        post,
+    post
 
-        resend,
-
-        send
-
-    };
-
-})();
+};
