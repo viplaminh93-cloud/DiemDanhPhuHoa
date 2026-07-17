@@ -5,20 +5,11 @@
 
 "use strict";
 
-/**
- * ======================================
- * POPUP SERVICE
- *
- * Điều khiển Popup.
- * Không render trực tiếp.
- * ======================================
- */
-
 const PopupService = (()=>{
 
-    //======================================
+    //----------------------------------
     // SHOW
-    //======================================
+    //----------------------------------
 
     function show(data){
 
@@ -26,7 +17,7 @@ const PopupService = (()=>{
 
             MODULE.POPUP,
 
-            "Show popup"
+            "Show Popup"
 
         );
 
@@ -42,23 +33,33 @@ const PopupService = (()=>{
 
     }
 
-    //======================================
+    //----------------------------------
     // CLOSE
-    //======================================
+    //----------------------------------
 
     async function close(){
 
-          console.log("POPUP CLOSE");
+        debug(
+
+            MODULE.POPUP,
+
+            "Close Popup"
+
+        );
 
         PopupRenderer.hide();
 
         await Utils.sleep(150);
 
-        await resumeCamera()
+        window.daQuet = false;
+
+        await resumeCamera();
 
     }
 
-    //======================================
+    //----------------------------------
+    // PUBLIC
+    //----------------------------------
 
     return{
 
@@ -70,17 +71,38 @@ const PopupService = (()=>{
 
 })();
 
-
 //======================================
 // CLICK OVERLAY
 //======================================
 
-Utils.id("overlay")
+window.addEventListener(
 
-.addEventListener(
+    "DOMContentLoaded",
 
-    "click",
+    ()=>{
 
-    PopupService.close
+        const overlay =
+
+            Utils.id("overlay");
+
+        if(!overlay){
+
+            return;
+
+        }
+
+        overlay.addEventListener(
+
+            "click",
+
+            ()=>{
+
+                AttendanceController.closePopup();
+
+            }
+
+        );
+
+    }
 
 );
