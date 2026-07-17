@@ -55,6 +55,8 @@ function init(){
 
     bindEvents();
 
+    }
+
 }
 
 /**
