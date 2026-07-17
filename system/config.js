@@ -5,25 +5,6 @@
 
 "use strict";
 
-/**
- * ======================================
- * CONFIG MODULE
- *
- * Quản lý toàn bộ cấu hình hệ thống.
- *
- * Bao gồm:
- * - APP
- * - API
- * - CAMERA
- * - POPUP
- * - OFFLINE
- * - KHOI
- * - AUTH
- *
- * Chỉ chứa cấu hình.
- * Không chứa business.
- * ======================================
- */
 
 const Config = Object.freeze({
 
@@ -43,7 +24,7 @@ const Config = Object.freeze({
 
         DEBUG :
 
-            true
+            false
 
     }),
 
@@ -55,7 +36,7 @@ const Config = Object.freeze({
 
         URL :
 
-            "https://script.google.com/macros/s/AKfycbybXsZXmp2C5ep_1K5GPtyHQI3vPaZxPj9_zoRcvVCX-rgwdgUH55KnsX2kwpVNDqOc3A/exec"
+            "https://script.google.com/macros/s/AKfycbx1WURvY7GmtuOfvRJHeFJnwWn6PCIbFYS7iQ_gdcaO4orWcBv8jeZ-cXlH503hrGBWJA/exec"
 
     }),
 
