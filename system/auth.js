@@ -69,6 +69,11 @@ const Auth = (() => {
         return userInfo.role || "";
     }
 
+    function getName() {
+        const userInfo = JSON.parse(localStorage.getItem(USER_INFO_KEY) || "{}");
+        return userInfo.userName || "";
+    }
+
     async function post(body = {}) {
         if (body.action !== "login") body.token = getToken();
         const response = await fetch(Config.API.URL, {
@@ -79,5 +84,5 @@ const Auth = (() => {
         return await response.json();
     }
 
-    return { login, logout, post, getToken, saveToken, requireLogin, isLogin, getEmail, getRole };
+    return { login, logout, post, getToken, saveToken, requireLogin, isLogin, getEmail, getRole, getName };
 })();
