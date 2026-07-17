@@ -24,184 +24,58 @@
  * ======================================
  */
 
-const Auth = (()=>{
+const Auth = (() => {
+    const TOKEN_KEY = "attendance_token";
+    const USER_INFO_KEY = "user_info"; // Key mới để lưu thông tin user
 
-    //======================================
-    // STORAGE
-    //======================================
-
-    const TOKEN_KEY =
-
-        "attendance_token";
-
-    //======================================
-    // SAVE TOKEN
-    //======================================
-
-    function saveToken(token){
-
-        localStorage.setItem(
-
-            TOKEN_KEY,
-
-            token
-
-        );
-
+    function saveToken(token) {
+        localStorage.setItem(TOKEN_KEY, token);
     }
 
-    //======================================
-    // GET TOKEN
-    //======================================
-
-    function getToken(){
-
-        return (
-
-            localStorage.getItem(
-
-                TOKEN_KEY
-
-            ) || ""
-
-        );
-
+    function getToken() {
+        return localStorage.getItem(TOKEN_KEY) || "";
     }
 
-    //======================================
-    // HAS LOGIN
-    //======================================
-
-    function isLogin(){
-
+    function isLogin() {
         return getToken() !== "";
-
     }
 
-    //======================================
-    // LOGIN
-    //======================================
-
-    async function login(token){
-
+    async function login(token, userInfo = {}) {
         saveToken(token);
-
+        localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
     }
 
-    //======================================
-    // LOGOUT
-    //======================================
-
-    function logout(){
-
-        localStorage.removeItem(
-
-            TOKEN_KEY
-
-        );
-
-        location.href =
-
-            "../login/login.html";
-
+    function logout() {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(USER_INFO_KEY);
+        location.href = "../login/login.html";
     }
 
-    //======================================
-    // REQUIRE LOGIN
-    //======================================
-
-    function requireLogin(){
-
-        if(isLogin()){
-
-            return true;
-
-        }
-
-        location.href =
-
-            "../login/login.html";
-
+    function requireLogin() {
+        if (isLogin()) return true;
+        location.href = "../login/login.html";
         return false;
-
-    }
-
-    //======================================
-    // POST
-    //======================================
-
-    async function post(body = {}){
-
-        if(
-
-            body.action !== "login"
-
-        ){
-
-            body.token =
-
-                getToken();
-
-        }
-
-        const response =
-
-            await fetch(
-
-                Config.API.URL,
-
-                {
-
-                    method : "POST",
-
-                    headers : {
-
-                        "Content-Type"
-
-                        :
-
-                        "text/plain;charset=utf-8"
-
-                    },
-
-                    body :
-
-                        JSON.stringify(body)
-
-                }
-
-            );
-
-        return await response.json();
-
     }
 
     function getEmail() {
-        const userInfo = JSON.parse(localStorage.getItem("user_info") || "{}");
+        const userInfo = JSON.parse(localStorage.getItem(USER_INFO_KEY) || "{}");
         return userInfo.email || "";
     }
-    
+
     function getRole() {
-        const userInfo = JSON.parse(localStorage.getItem("user_info") || "{}");
+        const userInfo = JSON.parse(localStorage.getItem(USER_INFO_KEY) || "{}");
         return userInfo.role || "";
     }
-    
-    //======================================
-    // EXPORT
-    //======================================
 
-    return{
+    async function post(body = {}) {
+        if (body.action !== "login") body.token = getToken();
+        const response = await fetch(Config.API.URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(body)
+        });
+        return await response.json();
+    }
 
-        login,
-        logout,
-        post,
-        getToken,
-        saveToken,
-        requireLogin,
-        isLogin,
-        getEmail,
-        getRole
-
-    };
-
+    return { login, logout, post, getToken, saveToken, requireLogin, isLogin, getEmail, getRole };
 })();
