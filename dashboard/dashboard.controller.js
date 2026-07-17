@@ -145,13 +145,13 @@ function bind(id,callback){
 
 function loadUser() {
 
-    const name = Auth.getName() || "Bạn hiền";
+    const username = Auth.getName() || "Bạn hiền";
     const role = Auth.getRole() || "Người dùng";
 
     const nameEl = Utils.id("txtEmail");
     const roleEl = Utils.id("txtRole");
 
-    if (nameEl) nameEl.innerText = name;
+    if (nameEl) nameEl.innerText = username;
     if (roleEl) roleEl.innerText = role;
 }
 
