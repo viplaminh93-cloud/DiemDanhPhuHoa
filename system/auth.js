@@ -176,6 +176,16 @@ const Auth = (()=>{
 
     }
 
+    function getEmail() {
+        const userInfo = JSON.parse(localStorage.getItem("user_info") || "{}");
+        return userInfo.email || "";
+    }
+    
+    function getRole() {
+        const userInfo = JSON.parse(localStorage.getItem("user_info") || "{}");
+        return userInfo.role || "";
+    }
+    
     //======================================
     // EXPORT
     //======================================
@@ -183,18 +193,14 @@ const Auth = (()=>{
     return{
 
         login,
-
         logout,
-
         post,
-
         getToken,
-
         saveToken,
-
         requireLogin,
-
-        isLogin
+        isLogin,
+        getEmail,
+        getRole
 
     };
 
