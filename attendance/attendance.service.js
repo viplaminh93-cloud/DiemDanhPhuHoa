@@ -1,188 +1,69 @@
 //======================================
 // ATTENDANCE SERVICE
-// attendance/attendance.service.js
+// Giáo xứ Phú Hòa
 //======================================
 
 "use strict";
 
-/**
- * ======================================
- * AttendanceService
- * Chứa toàn bộ nghiệp vụ của module
- * ======================================
- */
-const AttendanceService = (() => {
+const AttendanceService = (()=>{
 
     /**
-     * --------------------------------------
-     * Khởi tạo phiên điểm danh
-     * --------------------------------------
+     * ======================================
+     * GỬI ĐIỂM DANH
+     * ======================================
      */
-    async function start(type) {
 
-        App.loaiDiemDanh = type;
+    async function sendAttendance(qrText,loai){
 
-        await syncOfflineQueue();
+        return await Api.post({
 
-        AttendanceRenderer.showScanner(type);
+            action:"attendance",
 
-        await loadTodayCounter(type);
+            maso:qrText,
 
-        CameraController.start();
+            loai:loai
+
+        });
 
     }
 
     /**
-     * --------------------------------------
-     * Đồng bộ hàng chờ nếu đang online
-     * --------------------------------------
+     * ======================================
+     * TỔNG HÔM NAY
+     * ======================================
      */
-    async function syncOfflineQueue() {
 
-        if (!navigator.onLine) {
-            return;
-        }
+    async function getTodayCounter(loai){
 
-        if (!hasQueue()) {
-            return;
-        }
+        const result =
 
-        debug(
-            MODULE.OFFLINE,
-            "Queue detected"
-        );
+            await Api.get({
 
-        await syncQueue();
+                action:"todayCounter",
 
-    }
-
-    /**
-     * --------------------------------------
-     * Đọc tổng điểm danh hôm nay
-     * --------------------------------------
-     */
-    async function loadTodayCounter(type) {
-
-        try {
-
-            const response = await fetch(
-
-                CONFIG.API.URL +
-
-                "?count=1&loai=" +
-
-                encodeURIComponent(type)
-
-            );
-
-            const data = await response.json();
-
-            App.tongHomNay = Number(data.count) || 0;
-
-            AttendanceRenderer.renderCounter(
-                App.tongHomNay
-            );
-
-        }
-
-        catch (err) {
-
-            console.error(err);
-
-            hienThi({
-
-                success: false,
-
-                message: MESSAGE.NETWORK_ERROR
+                loai:loai
 
             });
 
+        if(!result.success){
+
+            return 0;
+
         }
 
-    }
+        return Number(
 
-    /**
-     * --------------------------------------
-     * Tăng bộ đếm sau khi điểm danh thành công
-     * --------------------------------------
-     */
-    function increaseCounter() {
+            result.total || 0
 
-        App.tongHomNay++;
-
-        AttendanceRenderer.renderCounter(
-            App.tongHomNay
         );
 
     }
 
-    /**
-     * --------------------------------------
-     * Reset bộ đếm
-     * --------------------------------------
-     */
-    function resetCounter() {
+    return{
 
-        App.tongHomNay = 0;
+        sendAttendance,
 
-        AttendanceRenderer.renderCounter(0);
-
-    }
-
-    /**
-     * --------------------------------------
-     * Trả về tổng hiện tại
-     * --------------------------------------
-     */
-    function getCounter() {
-
-        return App.tongHomNay;
-
-    }
-
-    /**
-     * --------------------------------------
-     * Loại điểm danh hiện tại
-     * --------------------------------------
-     */
-    function getCurrentType() {
-
-        return App.loaiDiemDanh;
-
-    }
-
-    /**
-     * --------------------------------------
-     * Kết thúc phiên điểm danh
-     * --------------------------------------
-     */
-    async function finish() {
-
-        App.dangXuLy = false;
-
-        await CameraController.stop();
-
-        AttendanceRenderer.showHome();
-
-    }
-
-    return {
-
-        start,
-
-        finish,
-
-        syncOfflineQueue,
-
-        loadTodayCounter,
-
-        increaseCounter,
-
-        resetCounter,
-
-        getCounter,
-
-        getCurrentType
+        getTodayCounter
 
     };
 
