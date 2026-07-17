@@ -148,7 +148,8 @@ function bind(id,callback){
  */
 
 function loadUser() {
-    // Bây giờ Auth.getEmail() và Auth.getRole() đã tồn tại
+
+    const name = Auth.getName() || "Bạn hiền";
     const email = Auth.getEmail() || "Chưa xác định";
     const role = Auth.getRole() || "Người dùng";
 
