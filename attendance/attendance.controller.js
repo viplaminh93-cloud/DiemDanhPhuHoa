@@ -22,7 +22,7 @@ const AttendanceController = (() => {
         const count = await AttendanceService.getTodayCounter();
         AttendanceRenderer.renderTodayCounter(count);
         
-        await startCamera(); 
+        await CameraService.startCamera(); 
     }
 
     async function onQRCode(qrText) {
@@ -39,7 +39,7 @@ const AttendanceController = (() => {
         } catch (error) {
             Utils.error(error);
             processing = false;
-            await resumeCamera();
+            await CameraService.resumeCamera();
         }
     }
 
