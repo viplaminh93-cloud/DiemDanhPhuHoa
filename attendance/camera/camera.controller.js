@@ -52,3 +52,10 @@ const CameraController = (() => {
 
     return { start, stop, pause, resume };
 })();
+
+
+document.addEventListener("visibilitychange", async () => {
+    if (!document.hidden && typeof CameraService !== 'undefined' && CameraService.exists() && !window.daQuet) {
+        try { await CameraController.resume(); } catch (e) { Utils.error(e); }
+    }
+});
