@@ -58,9 +58,9 @@ const APP_FILES = [
 
     "./attendance/app.js",
 
-    "/attendance/camera/camera.service.js",
+    "./attendance/camera/camera.service.js",
 
-    "/attendance/camera/camera.controller.js",
+    "./attendance/camera/camera.controller.js",
 
     "./attendance/offline.js",
 
