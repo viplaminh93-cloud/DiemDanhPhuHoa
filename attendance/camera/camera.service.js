@@ -1,174 +1,29 @@
-//======================================
-// CAMERA CONTROLLER
-// Giáo xứ Phú Hòa
-//======================================
+"use strict";
 
-/*"use strict";
+const CameraService = (() => {
+    let html5QrCode = null;
 
-
-
-window.daQuet = false;
-
-//======================================
-// START
-//======================================
-
-async function startCamera(){
-
-    window.daQuet = false;
-
-    await CameraService.start(
-
-        qrSuccess
-
-    );
-
-}
-
-//======================================
-// STOP
-//======================================
-
-async function stopCamera(){
-
-    window.daQuet = false;
-
-    await CameraService.stop();
-
-}
-
-//======================================
-// PAUSE
-//======================================
-
-async function pauseCamera(){
-
-    await CameraService.pause();
-
-}
-
-//======================================
-// RESUME
-//======================================
-
-async function resumeCamera(){
-
-    window.daQuet = false;
-
-    await CameraService.resume();
-
-}
-
-//======================================
-// BACK HOME
-//======================================
-
-async function backHome(){
-
-    await AttendanceController.backHome();
-
-}
-
-//======================================
-// QR SUCCESS
-//======================================
-
-async function qrSuccess(qrText){
-
-    //----------------------------------
-    // Chống quét liên tục
-    //----------------------------------
-
-    if(window.daQuet){
-
-        return;
-
-    }
-
-    window.daQuet = true;
-
-    //----------------------------------
-    // Pause Camera
-    //----------------------------------
-
-    await pauseCamera();
-
-    //----------------------------------
-    // Rung
-    //----------------------------------
-
-    if(navigator.vibrate){
-
-        navigator.vibrate(100);
-
-    }
-
-    //----------------------------------
-    // Gửi Controller
-    //----------------------------------
-
-    try{
-
-        await AttendanceController.onQRCode(
-
-            qrText
-
-        );
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        window.daQuet = false;
-
-        await resumeCamera();
-
-    }
-
-}
-
-//======================================
-// TAB ACTIVE
-//======================================
-
-document.addEventListener(
-
-    "visibilitychange",
-
-    async()=>{
-
-        if(document.hidden){
-
-            return;
-
+    return {
+        start: async (callback) => {
+            html5QrCode = new Html5Qrcode("reader");
+            await html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                (decodedText) => callback(decodedText),
+                (errorMessage) => { /* Bỏ qua lỗi quét liên tục */ }
+            );
+        },
+        stop: async () => {
+            if (html5QrCode) await html5QrCode.stop();
+        },
+        pause: async () => {
+            if (html5QrCode) await html5QrCode.pause();
+        },
+        resume: async () => {
+            if (html5QrCode) await html5QrCode.resume();
+        },
+        exists: () => {
+            return typeof Html5Qrcode !== 'undefined';
         }
-
-        if(
-
-            CameraService.exists()
-
-            &&
-
-            !window.daQuet
-
-        ){
-
-            try{
-
-                await resumeCamera();
-
-            }
-
-            catch(error){
-
-                console.error(error);
-
-            }
-
-        }
-
-    }
-
-);
+    };
+})();
