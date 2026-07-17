@@ -11,13 +11,6 @@ async function start(loai) {
     await CameraController.start(); 
 }
 
-async function backHome() {
-    processing = false;
-    // SỬA Ở ĐÂY: Gọi thông qua module CameraController
-    await CameraController.stop();
-    AttendanceRenderer.showHome();
-}
-
 const AttendanceController = (() => {
     let processing = false;
 
