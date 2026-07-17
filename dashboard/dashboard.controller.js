@@ -85,13 +85,14 @@ function bindEvents(){
 
     );
 
-    bind(
-
-        "btnReports",
-
+    Utils.id("btnReports").addEventListener("click", () => {
+        if (!Auth.hasPermission(["ADMIN" || "QUAN_LY"])) {
+            alert("Bạn không có quyền truy cập tính năng này!");
+            return; 
+        }
         openReport
-
-    );
+    });
+    
 
     bind(
 
