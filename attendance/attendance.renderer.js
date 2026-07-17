@@ -7,17 +7,19 @@
 
 const AttendanceRenderer = (()=>{
 
-    //==================================
-    // HOME
-    //==================================
+    /**
+     * ======================================
+     * HOME
+     * ======================================
+     */
 
     function hideHome(){
 
-        const home = qs(".home");
+        const home = document.querySelector(".home");
 
         if(home){
 
-            home.style.display = "none";
+            Renderer.hide(home);
 
         }
 
@@ -25,23 +27,29 @@ const AttendanceRenderer = (()=>{
 
     function showHome(){
 
-        const home = qs(".home");
+        const home = document.querySelector(".home");
 
         if(home){
-
-            home.style.display = "";
 
             Renderer.show(home);
 
         }
 
+        hideScanner();
+
     }
 
-    //==================================
-    // SCANNER
-    //==================================
+    /**
+     * ======================================
+     * SCANNER
+     * ======================================
+     */
 
-    function showScanner(){
+    function showScanner(loai){
+
+        hideHome();
+
+        renderType(loai);
 
         Renderer.show(
 
@@ -61,45 +69,37 @@ const AttendanceRenderer = (()=>{
 
     }
 
-    //==================================
-    // TITLE
-    //==================================
+    /**
+     * ======================================
+     * TITLE
+     * ======================================
+     */
 
     function renderType(loai){
 
-        renderText(
+        Utils.id("typeTitle").innerText =
 
-            "typeTitle",
-
-            "Điểm danh: " + loai
-
-        );
+            "Điểm danh: " + loai;
 
     }
 
-    //==================================
-    // TODAY COUNT
-    //==================================
+    /**
+     * ======================================
+     * TODAY COUNTER
+     * ======================================
+     */
 
-    function renderTodayCount(total){
+    function renderTodayCounter(total){
 
-        renderText(
-
-            "todayCount",
+        Utils.id("todayCount").innerText =
 
             "Đã điểm danh hôm nay: "
 
             + total
 
-            + " em"
-
-        );
+            + " em";
 
     }
-
-    //==================================
-    // PUBLIC
-    //==================================
 
     return{
 
@@ -113,7 +113,7 @@ const AttendanceRenderer = (()=>{
 
         renderType,
 
-        renderTodayCount
+        renderTodayCounter
 
     };
 
