@@ -1,108 +1,45 @@
 //==================================================
 // STUDENTS CONTROLLER
-//
-// Điều phối module Students
-//
+// Điều phối logic cho module Students
 //==================================================
 
 "use strict";
 
+// Kiểm tra quyền đăng nhập trước khi thực thi
 Auth.requireLogin();
 
-//======================================
-// INIT
-//======================================
+// Lắng nghe sự kiện load trang để khởi tạo dữ liệu
+window.addEventListener("load", initStudents);
 
-window.addEventListener(
-
-    "load",
-
-    initStudents
-
-);
-
-//======================================
-// INIT
-//======================================
-
-async function initStudents(){
-
+/**
+ * Khởi tạo dữ liệu: Tải từ server và hiển thị toàn bộ danh sách
+ */
+async function initStudents() {
     await StudentService.load();
-
-    StudentRenderer.renderList(
-
-        StudentService.getAll()
-
-    );
-
+    StudentRenderer.renderList(StudentService.getAll());
 }
 
-//======================================
-// SEARCH
-//======================================
+// Lắng nghe sự kiện người dùng nhập liệu vào ô tìm kiếm
+Utils.id("txtSearch").addEventListener("input", onSearch);
 
-id("txtSearch").addEventListener(
+/**
+ * Xử lý tìm kiếm: Lọc danh sách theo từ khóa hoặc hiển thị tất cả nếu ô trống
+ */
+function onSearch() {
+    const keyword = Utils.id("txtSearch").value.trim().toLowerCase();
 
-    "input",
-
-    onSearch
-
-);
-
-function onSearch(){
-
-    const keyword =
-
-        id("txtSearch")
-
-        .value
-
-        .trim()
-
-        .toLowerCase();
-
-    if(keyword===""){
-
-        StudentRenderer.renderList(
-
-            StudentService.getAll()
-
-        );
-
+    if (keyword === "") {
+        StudentRenderer.renderList(StudentService.getAll());
         return;
-
     }
 
-    StudentRenderer.renderList(
-
-        StudentService.search(keyword)
-
-    );
-
+    StudentRenderer.renderList(StudentService.search(keyword));
 }
 
-//======================================
-// CLOSE MODAL
-//======================================
-
-id("studentModal")
-
-.addEventListener(
-
-    "click",
-
-    e=>{
-
-        if(
-
-            e.target.id==="studentModal"
-
-        ){
-
-            StudentRenderer.closeModal();
-
-        }
-
+// Lắng nghe sự kiện click vào nền Modal để đóng Modal
+Utils.id("studentModal").addEventListener("click", e => {
+    // Chỉ đóng khi click trực tiếp vào vùng nền (studentModal), không phải nội dung bên trong
+    if (e.target.id === "studentModal") {
+        StudentRenderer.closeModal();
     }
-
-);
+});
