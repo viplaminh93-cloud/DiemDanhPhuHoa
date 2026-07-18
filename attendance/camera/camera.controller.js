@@ -74,7 +74,7 @@ const CameraController = (() => {
         if (window.daQuet) return;
         window.daQuet = true;
     
-        await CameraController.stop(); 
+        await CameraController.pause(); 
         Debug.write("Controller", "Camera đã dừng hẳn sau khi quét");
     
         if (Utils.vibrate) Utils.vibrate(100);
