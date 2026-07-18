@@ -29,9 +29,9 @@ const CameraController = (() => {
                 (decodedText) => { /* Xử lý khi quét thành công */ },
                 (errorMessage) => { /* Xử lý khi lỗi */ }
             );
-            console.log("Camera đã chạy thành công!");
+            Debug.write("Camera đã chạy thành công!");
         } catch (err) {
-            throw new Error("Không thể bật camera: " + err);
+            throw new Debug.write("Không thể bật camera: " + err);
         }
     }
 
