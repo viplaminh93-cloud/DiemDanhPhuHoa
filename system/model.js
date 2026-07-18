@@ -1,193 +1,43 @@
-//======================================
-// MODEL
-// Giáo xứ Phú Hòa
-//======================================
-
 "use strict";
 
 /**
- * ======================================
  * MODEL MODULE
- *
- * Quản lý Student Model.
- *
- * Chức năng:
- * - Tạo Model
- * - Getter
- * - Validator
- *
- * Không fetch.
- * Không render.
- * Không business.
- * ======================================
+ * Quản lý cấu trúc dữ liệu Student và các hàm Getter/Validator.
  */
+const Model = (() => {
 
-const Model = (()=>{
-
-    //======================================
-    // CREATE STUDENT
-    //======================================
-
-    function createStudent(data = {}){
-
-        return{
-
-            //----------------------------------
-            // Response
-            //----------------------------------
-
-            success :
-
-                Boolean(data.success),
-
-            duplicate :
-
-                Boolean(data.duplicate),
-
-            offline :
-
-                Boolean(data.offline),
-
-            //----------------------------------
-            // Student
-            //----------------------------------
-
-            maso :
-
-                data.maso || "",
-
-            hoten :
-
-                data.hoten || "",
-
-            lop :
-
-                data.lop || "",
-
-            khoi :
-
-                data.khoi || "",
-
-            //----------------------------------
-            // Attendance
-            //----------------------------------
-
-            loai :
-
-                data.loai || "",
-
-            thoigian :
-
-                data.thoigian || "",
-
-            //----------------------------------
-            // Photo
-            //----------------------------------
-
-            hinh :
-
-                data.hinh ||
-
-                "",
-
-            //----------------------------------
-            // Message
-            //----------------------------------
-
-            message :
-
-                data.message || ""
-
+    // Khởi tạo đối tượng Student chuẩn hóa
+    function createStudent(data = {}) {
+        return {
+            success: Boolean(data.success),
+            duplicate: Boolean(data.duplicate),
+            offline: Boolean(data.offline),
+            maso: data.maso || "",
+            hoten: data.hoten || "",
+            lop: data.lop || "",
+            khoi: data.khoi || "",
+            loai: data.loai || "",
+            thoigian: data.thoigian || "",
+            hinh: data.hinh || "",
+            message: data.message || ""
         };
-
     }
 
-    //======================================
-    // VALIDATE
-    //======================================
+    // Kiểm tra dữ liệu hợp lệ
+    const isValid = (st) => st && st.success;
 
-    function isValid(student){
+    // Getters
+    const getName = (st) => st.hoten;
+    const getCode = (st) => st.maso;
+    const getClass = (st) => st.lop;
+    const getKhoi = (st) => st.khoi;
+    const getPhoto = (st) => st.hinh;
+    const getTime = (st) => st.thoigian;
+    const getMessage = (st) => st.message;
 
-        return(
-
-            student &&
-
-            student.success
-
-        );
-
-    }
-
-    //======================================
-    // GETTER
-    //======================================
-
-    function getName(student){
-
-        return student.hoten;
-
-    }
-
-    function getCode(student){
-
-        return student.maso;
-
-    }
-
-    function getClass(student){
-
-        return student.lop;
-
-    }
-
-    function getKhoi(student){
-
-        return student.khoi;
-
-    }
-
-    function getPhoto(student){
-
-        return student.hinh;
-
-    }
-
-    function getTime(student){
-
-        return student.thoigian;
-
-    }
-
-    function getMessage(student){
-
-        return student.message;
-
-    }
-
-    //======================================
-    // EXPORT
-    //======================================
-
-    return{
-
-        createStudent,
-
-        isValid,
-
-        getName,
-
-        getCode,
-
-        getClass,
-
-        getKhoi,
-
-        getPhoto,
-
-        getTime,
-
-        getMessage
-
+    return { 
+        createStudent, isValid, 
+        getName, getCode, getClass, getKhoi, 
+        getPhoto, getTime, getMessage 
     };
-
 })();
