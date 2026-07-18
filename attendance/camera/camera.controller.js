@@ -10,16 +10,44 @@
 const CameraController = (() => {
     let scanning = false;
 
-    async function start(loai) {
+
+    let scanner = null; 
+
+    async function start() {
+        console.log("Đang thực hiện khởi tạo camera...");
+        
+        // 1. Khởi tạo đối tượng camera
+        scanner = new Html5Qrcode("reader");
+
+        // 2. Cấu hình và start
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+        
+        try {
+            await scanner.start(
+                { facingMode: "environment" }, 
+                config,
+                (decodedText) => { /* Xử lý khi quét thành công */ },
+                (errorMessage) => { /* Xử lý khi lỗi */ }
+            );
+            console.log("Camera đã chạy thành công!");
+        } catch (err) {
+            throw new Error("Không thể bật camera: " + err);
+        }
+    }
+
+    return { start };
+//})();
+
+ /*   async function start(loai) {
 
         // 1. Kiểm tra thiết bị (Chỉ cho phép iOS hoặc Android)
-  /*      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         
         if (!isMobile) {
             location.href = "../attendance/attendance.html";
             alert("Chức năng quét QR chỉ dành cho điện thoại (iOS/Android). Vui lòng sử dụng điện thoại để điểm danh.");
             return;
-        } */
+        } 
     let processing = false; 
         try {
  
@@ -37,7 +65,7 @@ const CameraController = (() => {
             console.error("Lỗi khởi tạo:", e);
             alert("Lỗi camera: " + e.message);
         }
-    }
+    }*/
 
     async function stop() {
         scanning = false;
