@@ -8,9 +8,9 @@
 
 const AttendanceController = (() => {
     async function start(loai) {
+        processing = false;
         try {
-            processing = false;
-            
+                        
             console.log("Bước 1: Set Type");
             AttendanceService.setCurrentType(loai);
             
