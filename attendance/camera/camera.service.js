@@ -44,13 +44,13 @@ const CameraService = {
         }
     },
 
-    stop: async () => {
+/*    stop: async () => {
         if (scanner.isScanning) {
             await scanner.stop().catch(e => console.log("Lỗi stop:", e));
         }
     },
     
-/*    pause: () => { if (scanner.isScanning) scanner.pause(); },
+    pause: () => { if (scanner.isScanning) scanner.pause(); },
     resume: () => { if (scanner.isScanning) scanner.resume(); },*/
     exists: () => { return !!scanner; },
     isPaused: () => { return scanner.isPaused; }
