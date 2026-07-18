@@ -20,9 +20,8 @@ const AttendanceRenderer = (() => {
     function showScanner(loai) {
         hideHome();
         renderType(loai);
- //       Renderer.show("scannerBox"); // Truyền ID là string
-        Utils.show(Utils.id("scannerBox");
-    }
+        Renderer.show("scannerBox"); // Truyền ID là string
+     }
 
     function hideScanner() {
         Renderer.hide("scannerBox"); // Truyền ID là string
