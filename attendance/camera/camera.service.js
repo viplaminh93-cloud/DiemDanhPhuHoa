@@ -4,23 +4,26 @@
  * Cấu hình và khởi chạy Camera
  * ======================================
  */
-(async () => {
-    const devices = await Html5Qrcode.getCameras();
-    if (!devices || devices.length === 0) return;
+// 1. Khởi tạo Scanner (Thay 'reader' bằng id thẻ div của bạn)
+const scanner = new Html5Qrcode("reader");
 
-    // Ưu tiên chọn camera sau, nếu không có thì mặc định camera đầu tiên
-    const backCamera = devices.find(c => /back|rear|environment/i.test(c.label));
-    const cameraId = backCamera ? backCamera.id : devices[0].id;
-
-    await scanner.start(
-        cameraId,
-        {
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-            aspectRatio: 1,
-            disableFlip: false
-        },
-        onSuccess,
-        () => {} // Bỏ qua lỗi quét liên tục
-    );
-})();
+// 2. Camera Service: Cầu nối giữa Library và Controller
+const CameraService = {
+    start: async (onScan) => {
+        const devices = await Html5Qrcode.getCameras();
+        if (!devices || devices.length === 0) throw new Error("Không tìm thấy camera");
+        
+        const back = devices.find(c => /back|rear|environment/i.test(c.label));
+        await scanner.start(
+            back ? back.id : devices[0].id,
+            { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1 },
+            onScan,
+            () => {}
+        );
+    },
+    stop: async () => { if (scanner.isScanning) await scanner.stop(); },
+    pause: () => { scanner.pause(); },
+    resume: () => { scanner.resume(); },
+    exists: () => { return !!scanner; },
+    isPaused: () => { return scanner.isPaused; }
+};
