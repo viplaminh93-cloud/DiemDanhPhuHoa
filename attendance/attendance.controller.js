@@ -7,26 +7,34 @@
 "use strict";
 
 const AttendanceController = (() => {
-    let processing = false;
-
     async function start(loai) {
         try {
             processing = false;
+            
+            console.log("Bước 1: Set Type");
             AttendanceService.setCurrentType(loai);
+            
+            console.log("Bước 2: Show Scanner");
             AttendanceRenderer.showScanner(loai);
             
-            // Thêm delay nhỏ để tránh lỗi rendering
+            console.log("Bước 3: Delay");
             await new Promise(resolve => setTimeout(resolve, 300));
             
+            console.log("Bước 4: Get Counter");
             const total = await AttendanceService.getTodayCounter();
             AttendanceRenderer.renderTodayCounter(total);
             
+            console.log("Bước 5: Start Camera");
             await CameraController.start();
+            
+            console.log("Khởi tạo thành công!");
         } catch (e) {
-            console.error("Lỗi khởi tạo:", e);
-            alert(e.message);
+            // Đây là nơi bắt lỗi. Hãy nhìn vào Console để thấy lỗi báo ở Bước mấy
+            console.error("LỖI TẠI START:", e);
+            alert("Lỗi: " + e.message);
         }
     }
+}
 
     async function onQRCode(qrText) {
         if (processing) return;
