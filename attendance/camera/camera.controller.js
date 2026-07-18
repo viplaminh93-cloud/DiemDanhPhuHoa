@@ -1,128 +1,58 @@
-/**
- * ======================================
- * CAMERA SERVICE & CONTROLLER
- * Tích hợp Html5Qrcode và điều khiển logic
- * ======================================
- */
 "use strict";
 
-const CameraController = {
-    camerastart: async function() {
-        Debug.write("Đang bắt đầu khởi tạo camera...");
-        
-        // Kiểm tra xem Html5Qrcode đã được load chưa
-        if (typeof Html5Qrcode === 'undefined') {
-            Debug.write("Thư viện Html5Qrcode chưa được load!");
-            return;
-        }
+/**
+ * CAMERA CONTROLLER
+ * Quản lý khởi tạo, dừng, tạm dừng và xử lý quét QR
+ */
+const CameraController = (() => {
+    let scanner = null;
+    let scanning = false;
 
-        const scanner = new Html5Qrcode("reader"); // ID của thẻ div chứa camera
-        
+    // Khởi tạo camera
+    async function start() {
+        if (scanner) return; // Nếu đã khởi tạo thì bỏ qua
+
+        Debug.write("Đang thực hiện khởi tạo camera...");
+        scanner = new Html5Qrcode("reader");
+
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
         try {
             await scanner.start(
-                { facingMode: "environment" }, 
-                { fps: 10, qrbox: { width: 250, height: 250 } },
-                (decodedText) => {
-                    Debug.write("Quét thành công:", decodedText);
-                    // alert("Kết quả: " + decodedText);
-                },
-                (err) => {
-                    // console.log("Lỗi quét:", err);
-                }
+                { facingMode: "environment" },
+                config,
+                (decodedText) => { onScan(decodedText); }, // Gọi hàm onScan khi quét thành công
+                (err) => { /* Bỏ qua log lỗi quét liên tục */ }
             );
+            scanning = true;
             Debug.write("Camera đã chạy thành công!");
         } catch (err) {
             Debug.write("Lỗi bật camera:", err);
             alert("Không thể bật camera: " + err.message);
         }
     }
-};
 
-window.CameraController = CameraController;
-/*
-// 3. Camera Controller: Điều khiển luồng nghiệp vụ
-const CameraController = (() => {
-    let scanning = false;
-
-
-    let scanner = null; 
-
-    async function camerastart() {
-        console.log("Đang thực hiện khởi tạo camera...");
-        
-        // 1. Khởi tạo đối tượng camera
-        scanner = new Html5Qrcode("reader");
-
-        // 2. Cấu hình và start
-        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-        
-        try {
-            await scanner.start(
-                { facingMode: "environment" }, 
-                config,
-                (decodedText) => {  Xử lý khi quét thành công  },
-                (errorMessage) => {  Xử lý khi lỗi  }
-            );
-            Debug.write("Camera đã chạy thành công!");
-        } catch (err) {
-            throw new Debug.write("Không thể bật camera: " + err);
-        }
-    }
-
-    return { camerastart };
-//})();
-
-    async function start(loai) {
-
-        // 1. Kiểm tra thiết bị (Chỉ cho phép iOS hoặc Android)
-        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        
-        if (!isMobile) {
-            location.href = "../attendance/attendance.html";
-            alert("Chức năng quét QR chỉ dành cho điện thoại (iOS/Android). Vui lòng sử dụng điện thoại để điểm danh.");
-            return;
-        } 
-    let processing = false; 
-        try {
- 
-            processing = false;
-            AttendanceService.setCurrentType(loai);
-    //        AttendanceRenderer.showScanner(loai);
-            
-            await new Promise(resolve => setTimeout(resolve, 300));
-            
-            const total = await AttendanceService.getTodayCounter();
-            AttendanceRenderer.renderTodayCounter(total);
-            
-            await CameraController.start();
-        } catch (e) {
-            console.error("Lỗi khởi tạo:", e);
-            alert("Lỗi camera: " + e.message);
-        }
-    }
-
+    // Dừng camera
     async function stop() {
-        scanning = false;
-        window.daQuet = false;
-        await CameraService.stop();
+        if (scanner && scanning) {
+            await scanner.stop();
+            scanner = null;
+            scanning = false;
+            Debug.write("Camera đã dừng.");
+        }
     }
 
+    // Tạm dừng
     function pause() {
-        CameraService.pause();
+        if (scanner && scanning) scanner.pause();
     }
 
+    // Tiếp tục
     function resume() {
-        if (!scanning) return;
-        window.daQuet = false;
-        CameraService.resume();
+        if (scanner && scanning) scanner.resume();
     }
 
-    async function restart() {
-        await stop();
-        await new Promise(r => setTimeout(r, 150));
-        await start();
-    }
-
+    // Xử lý nội dung QR
     async function onScan(qrText) {
         if (window.daQuet) return;
 
@@ -140,13 +70,22 @@ const CameraController = (() => {
         }
     }
 
-    // Lắng nghe sự kiện chuyển tab
+    // Khởi động lại
+    async function restart() {
+        await stop();
+        await new Promise(r => setTimeout(r, 150));
+        await start();
+    }
+
+    // Lắng nghe sự kiện ẩn/hiện tab
     document.addEventListener("visibilitychange", () => {
-        if (!document.hidden && scanning && CameraService.exists() && CameraService.isPaused() && !window.daQuet) {
-            CameraService.resume();
+        if (!document.hidden && scanning && !window.daQuet) {
+            resume();
         }
     });
 
     return { start, stop, pause, resume, restart };
 })();
-*/
+
+// Gán vào window để các controller khác truy cập
+window.CameraController = CameraController;
