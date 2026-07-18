@@ -56,7 +56,9 @@ const AttendanceController = (() => {
 
     async function closePopup() {
         processing = false;
+        window.daQuet = false; 
         await PopupService.close();
+        await CameraController.resume(); 
     }
 
     async function backHome() {
