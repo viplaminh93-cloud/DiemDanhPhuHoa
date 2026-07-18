@@ -12,11 +12,28 @@ const AttendanceController = (() => {
     
     async function start(loai) {
 
-const homeBox = document.getElementById("homeBox");
-    const scannerBox = document.getElementById("scannerBox");
-    
-    if (homeBox) homeBox.style.display = "none";
-    if (scannerBox) scannerBox.style.display = "block";
+        console.log("1. Đã gọi start với:", loai);
+        
+            try {
+                // TỰ ĐỘNG HIỂN THỊ GIAO DIỆN BẰNG DOM GỐC (Bỏ qua module)
+                document.getElementById("homeBox").classList.add("hidden");
+                document.getElementById("scannerBox").classList.remove("hidden");
+                console.log("2. Đã hiển thị scannerBox thủ công");
+        
+                // GỌI THỬ ATTENDANCE RENDERER
+                AttendanceRenderer.showScanner(loai);
+                console.log("3. Đã gọi AttendanceRenderer.showScanner");
+        
+                // GỌI THỬ CAMERA CONTROLLER
+                console.log("4. Chuẩn bị gọi CameraController.start");
+                await CameraController.start(); 
+                console.log("5. CameraController.start đã chạy xong");
+        
+            } catch (e) {
+                console.error("XẢY RA LỖI TẠI:", e);
+                alert("Lỗi tại: " + e.message);
+            }
+        }
         
 /*        try {
             processing = false;
