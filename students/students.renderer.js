@@ -66,7 +66,7 @@ function openModal(student) {
     // CLOSE MODAL
     //======================================
 
-    function closeModal(){
+/*    function closeModal(){
 
         Renderer.hide(
 
@@ -90,4 +90,4 @@ function openModal(student) {
 
     };
 
-})();
+})(); 8?
