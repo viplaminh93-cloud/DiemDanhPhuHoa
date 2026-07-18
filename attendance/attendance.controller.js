@@ -17,7 +17,7 @@ const AttendanceController = (() => {
             Debug.write("Controller", "Bắt đầu start: " + loai);
             AttendanceService.setCurrentType(loai);
            
-   //         AttendanceRenderer.showScanner(loai);
+            AttendanceRenderer.showScanner(loai);
             
             await new Promise(resolve => setTimeout(resolve, 300));
             
