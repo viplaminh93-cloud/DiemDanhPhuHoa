@@ -8,7 +8,7 @@
 
 const AttendanceController = (() => {
     async function start(loai) {
-        processing = false;
+        let processing = false;
         try {
                         
             console.log("Bước 1: Set Type");
