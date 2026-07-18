@@ -20,7 +20,7 @@ const AttendanceController = (() => {
 
 const scannerEl = document.getElementById("scannerBox");
     if (!scannerEl) {
-        console.error("LỖI CHÍ MẠNG: Không tìm thấy #scannerBox trong DOM tại thời điểm này!");
+        Debug.write("LỖI CHÍ MẠNG: Không tìm thấy #scannerBox trong DOM tại thời điểm này!");
         return;
     }
             
