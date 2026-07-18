@@ -25,7 +25,7 @@ const CameraController = (() => {
  
             processing = false;
             AttendanceService.setCurrentType(loai);
-            AttendanceRenderer.showScanner(loai);
+    //        AttendanceRenderer.showScanner(loai);
             
             await new Promise(resolve => setTimeout(resolve, 300));
             
