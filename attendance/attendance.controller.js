@@ -34,7 +34,7 @@ const AttendanceController = (() => {
             alert("Lỗi: " + e.message);
         }
     }
-}
+
 
     async function onQRCode(qrText) {
         if (processing) return;
