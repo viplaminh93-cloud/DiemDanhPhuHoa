@@ -18,7 +18,7 @@ const AttendanceController = (() => {
             AttendanceService.setCurrentType(loai);
 
 
-const scannerEl = document.getElementById("scannerBox");
+const scannerEl = Utils.id("scannerBox");
     if (!scannerEl) {
         Debug.write("LỖI CHÍ MẠNG: Không tìm thấy #scannerBox trong DOM tại thời điểm này!");
         return;
