@@ -34,11 +34,29 @@ const CameraController = (() => {
 
     // Dừng camera
     async function stop() {
-        if (scanner && scanning) {
-            await scanner.stop();
-            scanner = null;
-            scanning = false;
-            Debug.write("Camera đã dừng.");
+        if (scanner) {
+            try {
+                // 1. Dừng scanner nếu đang quét
+                if (scanning) {
+                    await scanner.stop();
+                }
+                
+                // 2. Clear (Quan trọng) - Xóa nội dung bên trong thẻ #reader
+                // Nếu dùng thư viện, cách an toàn nhất là xóa nội dung thẻ div
+                const readerDiv = document.getElementById("reader");
+                if (readerDiv) {
+                    readerDiv.innerHTML = ""; 
+                }
+    
+                // 3. Reset trạng thái
+                scanner = null;
+                scanning = false;
+                window.daQuet = false; // Reset cờ để cho phép quét lần sau
+                
+                Debug.write("Camera đã dừng và dọn dẹp hoàn toàn.");
+            } catch (err) {
+                Debug.write("Lỗi khi stop camera:", err);
+            }
         }
     }
 
