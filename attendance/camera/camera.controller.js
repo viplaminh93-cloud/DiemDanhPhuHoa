@@ -18,8 +18,8 @@ const CameraController = (() => {
             if (!isMobile) {
                 console.warn("Đang chạy trên máy tính, bỏ qua camera.");
                 alert("Chức năng quét QR chỉ dành cho điện thoại (iOS/Android). Vui lòng sử dụng điện thoại để điểm danh.");
-                return;
                 location.href = "../attendance/attendance.html";
+                return;
             }
 
             processing = false;
