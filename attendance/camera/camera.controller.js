@@ -1,7 +1,7 @@
 /**
  * ======================================
- * CAMERA CONTROLLER
- * Giáo xứ Phú Hòa
+ * CAMERA CONTROLLER - GIÁO XỨ PHÚ HÒA
+ * Quản lý vòng đời và sự kiện quét QR
  * ======================================
  */
 "use strict";
@@ -9,61 +9,61 @@
 const CameraController = (() => {
     let scanning = false;
 
-    /** Bắt đầu quét mã QR */
+    /** Bắt đầu kích hoạt dịch vụ quét */
     async function start() {
         scanning = true;
         window.daQuet = false;
         await CameraService.start(onScan);
     }
 
-    /** Dừng quét mã QR */
+    /** Dừng dịch vụ quét hoàn toàn */
     async function stop() {
         scanning = false;
         window.daQuet = false;
         await CameraService.stop();
     }
 
-    /** Tạm dừng camera */
-    async function pause() {
+    /** Tạm dừng camera (giữ nguyên kết nối) */
+    function pause() {
         CameraService.pause();
     }
 
-    /** Tiếp tục camera nếu đang ở trạng thái quét */
-    async function resume() {
+    /** Tiếp tục camera nếu đang trong phiên quét */
+    function resume() {
         if (!scanning) return;
         window.daQuet = false;
         CameraService.resume();
     }
 
-    /** Khởi động lại luồng camera */
+    /** Khởi động lại: Dừng và bắt đầu lại sau 150ms */
     async function restart() {
         await stop();
         await Utils.sleep(150);
         await start();
     }
 
-    /** Xử lý khi quét thành công */
+    /** Callback xử lý khi quét thành công */
     async function onScan(qrText) {
         if (window.daQuet) return;
 
         window.daQuet = true;
-        await pause();
+        pause();
 
+        // Phản hồi xúc giác cho người dùng
         if (navigator.vibrate) navigator.vibrate(100);
 
         try {
             await AttendanceController.onQRCode(qrText);
         } catch (error) {
-            console.error(error);
+            console.error("Lỗi xử lý QR:", error);
             window.daQuet = false;
-            await resume();
+            resume();
         }
     }
 
-    /** Lắng nghe sự kiện chuyển tab để tự động resume camera */
+    /** Tự động Resume khi người dùng quay lại tab */
     document.addEventListener("visibilitychange", () => {
-        if (document.hidden) return;
-        if (scanning && CameraService.exists() && CameraService.isPaused() && !window.daQuet) {
+        if (!document.hidden && scanning && CameraService.exists() && CameraService.isPaused() && !window.daQuet) {
             CameraService.resume();
         }
     });
