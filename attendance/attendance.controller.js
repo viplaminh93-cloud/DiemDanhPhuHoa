@@ -7,32 +7,26 @@
 "use strict";
 
 const AttendanceController = (() => {
-    let processing = false;
-
-    /** Khởi tạo phiên điểm danh */
     async function start(loai) {
-        try {
-            processing = false;
-            AttendanceService.setCurrentType(loai);
-            
-            AttendanceRenderer.showScanner(loai);
-            
-            const total = await AttendanceService.getTodayCounter();
-            AttendanceRenderer.renderTodayCounter(total);
-            
-            // Thêm log để biết chắc chắn code chạy đến đây
-            console.log("Đang bắt đầu camera...");
-            await CameraController.start();
-            console.log("Camera đã khởi động thành công.");
-            
-        } catch (e) {
-            // Hiển thị rõ ràng loại lỗi và thông báo
-            const errorMessage = `Lỗi hệ thống: ${e.name} - ${e.message}`;
-            console.error("Lỗi khởi tạo điểm danh:", e);
-            alert(errorMessage);
-            
-            // Tùy chọn: Tự động quay về trang chủ nếu lỗi camera để người dùng không bị kẹt
-            backHome();
+            try {
+                processing = false;
+                AttendanceService.setCurrentType(loai);
+                
+                // 1. Hiển thị UI
+                AttendanceRenderer.showScanner(loai);
+                
+                // 2. Thêm một khoảng trễ nhỏ để trình duyệt render xong giao diện
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                const total = await AttendanceService.getTodayCounter();
+                AttendanceRenderer.renderTodayCounter(total);
+                
+                // 3. Lúc này mới bắt đầu camera
+                await CameraController.start();
+            } catch (e) {
+                console.error("Lỗi khởi tạo:", e);
+                alert(e.message);
+            }
         }
     }
 
