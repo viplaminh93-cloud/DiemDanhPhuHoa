@@ -1,69 +1,26 @@
-//======================================
-// LOGIN SERVICE
-// Giáo xứ Phú Hòa
-//======================================
-
 "use strict";
 
 /**
- * ======================================
  * LOGIN SERVICE
- * Chỉ làm việc với Server
- * Không đụng tới HTML
- * Không xử lý giao diện
- * ======================================
+ * Quản lý logic nghiệp vụ đăng nhập với Server.
  */
-
 const LoginService = (() => {
 
-    /**
-     * ----------------------------------
-     * Lấy Email
-     * ----------------------------------
-     */
-    function getLoginEmail(){
-    
-        return Utils.id("txtEmail")
-            .value
-            .trim();
-    
-    }
+    // Lấy email từ ô nhập liệu
+    const getLoginEmail = () => Utils.id("txtEmail")?.value.trim() || "";
 
-    /**
-     * ----------------------------------
-     * Đăng nhập
-     * ----------------------------------
-     */
-    async function login(email){
-
+    // Gửi yêu cầu đăng nhập lên server
+    async function login(email) {
         return await Auth.post({
-
-            action : "login",
-
-            email : email
-
+            action: "login",
+            email: email
         });
-
     }
 
-    /**
-     * ----------------------------------
-     * Lưu Token
-     * ----------------------------------
-     */
-    async function saveToken(token){
-
+    // Lưu token sau khi đăng nhập thành công
+    async function saveToken(token) {
         await Auth.login(token);
-
     }
 
-    return {
-
-        login,
-        saveToken,
-        getLoginEmail
-
-    };
-
+    return { login, saveToken, getLoginEmail };
 })();
-
