@@ -1,288 +1,52 @@
-//======================================
-// UTILS
-// Giáo xứ Phú Hòa
-//======================================
-
 "use strict";
 
 /**
- * ======================================
  * UTILS MODULE
- *
- * Chứa các hàm dùng chung toàn hệ thống.
- *
- * Bao gồm:
- * - DOM
- * - UI
- * - Device
- * - Time
- * - String
- * - Object
- * - Console
- *
- * Không chứa business.
- * Không phụ thuộc module khác.
- * ======================================
+ * Tập hợp các hàm tiện ích dùng chung (DOM, UI, Device, Time, String, Object, Console).
  */
-
-const Utils = (()=>{
-
-    //======================================
-    // DOM
-    //======================================
-
-    function id(name){
-
-        return document.getElementById(name);
-
-    }
-
-    function qs(selector){
-
-        return document.querySelector(selector);
-
-    }
-
-    function qsa(selector){
-
-        return document.querySelectorAll(selector);
-
-    }
-
-    function create(tag){
-
-        return document.createElement(tag);
-
-    }
-
-    //======================================
-    // UI
-    //======================================
-
-    function show(element){
-
-        if(!element){
-            return;
-
-        }
-        element.classList.remove("hidden");
-
-    }
-
-    function hide(element){
-
-        if(!element){
-            return;
-
-        }
-        element.classList.add("hidden");
-
-    }
-
-    function toggle(element){
-
-        if(!element){
-
-            return;
-
-        }
-
-        element.classList.toggle("hidden");
-
-    }
-
-    function isHidden(element){
-
-        if(!element){
-
-            return true;
-
-        }
-
-        return element.classList.contains(
-
-            "hidden"
-
-        );
-
-    }
-
-    //======================================
-    // DEVICE
-    //======================================
-
-    function vibrate(
-
-        ms = Config.CAMERA.VIBRATE
-
-    ){
-
-        if(!navigator.vibrate){
-
-            return;
-
-        }
-
-        navigator.vibrate(ms);
-
-    }
-
-    function sleep(ms){
-
-        return new Promise(resolve=>{
-
-            setTimeout(
-
-                resolve,
-
-                ms
-
-            );
-
-        });
-
-    }
-
-    //======================================
-    // TIME
-    //======================================
-
-    function now(){
-
-        return new Date();
-
-    }
-
-    function formatTime(
-
-        date = new Date()
-
-    ){
-
-        return date.toLocaleTimeString(
-
-            "vi-VN"
-
-        );
-
-    }
-
-    function formatDate(
-
-        date = new Date()
-
-    ){
-
-        return date.toLocaleDateString(
-
-            "vi-VN"
-
-        );
-
-    }
-
-    //======================================
-    // STRING
-    //======================================
-
-    function upper(text){
-
-        return String(text)
-
-            .toUpperCase();
-
-    }
-
-    function lower(text){
-
-        return String(text)
-
-            .toLowerCase();
-
-    }
-
-    function trim(text){
-
-        return String(text)
-
-            .trim();
-
-    }
-
-    //======================================
-    // OBJECT
-    //======================================
-
-    function clone(object){
-
-        return structuredClone(
-
-            object
-
-        );
-
-    }
-
-    //======================================
-    // CONSOLE
-    //======================================
-
-    function log(...args){
-
-        console.log(...args);
-
-    }
-
-    function warn(...args){
-
-        console.warn(...args);
-
-    }
-
-    function error(...args){
-
-        console.error(...args);
-
-    }
-
-    //======================================
-
-    return{
-
-        // DOM
-        id,
-        qs,
-        qsa,
-        create,
-
-        // UI
-        show,
-        hide,
-        toggle,
-        isHidden,
-
-        // DEVICE
-        vibrate,
-        sleep,
-
-        // TIME
-        now,
-        formatTime,
-        formatDate,
-
-        // STRING
-        upper,
-        lower,
-        trim,
-
-        // OBJECT
-        clone,
-
-        // CONSOLE
-        log,
-        warn,
-        error
-
+const Utils = (() => {
+
+    // --- DOM ---
+    const id = (name) => document.getElementById(name);
+    const qs = (sel) => document.querySelector(sel);
+    const qsa = (sel) => document.querySelectorAll(sel);
+    const create = (tag) => document.createElement(tag);
+
+    // --- UI ---
+    const show = (el) => el?.classList.remove("hidden");
+    const hide = (el) => el?.classList.add("hidden");
+    const toggle = (el) => el?.classList.toggle("hidden");
+    const isHidden = (el) => el ? el.classList.contains("hidden") : true;
+
+    // --- DEVICE ---
+    const vibrate = (ms = Config.CAMERA.VIBRATE) => navigator.vibrate?.(ms);
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    // --- TIME ---
+    const now = () => new Date();
+    const formatTime = (date = new Date()) => date.toLocaleTimeString("vi-VN");
+    const formatDate = (date = new Date()) => date.toLocaleDateString("vi-VN");
+
+    // --- STRING ---
+    const upper = (txt) => String(txt).toUpperCase();
+    const lower = (txt) => String(txt).toLowerCase();
+    const trim = (txt) => String(txt).trim();
+
+    // --- OBJECT ---
+    const clone = (obj) => structuredClone(obj);
+
+    // --- CONSOLE ---
+    const log = (...args) => console.log(...args);
+    const warn = (...args) => console.warn(...args);
+    const error = (...args) => console.error(...args);
+
+    return { 
+        id, qs, qsa, create, 
+        show, hide, toggle, isHidden, 
+        vibrate, sleep, 
+        now, formatTime, formatDate, 
+        upper, lower, trim, 
+        clone, 
+        log, warn, error 
     };
-
 })();
