@@ -1,165 +1,59 @@
-//======================================
-// CONFIG
-// Giáo xứ Phú Hòa
-//======================================
-
 "use strict";
 
-
+/**
+ * CONFIG MODULE
+ * Cấu hình toàn hệ thống (App, API, Camera, Popup, Offline, Khối, Auth).
+ */
 const Config = Object.freeze({
 
-    //==================================
-    // APP
-    //==================================
-
-    APP : Object.freeze({
-
-        NAME :
-
-            "Điểm danh TNTT",
-
-        PARISH :
-
-            "Giáo xứ Phú Hòa",
-
-        DEBUG :
-
-            true
-
+    // Thông tin ứng dụng
+    APP: Object.freeze({
+        NAME: "Điểm danh TNTT",
+        PARISH: "Giáo xứ Phú Hòa",
+        DEBUG: true
     }),
 
-    //==================================
-    // API
-    //==================================
-
-    API : Object.freeze({
-
-        URL :
-
-            "https://script.google.com/macros/s/AKfycbyMWoRKQmlreFciVWLmDcxokgY_iyZ7kShSke2mLDiQZTutR_0GLtEU8Rhg6LwTr9Nthw/exec"
-
+    // API Endpoint
+    API: Object.freeze({
+        URL: "https://script.google.com/macros/s/AKfycbyMWoRKQmlreFciVWLmDcxokgY_iyZ7kShSke2mLDiQZTutR_0GLtEU8Rhg6LwTr9Nthw/exec"
     }),
 
-    //==================================
-    // CAMERA
-    //==================================
-
-    CAMERA : Object.freeze({
-
-        FPS : 10,
-
-        WIDTH : 220,
-
-        HEIGHT : 220,
-
-        VIBRATE : 50,
-
-        FACING_MODE :
-
-            "environment",
-
-        REMEMBER_CAMERA :
-
-            true,
-
-        DISABLE_FLIP :
-
-            true
-
+    // Cấu hình Camera
+    CAMERA: Object.freeze({
+        FPS: 10,
+        WIDTH: 220,
+        HEIGHT: 220,
+        VIBRATE: 50,
+        FACING_MODE: "environment",
+        REMEMBER_CAMERA: true,
+        DISABLE_FLIP: true
     }),
 
-    //==================================
-    // POPUP
-    //==================================
-
-    POPUP : Object.freeze({
-
-        AUTO_CLOSE :
-
-            false,
-
-        DURATION :
-
-            3000,
-
-        HINT :
-
-            "Chạm màn hình để tiếp tục"
-
+    // Cấu hình Popup
+    POPUP: Object.freeze({
+        AUTO_CLOSE: false,
+        DURATION: 3000,
+        HINT: "Chạm màn hình để tiếp tục"
     }),
 
-    //==================================
-    // OFFLINE
-    //==================================
-
-    OFFLINE : Object.freeze({
-
-        STORAGE_KEY :
-
-            "attendance_queue"
-
+    // Cấu hình Offline
+    OFFLINE: Object.freeze({
+        STORAGE_KEY: "attendance_queue"
     }),
 
-    //==================================
-    // KHỐI
-    //==================================
-
-    KHOI : Object.freeze({
-
-        "KHAI TÂM" : Object.freeze({
-
-            css :
-
-                "khaitam"
-
-        }),
-
-        "XƯNG TỘI" : Object.freeze({
-
-            css :
-
-                "xungtoi"
-
-        }),
-
-        "THÊM SỨC" : Object.freeze({
-
-            css :
-
-                "themsuc"
-
-        }),
-
-        "SỐNG ĐẠO" : Object.freeze({
-
-            css :
-
-                "songdao"
-
-        }),
-
-        "VÀO ĐỜI" : Object.freeze({
-
-            css :
-
-                "vaodoi"
-
-        })
-
+    // Cấu hình CSS cho các khối
+    KHOI: Object.freeze({
+        "KHAI TÂM": { css: "khaitam" },
+        "XƯNG TỘI": { css: "xungtoi" },
+        "THÊM SỨC": { css: "themsuc" },
+        "SỐNG ĐẠO": { css: "songdao" },
+        "VÀO ĐỜI": { css: "vaodoi" }
     }),
 
-    //==================================
-    // AUTH
-    //==================================
-
-    AUTH : {
-
-        TOKEN : null,
-
-        EMAIL : null,
-
-        ROLE : null
-
+    // Thông tin xác thực (Có thể thay đổi nên không dùng Object.freeze toàn cục)
+    AUTH: {
+        TOKEN: null,
+        EMAIL: null,
+        ROLE: null
     }
-
 });
