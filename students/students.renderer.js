@@ -12,17 +12,18 @@
 //==================================================
 
 
-
 "use strict";
 
 const StudentRenderer = (() => {
 
     function renderList(list) {
+        // Sử dụng Utils.id
         const container = Utils.id("studentList");
         container.innerHTML = "";
 
         list.forEach(student => {
-            const card = Utils.create("div");
+            // Sử dụng Utils.create (hoặc document.createElement nếu bạn chưa có hàm Utils.create)
+            const card = Utils.create("div"); 
             card.className = "student-card";
             card.style.borderLeft = `8px solid ${student.mauKhoi || "#1565C0"}`;
             
@@ -41,19 +42,21 @@ const StudentRenderer = (() => {
     }
 
     function openModal(student) {
-        id("modalPhoto").src = student.hinh || "images/no-photo.png";
-        id("modalName").innerText = student.hoten;
-        id("modalInfo").innerHTML = `
+        // Sửa toàn bộ thành Utils.id, Utils.show
+        Utils.id("modalPhoto").src = student.hinh || "images/no-photo.png";
+        Utils.id("modalName").innerText = student.hoten;
+        Utils.id("modalInfo").innerHTML = `
             <div class="info-row"><span>Mã số</span><b>${student.maso}</b></div>
             <div class="info-row"><span>Lớp</span><b>${student.lop}</b></div>
             <div class="info-row"><span>Khối</span><b>${student.khoi}</b></div>
             <div class="info-row"><span>Trạng thái</span><b>${student.trangthai}</b></div>`;
 
-        show(id("studentModal"));
+        Utils.show(Utils.id("studentModal"));
     }
 
     function closeModal() {
-        hide(id("studentModal"));
+        // Sửa thành Utils.hide
+        Utils.hide(Utils.id("studentModal"));
     }
 
     return { renderList, openModal, closeModal };
