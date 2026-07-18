@@ -13,7 +13,7 @@ const CameraController = (() => {
 
     let scanner = null; 
 
-    async function start() {
+    async function camerastart() {
         console.log("Đang thực hiện khởi tạo camera...");
         
         // 1. Khởi tạo đối tượng camera
@@ -35,7 +35,7 @@ const CameraController = (() => {
         }
     }
 
-    return { start };
+    return { camerastart };
 //})();
 
  /*   async function start(loai) {
