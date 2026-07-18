@@ -14,25 +14,22 @@ const AttendanceController = (() => {
         try {
             processing = false;
             
-            console.log("Bước 1: Set Type");
+            Debug.write("Controller", "Bắt đầu start: " + loai);
             AttendanceService.setCurrentType(loai);
             
-            console.log("Bước 2: Show Scanner");
             AttendanceRenderer.showScanner(loai);
             
-            console.log("Bước 3: Delay");
             await new Promise(resolve => setTimeout(resolve, 300));
             
-            console.log("Bước 4: Get Counter");
             const total = await AttendanceService.getTodayCounter();
             AttendanceRenderer.renderTodayCounter(total);
             
-            console.log("Bước 5: Start Camera");
+            Debug.write("Controller", "Đang gọi CameraController.start()");
             await CameraController.start();
             
-            console.log("Khởi tạo thành công!");
+            Debug.write("Controller", "Camera khởi tạo thành công");
         } catch (e) {
-            // Đây là nơi bắt lỗi. Hãy nhìn vào Console để thấy lỗi báo ở Bước mấy
+            Debug.write("Controller-ERROR", e.message);
             console.error("LỖI TẠI START:", e);
             alert("Lỗi: " + e.message);
         }
@@ -42,6 +39,7 @@ const AttendanceController = (() => {
     async function onQRCode(qrText) {
         if (processing) return;
         processing = true;
+        Debug.write("Controller", "Đang xử lý QR...")
         try {
             const result = await AttendanceService.sendAttendance(qrText);
             if (result.success) {
@@ -50,7 +48,7 @@ const AttendanceController = (() => {
             }
             PopupService.show(result);
         } catch (error) {
-            console.error("Lỗi QR:", error);
+            Debug.write("Controller-ERROR", "Lỗi QR: " + error.message);
             processing = false;
             await CameraController.resume();
         }
@@ -62,6 +60,7 @@ const AttendanceController = (() => {
     }
 
     async function backHome() {
+        Debug.write("Controller", "Quay lại trang chủ");
         processing = false;
         AttendanceService.reset();
         await CameraController.stop();
