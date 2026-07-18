@@ -6,16 +6,16 @@
  */
 "use strict";
 
-console.log("File camera.controller.js đang được nạp...");
+Debug.write("File camera.controller.js đang được nạp...");
 
 const CameraController = {
     start: function() {
-        console.log("CameraController đã chạy thành công!");
+        cDebug.write("CameraController đã chạy thành công!");
     }
 };
 
 window.CameraController = CameraController;
-console.log("Đã gán CameraController vào window:", window.CameraController);
+Debug.write("Đã gán CameraController vào window:", window.CameraController);
 
 // 3. Camera Controller: Điều khiển luồng nghiệp vụ
 /*const CameraController = (() => {
