@@ -1,115 +1,34 @@
-//======================================
-// CORE
-// Giáo xứ Phú Hòa
-//======================================
-
 "use strict";
 
 /**
- * ======================================
  * CORE MODULE
- *
- * Quản lý trạng thái của ứng dụng.
- *
- * Chức năng:
- * - State toàn cục
- * - Getter
- * - Setter
- * - Reset State
- *
- * Không chứa business.
- * Không thao tác DOM.
- * ======================================
+ * Quản lý trạng thái toàn cục của ứng dụng (State, Getter, Setter, Reset).
  */
+const Core = (() => {
 
-const Core = (()=>{
-
-    //======================================
-    // STATE
-    //======================================
-
+    // Trạng thái ứng dụng
     const state = {
-
-        //----------------------------------
-        // Attendance
-        //----------------------------------
-
-        loaiDiemDanh : "",
-
-        tongHomNay : 0,
-
-        //----------------------------------
-        // Camera
-        //----------------------------------
-
-        scanner : null,
-
-        dangXuLy : false,
-
-        //----------------------------------
-        // Offline
-        //----------------------------------
-
-        syncing : false
-
+        loaiDiemDanh: "",
+        tongHomNay: 0,
+        scanner: null,
+        dangXuLy: false,
+        syncing: false
     };
 
-    //======================================
-    // GET
-    //======================================
+    // Lấy giá trị state
+    const get = (key) => state[key];
 
-    function get(key){
+    // Cập nhật giá trị state
+    const set = (key, value) => { state[key] = value; };
 
-        return state[key];
-
-    }
-
-    //======================================
-    // SET
-    //======================================
-
-    function set(
-
-        key,
-
-        value
-
-    ){
-
-        state[key] = value;
-
-    }
-
-    //======================================
-    // RESET
-    //======================================
-
-    function reset(){
-
+    // Reset về trạng thái ban đầu
+    const reset = () => {
         state.loaiDiemDanh = "";
-
         state.tongHomNay = 0;
-
         state.scanner = null;
-
         state.dangXuLy = false;
-
         state.syncing = false;
-
-    }
-
-    //======================================
-    // EXPORT
-    //======================================
-
-    return{
-
-        get,
-
-        set,
-
-        reset
-
     };
 
+    return { get, set, reset };
 })();
