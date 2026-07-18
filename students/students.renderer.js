@@ -25,7 +25,7 @@ function renderList(list) {
         const card = create("div");
         card.className = "student-card";
         // Màu viền dựa trên thuộc tính mauKhoi hoặc mặc định
-        card.style.borderLeft = `8px solid ${student.mauKhoi || "#1565C0"}`;
+        card.style.borderLeft = 8px solid ${student.mauKhoi || "#1565C0"};
         
         card.innerHTML = 
             <img class="student-photo" src="${student.hinh || 'images/avatar.png'}">
