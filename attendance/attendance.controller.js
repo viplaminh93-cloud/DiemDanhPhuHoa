@@ -16,15 +16,8 @@ const AttendanceController = (() => {
             
             Debug.write("Controller", "Bắt đầu start: " + loai);
             AttendanceService.setCurrentType(loai);
-
-
-const scannerEl = Utils.id("scannerBox");
-    if (!scannerEl) {
-        Debug.write("LỖI CHÍ MẠNG: Không tìm thấy #scannerBox trong DOM tại thời điểm này!");
-        return;
-    }
-            
-            AttendanceRenderer.showScanner(loai);
+           
+   //         AttendanceRenderer.showScanner(loai);
             
             await new Promise(resolve => setTimeout(resolve, 300));
             
