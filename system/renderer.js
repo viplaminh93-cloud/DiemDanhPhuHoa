@@ -134,7 +134,18 @@ const Renderer = (()=>{
     // SHOW
     //======================================
 
-    function show(elementId){
+show: (id) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("hidden"); // Hoặc el.style.display = 'block';
+    },
+    hide: (id) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden"); // Hoặc el.style.display = 'none';
+    },
+
+    
+
+/*    function show(elementId){
 
 const el = Utils.id(elementId);
     Debug.write("Renderer đang gọi show với ID:", elementId, "và tìm được element:", el);
@@ -142,11 +153,11 @@ const el = Utils.id(elementId);
     Utils.show(el);
 
         
-/*        Utils.show(
+        Utils.show(
 
             Utils.id(elementId)
 
-        ); */
+        ); 
 
     }
 
@@ -162,7 +173,7 @@ const el = Utils.id(elementId);
 
         );
 
-    }
+    }*/
 
     //======================================
     // TOGGLE
