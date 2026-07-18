@@ -7,7 +7,7 @@
 "use strict";
 
 const CameraController = {
-    start: async function() {
+    camerastart: async function() {
         Debug.write("Đang bắt đầu khởi tạo camera...");
         
         // Kiểm tra xem Html5Qrcode đã được load chưa
