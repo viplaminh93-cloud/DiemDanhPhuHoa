@@ -141,7 +141,7 @@ const Renderer = (()=>{
             Utils.id(elementId)
 
         );
-                    Debug.write("Renderer đang gọi show với ID:", elementId, "và tìm được element:", el);
+                    Debug.write("Renderer đang gọi show với ID:", elementId, "và tìm được element:");
 
 
     }
