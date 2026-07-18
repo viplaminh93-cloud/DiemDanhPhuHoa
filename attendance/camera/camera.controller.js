@@ -1,170 +1,72 @@
-//======================================
-// CAMERA CONTROLLER
-// Giáo xứ Phú Hòa
-//======================================
-
+/**
+ * ======================================
+ * CAMERA CONTROLLER
+ * Giáo xứ Phú Hòa
+ * ======================================
+ */
 "use strict";
 
-const CameraController = (()=>{
-
+const CameraController = (() => {
     let scanning = false;
 
-    //----------------------------------
-    // START
-    //----------------------------------
-
-    async function start(){
-
+    /** Bắt đầu quét mã QR */
+    async function start() {
         scanning = true;
-
         window.daQuet = false;
-
         await CameraService.start(onScan);
-
     }
 
-    //----------------------------------
-    // STOP
-    //----------------------------------
-
-    async function stop(){
-
+    /** Dừng quét mã QR */
+    async function stop() {
         scanning = false;
-
         window.daQuet = false;
-
         await CameraService.stop();
-
     }
 
-    //----------------------------------
-    // PAUSE
-    //----------------------------------
-
-    async function pause(){
-
+    /** Tạm dừng camera */
+    async function pause() {
         CameraService.pause();
-
     }
 
-    //----------------------------------
-    // RESUME
-    //----------------------------------
-
-    async function resume(){
-
-        if(!scanning){
-
-            return;
-
-        }
-
+    /** Tiếp tục camera nếu đang ở trạng thái quét */
+    async function resume() {
+        if (!scanning) return;
         window.daQuet = false;
-
         CameraService.resume();
-
     }
 
-    //----------------------------------
-    // RESTART
-    //----------------------------------
-
-    async function restart(){
-
+    /** Khởi động lại luồng camera */
+    async function restart() {
         await stop();
-
         await Utils.sleep(150);
-
         await start();
-
     }
 
-    //----------------------------------
-    // QR SUCCESS
-    //----------------------------------
-
-    async function onScan(qrText){
-
-        if(window.daQuet){
-
-            return;
-
-        }
+    /** Xử lý khi quét thành công */
+    async function onScan(qrText) {
+        if (window.daQuet) return;
 
         window.daQuet = true;
-
         await pause();
 
-        if(navigator.vibrate){
+        if (navigator.vibrate) navigator.vibrate(100);
 
-            navigator.vibrate(100);
-
-        }
-
-        try{
-
+        try {
             await AttendanceController.onQRCode(qrText);
-
-        }
-
-        catch(error){
-
+        } catch (error) {
             console.error(error);
-
             window.daQuet = false;
-
             await resume();
-
         }
-
     }
 
-    //----------------------------------
-    // TAB ACTIVE
-    //----------------------------------
-
-    document.addEventListener(
-
-        "visibilitychange",
-
-        ()=>{
-
-            if(document.hidden){
-
-                return;
-
-            }
-
-            if(
-
-                scanning &&
-
-                CameraService.exists() &&
-
-                CameraService.isPaused() &&
-
-                !window.daQuet
-
-            ){
-
-                CameraService.resume();
-
-            }
-
+    /** Lắng nghe sự kiện chuyển tab để tự động resume camera */
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) return;
+        if (scanning && CameraService.exists() && CameraService.isPaused() && !window.daQuet) {
+            CameraService.resume();
         }
+    });
 
-    );
-
-    //----------------------------------
-
-    return{
-
-        start,
-        stop,
-        pause,
-        resume,
-        restart
-
-    };
-
+    return { start, stop, pause, resume, restart };
 })();
