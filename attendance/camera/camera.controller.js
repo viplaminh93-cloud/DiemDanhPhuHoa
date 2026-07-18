@@ -10,10 +10,31 @@
 const CameraController = (() => {
     let scanning = false;
 
-    async function start() {
-        scanning = true;
-        window.daQuet = false;
-        await CameraService.start(onScan);
+    async function start(loai) {
+        try {
+            // 1. Kiểm tra thiết bị (Chỉ cho phép iOS hoặc Android)
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            
+            if (!isMobile) {
+                console.warn("Đang chạy trên máy tính, bỏ qua camera.");
+                alert("Chức năng quét QR chỉ dành cho điện thoại (iOS/Android). Vui lòng sử dụng điện thoại để điểm danh.");
+                return;
+            }
+
+            processing = false;
+            AttendanceService.setCurrentType(loai);
+            AttendanceRenderer.showScanner(loai);
+            
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            const total = await AttendanceService.getTodayCounter();
+            AttendanceRenderer.renderTodayCounter(total);
+            
+            await CameraController.start();
+        } catch (e) {
+            console.error("Lỗi khởi tạo:", e);
+            alert("Lỗi camera: " + e.message);
+        }
     }
 
     async function stop() {
