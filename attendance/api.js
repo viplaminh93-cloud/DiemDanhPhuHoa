@@ -14,7 +14,7 @@ const AttendanceAPI = (() => {
         const loai = AttendanceService.getCurrentType();
         Debug.write("DEBUG - Request data:", { maso, loai }); // XEM LOG NÀY TRONG F12
 
-        if (!loai) Debug.warn("CẢNH BÁO: Loại điểm danh đang rỗng!");
+        if (!loai) Debug.write("CẢNH BÁO: Loại điểm danh đang rỗng!");
         
         return {
             action: "attendance",
