@@ -22,7 +22,7 @@ const StudentRenderer = (() => {
         container.innerHTML = "";
 
         list.forEach(student => {
-            const card = create("div");
+            const card = Utils.create("div");
             card.className = "student-card";
             card.style.borderLeft = `8px solid ${student.mauKhoi || "#1565C0"}`;
             
