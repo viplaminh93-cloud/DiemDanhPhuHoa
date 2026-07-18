@@ -18,7 +18,7 @@
 const StudentRenderer = (() => {
 
     function renderList(list) {
-        const container = id("studentList");
+        const container = Utils.id("studentList");
         container.innerHTML = "";
 
         list.forEach(student => {
