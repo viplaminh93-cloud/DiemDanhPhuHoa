@@ -54,26 +54,20 @@ const CameraController = (() => {
 
     // Xử lý nội dung QR
     async function onScan(qrText) {
-        if (window.daQuet) return; // Chặn quét trùng lặp
-    
+        if (window.daQuet) return;
         window.daQuet = true;
-        
-        // 1. TẠM DỪNG CAMERA NGAY LẬP TỨC
-        CameraService.pause(); 
-        Debug.write("Controller", "Đã tạm dừng camera");
+    
+        await CameraController.stop(); 
+        Debug.write("Controller", "Camera đã dừng hẳn sau khi quét");
     
         if (navigator.vibrate) navigator.vibrate(100);
     
         try {
-            // 2. Gọi logic xử lý của AttendanceController
             await AttendanceController.onQRCode(qrText);
-            
-            // Note: Nếu bạn muốn sau khi popup hiện lên thì mới quét tiếp, 
-            // bạn cần logic để Resume từ PopupService hoặc từ chính hàm xử lý QR
         } catch (error) {
             console.error("Lỗi xử lý QR:", error);
             window.daQuet = false;
-            CameraService.resume(); // Quét lại nếu lỗi
+            await CameraController.start();
         }
     }
 
