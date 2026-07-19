@@ -9,36 +9,23 @@ const ReportService = (()=>{
 
     //----------------------------------
     // LOAD
+       /** 
+       * Lấy dữ liệu báo cáo 
+       * Tận dụng Auth.post để tự động xử lý token
+       */
     //----------------------------------
 
+   
     async function load() {
-        const token = Auth.getToken();
-        const body = { action: "report", token };
-    
-        const response = await fetch(Config.API.URL, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify(body)
-        });
-    
-        // --- BẮT LỖI TẠI ĐÂY ---
-        const text = await response.text(); // Đọc dạng chữ trước
-        console.log("Phản hồi thô từ server:", text);
-        
         try {
-            return JSON.parse(text);
-        } catch (e) {
-            console.error("Lỗi: Server không trả về JSON hợp lệ:", text);
-            return { success: false, message: "Server trả về dữ liệu lỗi." };
+            // Auth.post tự động thêm token vào body
+            const response = await Auth.post({ action: "report" });
+            return response;
+        } catch (error) {
+            console.error("Lỗi khi gọi ReportService:", error);
+            return { success: false, message: "Không thể kết nối đến máy chủ." };
         }
     }
 
-    //----------------------------------
-
-    return{
-
-        load
-
-    };
-
+    return { load };
 })();
