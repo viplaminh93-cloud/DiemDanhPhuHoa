@@ -67,3 +67,25 @@ const Auth = (() => {
 
     return { login, logout, post, getToken, saveToken, requireLogin, isLogin, getEmail, getRole, getName };
 })();
+
+
+
+
+
+
+
+window.addEventListener("DOMContentLoaded", async () => {
+    // 1. Kiểm tra xem có Token không
+    const token = localStorage.getItem("token"); // Hoặc cách bạn đang lưu token
+    
+    // 2. Nếu không có token, chuyển hướng về trang đăng nhập
+    if (!token && window.location.pathname !== "/login.html") {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // 3. Nếu có token, chuyển hướng vào Dashboard (nếu đang ở trang login)
+    if (token && window.location.pathname.includes("login.html")) {
+        window.location.href = "dashboard.html";
+    }
+});
