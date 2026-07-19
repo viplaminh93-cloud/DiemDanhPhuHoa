@@ -4,7 +4,19 @@
 "use strict";
 
 // Chỉ để 1 lần duy nhất lắng nghe sự kiện trang tải
+
+
+
 window.addEventListener("load", () => {
+    console.log("=== APP START ==="); 
+    console.log(Config.APP.PARISH, Config.APP.NAME, "Version:", Version.VERSION); 
+    initializePWA(); // Khởi động đồng bộ offline 
+    if (typeof OfflineService !== "undefined") { 
+        OfflineService.renderQueueBadge(); 
+        OfflineService.sync(); } });
+
+
+/*window.addEventListener("load", () => {       //đoạn này mới mà ko sài được :(((
     initializePWA();
     
     // Khởi động đồng bộ offline
@@ -13,7 +25,7 @@ window.addEventListener("load", () => {
         OfflineService.sync(); 
     }
     // SERVICE WORKER REGISTRATION
-/*    if ("serviceWorker" in navigator) {
+    if ("serviceWorker" in navigator) {
         await navigator.serviceWorker.register("/service-worker.js");
     } */
 
