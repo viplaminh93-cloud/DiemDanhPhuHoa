@@ -48,6 +48,10 @@ const APP_FILES = [
     "./attendance/popup/popup.renderer.js",
     "./attendance/popup/popup.service.js",
 
+    "./report/report.controller.js",
+    "./report/report.service.js",
+    "./report/report.renderer.js",
+    
     "./system/version.js",
     "./system/config.js",
     "./system/constants.js",
