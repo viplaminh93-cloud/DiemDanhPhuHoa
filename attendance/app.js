@@ -14,7 +14,7 @@ window.addEventListener("load", () => {
     }
     // SERVICE WORKER REGISTRATION
     if ("serviceWorker" in navigator) {
-        await navigator.serviceWorker.register("/QuanLyTNTT/service-worker.js");
+        await navigator.serviceWorker.register("/service-worker.js");
     }
 });
 
