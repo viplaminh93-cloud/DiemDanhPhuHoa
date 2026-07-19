@@ -29,7 +29,6 @@ const PopupRenderer = (() => {
     
         Renderer.image("overlayPhoto", s.photo || s.hinh || "../icons/avatar.png");
         Renderer.text("overlayName", s.hoten || "Không tìm thấy tên");
-        Renderer.text("overlayKhoi", s.khoi || "");
         Renderer.text("overlayClass", s.lop || "");
         Renderer.text("overlayCode", s.maso || "");
         Renderer.text("overlayTime", data.time || Utils.formatTime());
