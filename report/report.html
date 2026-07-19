@@ -94,23 +94,11 @@ window.addEventListener(
 
         Utils.id("btnRefresh")
 
-            .addEventListener(
-
-                "click",
-
-                ReportController.load
-
-            );
+            .addEventListener("click", ReportController.load);
 
         Utils.id("btnBack")
 
-            .addEventListener(
-
-                "click",
-
-                ()=>history.back()
-
-            );
+            .addEventListener("click", ()=>history.back());
 
         ReportController.load();
 
