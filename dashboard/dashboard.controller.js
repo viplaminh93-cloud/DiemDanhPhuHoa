@@ -90,16 +90,23 @@ function bindEvents(){
 
     );
 
-    Utils.id("btnReports").addEventListener("click", () => {
+    bind(
+
+        "btnReport",
+
+        openReport
+
+    );
+    
+/*    Utils.id("btnReports").addEventListener("click", () => {
         const role = Auth.getRole();
         if (role !== "ADMIN" && role !== "QUAN_LY") {
                 alert("Bạn không có quyền truy cập trang này!");
                 return;
         }
-//        location.href = "../report/report.html";
         alert("Chức năng đang phát triển.");
         
-    });
+    });*/
     
 
     bind(
@@ -183,9 +190,7 @@ window.addEventListener("load", init);
 
 function openAttendance(){
 
-    location.href =
-
-        "../attendance/attendance.html";
+    location.href = "../attendance/attendance.html";
 
 }
 
@@ -197,9 +202,7 @@ function openAttendance(){
 
 function openStudents(){
 
-    location.href =
-
-        "../students/students.html";
+    location.href = "../students/students.html";
 
 }
 
@@ -211,16 +214,8 @@ function openStudents(){
 
 function openReport(){
 
-    //----------------------------------
-    // Tạm thời
-    //----------------------------------
 
-    Utils.id("btnReport")
-        .addEventListener(
-            "click",
-            ()=>{
-                location.href="../report/report.html";
-            }
+    location.href="../report/report.html";
         );
 
 /**
