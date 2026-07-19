@@ -15,62 +15,23 @@ const ReportController = (()=>{
 
         try{
 
-            Renderer.text(
+            Renderer.text("reportDate", Utils.formatDate());
 
-                "reportDate",
+            const data = await ReportService.load();
 
-                Utils.formatDate()
-
-            );
-
-            const data =
-
-                await ReportService.load();
-
-            if(
-
-                !data ||
-
-                data.success===false
-
-            ){
-
-                PopupService.error(
-
-                    data?.message ||
-
-                    "Không tải được báo cáo."
-
-                );
-
+            if(!data || data.success===false){
+                PopupService.error(data?.message || "Không tải được báo cáo.");
                 return;
-
             }
 
-            ReportRenderer.renderSummary(
+            ReportRenderer.renderSummary(data);
 
-                data
-
-            );
-
-            ReportRenderer.renderList(
-
-                data.list || []
-
-            );
-
+            ReportRenderer.renderList(data.list || []);
         }
 
         catch(error){
-
             Debug.write(error);
-
-            PopupService.error(
-
-                "Lỗi tải báo cáo."
-
-            );
-
+            PopupService.error("Lỗi tải báo cáo.");
         }
 
     }
@@ -79,20 +40,10 @@ const ReportController = (()=>{
     // REFRESH
     //----------------------------------
 
-    async function refresh(){
-
-        await load();
-
-    }
+    async function refresh() {await load();}
 
     //----------------------------------
 
-    return{
-
-        load,
-
-        refresh
-
-    };
+    return{load, refresh};
 
 })();
