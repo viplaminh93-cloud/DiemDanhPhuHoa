@@ -16,16 +16,16 @@ const ReportController = (()=>{
         try{
 
             Renderer.text("reportDate", Utils.formatDate());
-
+console.log("lỗi 1");
             const data = await ReportService.load();
-
+console.log("lỗi 2");
             if(!data || data.success===false){
                 alert (data?.message || "Không tải được báo cáo.");
                 return;
             }
-
+console.log("lỗi 3");
             ReportRenderer.renderSummary(data);
-
+console.log("lỗi 4");
             ReportRenderer.renderList(data.list || []);
         }
 
