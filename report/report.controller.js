@@ -38,8 +38,8 @@ const ReportController = (() => {
     }
 
     async function onScanResult(maso) {
-        if (!isLookingUp) return AttendanceService.send(maso);
-
+        if (!isLookingUp) return; 
+    
         const res = await Auth.post({ action: "studentHistory", maso: maso });
         if (res?.success && res.list?.length > 0) {
             renderHistory(res.list);
