@@ -5,21 +5,6 @@
 
 "use strict";
 
-/**
- * ======================================
- * VERSION MODULE
- *
- * Quản lý thông tin phiên bản ứng dụng.
- *
- * Chức năng:
- * - Phiên bản hiện tại
- * - Tên Cache Service Worker
- *
- * Không chứa business.
- * Không thao tác DOM.
- * ======================================
- */
-
 const Version = (()=>{
 
     //======================================
@@ -32,20 +17,10 @@ const Version = (()=>{
     // CACHE NAME
     //======================================
 
-    const CACHE_NAME =
-
-        "phuhoa-" +
-
-        VERSION;
+    const CACHE_NAME = "phuhoa-" + VERSION;
 
     //======================================
 
-    return Object.freeze({
-
-        VERSION,
-
-        CACHE_NAME
-
-    });
+    return Object.freeze({VERSION, CACHE_NAME});
 
 })();
