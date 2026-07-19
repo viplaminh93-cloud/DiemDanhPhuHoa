@@ -215,13 +215,13 @@ function openReport(){
     // Tạm thời
     //----------------------------------
 
-    alert(
-
-        "Chức năng đang phát triển."
-
-    );
-
-}
+    Utils.id("btnReport")
+        .addEventListener(
+            "click",
+            ()=>{
+                location.href="../report/report.html";
+            }
+        );
 
 /**
  * ======================================
