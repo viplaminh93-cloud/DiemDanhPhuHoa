@@ -7,7 +7,7 @@
 
     "lang": "vi",
 
-    "start_url": "/attendance/attendance.html",
+    "start_url": "/login/login.html",
 
     "scope": "/",
 
