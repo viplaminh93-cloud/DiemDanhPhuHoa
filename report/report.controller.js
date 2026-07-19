@@ -20,7 +20,7 @@ const ReportController = (()=>{
             const data = await ReportService.load();
 
             if(!data || data.success===false){
-                PopupService.error(data?.message || "Không tải được báo cáo.");
+                alert (data?.message || "Không tải được báo cáo.");
                 return;
             }
 
