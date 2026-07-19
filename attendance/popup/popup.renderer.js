@@ -27,7 +27,7 @@ const PopupRenderer = (() => {
         // Nếu data có chứa thông tin học sinh (khi success là true hoặc có object student)
         const s = data.student || data; 
     
-        Renderer.image("overlayPhoto", s.photo || s.hinh || "../icons/avatar.png");
+        Renderer.image("overlayPhoto", s.photo || s.hinh || "/QuanLyTNTT/icons/avatar.png");
         Renderer.text("overlayName", s.hoten || "Không tìm thấy tên");
         Renderer.text("overlayClass", s.lop || "");
         Renderer.text("overlayCode", s.maso || "");
