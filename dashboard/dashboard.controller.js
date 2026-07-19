@@ -16,13 +16,7 @@
  * ======================================
  */
 
-window.addEventListener(
-
-    "load",
-
-    init
-
-);
+window.addEventListener("load", init);
 
 /**
  * ======================================
@@ -73,30 +67,9 @@ function init(){
  */
 
 function bindEvents(){
-
-    bind(
-
-        "btnAttendance",
-
-        openAttendance
-
-    );
-
-    bind(
-
-        "btnStudents",
-
-        openStudents
-
-    );
-
-    bind(
-
-        "btnReport",
-
-        openReport
-
-    );
+    bind("btnAttendance", openAttendance);
+    bind("btnStudents", openStudents);
+    bind("btnReport", openReport);
     
 /*    Utils.id("btnReports").addEventListener("click", () => {
         const role = Auth.getRole();
@@ -109,13 +82,7 @@ function bindEvents(){
     });*/
     
 
-    bind(
-
-        "btnLogout",
-
-        logout
-
-    );
+    bind("btnLogout", logout);
 
 }
 
