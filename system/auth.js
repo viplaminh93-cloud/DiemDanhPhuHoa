@@ -67,25 +67,3 @@ const Auth = (() => {
 
     return { login, logout, post, getToken, saveToken, requireLogin, isLogin, getEmail, getRole, getName };
 })();
-
-
-
-
-
-
-
-window.addEventListener("DOMContentLoaded", async () => {
-    // 1. Kiểm tra xem có Token không
-    const token = localStorage.getItem("token"); // Hoặc cách bạn đang lưu token
-    
-    // 2. Nếu không có token, chuyển hướng về trang đăng nhập
-    if (!token && window.location.pathname !== "/QuanLyTNTT/login/login.html") {
-        window.location.href = "/QuanLyTNTT/login/login.html";
-        return;
-    }
-
-    // 3. Nếu có token, chuyển hướng vào Dashboard (nếu đang ở trang login)
-    if (token && window.location.pathname.includes("/QuanLyTNTT/login/login.html")) {
-        window.location.href = "/QuanLyTNTT/dashboard/dashboard.html";
-    }
-});
