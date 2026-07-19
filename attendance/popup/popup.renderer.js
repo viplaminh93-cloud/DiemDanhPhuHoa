@@ -25,10 +25,10 @@ const PopupRenderer = (() => {
     // Render thông tin học sinh
     function renderStudent(data) {
         Renderer.image("overlayPhoto", data.photo || "../icons/avatar.png");
-        Renderer.text("overlayName", data.hoten || "");
+        Renderer.text("overlayName", data.hoten || "Không thấy tên");
         Renderer.text("overlayKhoi", data.khoi || "");
         Renderer.text("overlayClass", data.lop || "");
-        Renderer.text("overlayCode", data.maso || "");
+        Renderer.text("overlayCode", data.maso || "Không có mã số");
         Renderer.text("overlayTime", data.time || Utils.formatTime());
     }
 
