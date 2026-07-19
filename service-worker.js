@@ -66,7 +66,7 @@ const APP_FILES = [
     "./system/utils.js",
     "./system/debug.js",
     "./system/renderer.js",
-    "./system/auth.js"
+    "./system/auth.js",
 
     //----------------------------------
     // Icons
@@ -74,7 +74,7 @@ const APP_FILES = [
     "./icons/icon-192.png",
     "./icons/icon-512.png",
     "./icons/apple-touch-icon.png",
-    "./icons/favicon.ico",
+    "./icons/favicon.ico"
 
 ];
 
