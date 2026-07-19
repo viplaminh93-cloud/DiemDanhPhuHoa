@@ -20,7 +20,7 @@ const AttendanceAPI = (() => {
             action: "attendance",
             maso: String(maso).trim().toUpperCase(),
             loai: AttendanceService.getCurrentType(),
-            token: AppState.getToken(),
+            token: Auth.getToken(),
             requestId: Date.now() + "_" + Math.random().toString(36).substring(2, 8),
             time: Date.now()
         };
