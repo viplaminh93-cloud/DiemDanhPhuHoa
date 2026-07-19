@@ -26,7 +26,7 @@ const OfflineService = (() => {
     const hasQueue = () => length() > 0;
 
     // --- Sync Logic ---
-    async function sync() {
+/*    async function sync() {
         if (!navigator.onLine || !hasQueue()) return;
 
         while (hasQueue()) {
@@ -35,6 +35,33 @@ const OfflineService = (() => {
                 const res = await AttendanceAPI.resend(req);
                 if (res.success) pop(); else break;
             } catch (e) { console.error(e); break; }
+        }
+    }*/
+
+    async function sync() {
+        if (!navigator.onLine || !hasQueue()) return;
+    
+        while (hasQueue()) {
+            const req = peek();
+            
+            // CẬP NHẬT LẠI TOKEN MỚI NHẤT VÀO REQUEST TRƯỚC KHI GỬI
+            // Đề phòng trường hợp token cũ trong hàng đợi đã hết hạn hoặc bị trống
+            req.token = Auth.getToken(); 
+            
+            try {
+                console.log("Đang đồng bộ:", req);
+                const res = await AttendanceAPI.resend(req);
+                
+                if (res.success) {
+                    pop(); // Xóa khỏi hàng đợi nếu thành công
+                } else {
+                    console.warn("Sync thất bại:", res.message);
+                    break; // Dừng lại nếu Server trả về lỗi logic (để tránh lỗi vòng lặp)
+                }
+            } catch (e) { 
+                console.error("Lỗi kết nối khi sync:", e); 
+                break; 
+            }
         }
     }
 
