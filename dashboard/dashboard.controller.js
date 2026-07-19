@@ -161,3 +161,46 @@ function openReport() {location.href="../report/report.html";}
  */
 
 function logout() {Auth.logout();}
+
+
+
+
+
+
+
+
+
+//======================================
+// PWA INSTALLATION
+//======================================
+let installPrompt = null;
+
+// Lắng nghe sự kiện trình duyệt gợi ý cài đặt PWA
+window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    installPrompt = event;
+    Renderer.show("installBtn"); // Hiển thị nút cài đặt
+});
+
+/**
+ * Gắn sự kiện click cho nút cài đặt
+ */
+function initializePWA() {
+    const button = Utils.id("installBtn");
+    if (button) {
+        button.addEventListener("click", installApplication);
+    }
+}
+
+/**
+ * Thực hiện prompt cài đặt PWA
+ */
+async function installApplication() {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+        Renderer.hide("installBtn");
+    }
+    installPrompt = null;
+}
