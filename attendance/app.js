@@ -3,10 +3,27 @@
 //======================================
 "use strict";
 
-// Đợi trang tải xong để khởi tạo app
-window.addEventListener("load", initializeAttendance);
+// Chỉ để 1 lần duy nhất lắng nghe sự kiện trang tải
+window.addEventListener("load", () => {
+    console.log("=== APP START ===");
+    console.log(Config.APP.PARISH, Config.APP.NAME, "Version:", Version.VERSION);
+    
+    initializePWA();
+    
+    // Khởi động đồng bộ offline
+    if (typeof OfflineService !== "undefined") {
+        OfflineService.renderQueueBadge();
+        OfflineService.sync(); 
+    }
+});
 
-
+// Lắng nghe trạng thái mạng (chỉ cần ở đây, không cần trong offline.js nữa)
+window.addEventListener("online", () => {
+    console.log("Network online. Syncing...");
+    if (typeof OfflineService !== "undefined") {
+        OfflineService.sync();
+    }
+});
 
 /**
  * Khởi tạo ứng dụng: Log thông tin, render queue và PWA
