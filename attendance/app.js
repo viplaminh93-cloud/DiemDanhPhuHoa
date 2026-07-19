@@ -13,10 +13,18 @@ window.addEventListener("load", () => {
         OfflineService.sync(); 
     }
     // SERVICE WORKER REGISTRATION
-    if ("serviceWorker" in navigator) {
+/*    if ("serviceWorker" in navigator) {
         await navigator.serviceWorker.register("/service-worker.js");
-    }
+    } */
+
+    if ("serviceWorker" in navigator) { 
+        window.addEventListener("load", () => { 
+            navigator.serviceWorker 
+            .register("../service-worker.js") 
+            .then(reg => console.log("Service Worker OK", reg)) 
+            .catch(console.error); }); }
 });
+
 
 // Lắng nghe trạng thái mạng (chỉ cần ở đây, không cần trong offline.js nữa)
 window.addEventListener("online", () => {
