@@ -7,9 +7,9 @@
 
     "lang": "vi",
 
-    "start_url": "QuanLyTNTT/login/login.html",
+    "start_url": "/QuanLyTNTT/login/login.html",
 
-    "scope": "QuanLyTNTT/",
+    "scope": "/QuanLyTNTT/",
 
     "display": "standalone",
 
