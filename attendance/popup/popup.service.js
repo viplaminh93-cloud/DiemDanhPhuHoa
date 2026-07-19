@@ -9,6 +9,7 @@ const PopupService = (() => {
 
     // Hiển thị popup với dữ liệu trả về
     function show(data) {
+        Debug.write("DEBUG POPUP DATA:", data);
         showing = true;
         PopupRenderer.reset();
         PopupRenderer.renderTitle(data);
