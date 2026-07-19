@@ -3,261 +3,47 @@ REPORT
 Giáo xứ Phú Hòa
 ======================================*/
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+/* Variables */
+:root {
+    --primary: #1565C0;
+    --bg: #f4f6f9;
+    --card: #fff;
+    --text: #222;
+    --subtext: #666;
 }
 
-body{
-
-    background:#f4f6f9;
-
-    color:#222;
-
-}
-
-.container{
-
-    width:100%;
-
-    max-width:900px;
-
-    margin:auto;
-
-    padding:20px;
-
-}
-
-.card{
-
-    background:#fff;
-
-    border-radius:16px;
-
-    padding:20px;
-
-    box-shadow:0 4px 16px rgba(0,0,0,.12);
-
-}
-
-h1{
-
-    text-align:center;
-
-    color:#1565C0;
-
-    margin-bottom:10px;
-
-}
-
-.report-date{
-
-    text-align:center;
-
-    font-size:15px;
-
-    color:#666;
-
-    margin-bottom:20px;
-
-}
-
-.summary{
-
-    display:flex;
-
-    gap:12px;
-
-    margin-bottom:20px;
-
-}
-
-.summary-item{
-
-    flex:1;
-
-    background:#F5F7FA;
-
-    border-radius:12px;
-
-    padding:16px;
-
-    text-align:center;
-
-}
-
-.summary-title{
-
-    color:#666;
-
-    font-size:14px;
-
-    margin-bottom:8px;
-
-}
-
-.summary-value{
-
-    font-size:32px;
-
-    font-weight:bold;
-
-    color:#1565C0;
-
-}
-
-.report-list{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-    margin-bottom:20px;
-
-}
-
-.report-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:12px;
-
-    border-radius:10px;
-
-    background:#FAFAFA;
-
-    border:1px solid #EEE;
-
-}
-
-.report-left{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:4px;
-
-}
-
-.report-name{
-
-    font-weight:bold;
-
-    font-size:16px;
-
-}
-
-.report-class{
-
-    font-size:13px;
-
-    color:#666;
-
-}
-
-.report-right{
-
-    text-align:right;
-
-}
-
-.report-type{
-
-    font-weight:bold;
-
-    color:#1565C0;
-
-    margin-bottom:4px;
-
-}
-
-.report-time{
-
-    font-size:13px;
-
-    color:#777;
-
-}
-
-.btn{
-
-    width:100%;
-
-    padding:14px;
-
-    border:none;
-
-    border-radius:10px;
-
-    font-size:16px;
-
-    cursor:pointer;
-
-    margin-top:10px;
-
-}
-
-.btnBlue{
-
-    background:#1565C0;
-
-    color:#FFF;
-
-}
-
-.btnBlue:active{
-
-    transform:scale(.98);
-
-}
-
-.back{
-
-    background:#607d8b;
-
-    color:#FFF;
-
-}
-
-.hidden{
-
-    display:none!important;
-
-}
-
-@media(max-width:700px){
-
-.summary{
-
-    flex-direction:column;
-
-}
-
-.report-row{
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    gap:8px;
-
-}
-
-.report-right{
-
-    width:100%;
-
-    text-align:left;
-
-}
-
+/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background: var(--bg); color: var(--text); }
+.container { width: 100%; max-width: 900px; margin: auto; padding: 20px; }
+
+/* Card & Typography */
+.card { background: var(--card); border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+h1 { text-align: center; color: var(--primary); margin-bottom: 10px; }
+.report-date { text-align: center; font-size: 15px; color: var(--subtext); margin-bottom: 20px; }
+
+/* Summary */
+.summary { display: flex; gap: 12px; margin-bottom: 20px; }
+.summary-item { flex: 1; background: #F5F7FA; border-radius: 12px; padding: 16px; text-align: center; }
+.summary-title { color: var(--subtext); font-size: 14px; margin-bottom: 8px; }
+.summary-value { font-size: 32px; font-weight: bold; color: var(--primary); }
+
+/* List */
+.report-list { display: flex; flex-direction: column; gap: 10px; }
+.report-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 10px; background: #FAFAFA; border: 1px solid #EEE; }
+.report-name { font-weight: bold; font-size: 16px; }
+.report-class, .report-time { font-size: 13px; color: var(--subtext); }
+.report-type { font-weight: bold; color: var(--primary); }
+
+/* Buttons */
+.btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+.btnBlue { background: var(--primary); color: #FFF; }
+.back { background: #607d8b; color: #FFF; }
+.btnBlue:active { transform: scale(.98); }
+
+/* Utilities & Responsive */
+.hidden { display: none !important; }
+@media(max-width: 700px) {
+    .summary { flex-direction: column; }
+    .report-row { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
