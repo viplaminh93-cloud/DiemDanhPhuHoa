@@ -14,9 +14,11 @@ window.addEventListener("load", initStudents);
 /**
  * Khởi tạo dữ liệu: Tải từ server và hiển thị toàn bộ danh sách
  */
-async function initStudents() {
-    await StudentService.load();
-    StudentRenderer.renderList(StudentService.getAll());
+async function initStudents() {  
+    if (typeof loadUser === 'function') loadUser(); 
+    const list = await StudentService.getStudentsWithStats();
+    // Render
+    StudentRenderer.renderList(list);
 }
 
 // Lắng nghe sự kiện người dùng nhập liệu vào ô tìm kiếm
@@ -43,15 +45,3 @@ Utils.id("studentModal").addEventListener("click", e => {
         StudentRenderer.closeModal();
     }
 });
-
-
-async function init() {
-    if (!Auth.requireLogin()) return;
-    loadUser(); // (Nếu có hàm này)
-
-    // Tải dữ liệu học sinh + thống kê song song
-    const list = await StudentService.getStudentsWithStats();
-    
-    // Đẩy dữ liệu sang Renderer
-    StudentRenderer.renderList(list);
-}
