@@ -70,5 +70,27 @@ const AttendanceController = (() => {
         AttendanceRenderer.showHome();
     }
 
-    return { start, onQRCode, closePopup, backHome };
+    // Khi bấm nút DỰ LỄ ở màn hình chính
+    function startLe() {
+        Utils.id("homeBox").classList.add("hidden");
+        Utils.id("selection-layer").classList.remove("hidden");
+    }
+
+    // Khi người dùng chọn Lễ 1, 2 hoặc Chiều
+    function selectLe(type) {
+        AttendanceService.setCurrentType(type);
+        Utils.id("selection-layer").classList.add("hidden");
+        Utils.id("scannerBox").classList.remove("hidden");
+        AttendanceController.start(type); 
+    }
+
+    // Khi bấm nút GIÁO LÝ
+    function startGiaoLy() {
+        AttendanceService.setCurrentType("Giáo lý");
+        Utils.id("homeBox").classList.add("hidden");
+        Utils.id("scannerBox").classList.remove("hidden");
+        AttendanceController.start("Giáo lý"); 
+    }
+
+    return { start, onQRCode, closePopup, backHome, startLe, selectLe, startGiaoLy };
 })();
