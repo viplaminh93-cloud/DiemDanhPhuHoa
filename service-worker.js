@@ -5,21 +5,8 @@
 
 "use strict";
 
-/**
- * ======================================
- * SERVICE WORKER
- *
- * Chức năng:
- * - Cache App Shell
- * - Offline First
- * - Version Cache
- *
- * Không chứa business.
- * ======================================
- */
 
 const CACHE_VERSION = "1.0.0";
-
 const CACHE_NAME = "phuhoa-" + CACHE_VERSION;
 
 
@@ -84,43 +71,22 @@ const APP_FILES = [
 //======================================
 
 self.addEventListener("install", event => {
-
     event.waitUntil(
-
         caches.open(CACHE_NAME).then(async cache => {
-
             for (const file of APP_FILES) {
-
                 try {
-
                     const response = await fetch(file);
-
-                    if (!response.ok) {
-
-                        console.error("404:", file);
-
+                    if (!response.ok) {console.error("404:", file);
                         continue;
-
                     }
-
                     await cache.put(file, response.clone());
-
-                }
-
-                catch (e) {
-
+                } catch (e) {
                     console.error("CACHE FAIL:", file, e);
-
                 }
-
             }
-
         })
-
     );
-
     self.skipWaiting();
-
 });
 
 
