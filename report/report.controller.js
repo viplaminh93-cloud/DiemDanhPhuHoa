@@ -108,19 +108,32 @@ const ReportController = (() => {
     // Hàm lọc dữ liệu
     function filter() {
         const nameQuery = Utils.id("filterName").value.toLowerCase();
-        const dateQuery = Utils.id("filterDate").value; // Format: YYYY-MM-DD
-
-        const filtered = allDataList.filter(item => {
-            // Lọc theo tên
-            const matchName = item.hoten.toLowerCase().includes(nameQuery);
-            
-            // Lọc theo ngày (item.ngay cần được định dạng khớp với input date)
-            // Giả sử item.ngay có định dạng DD/MM/YYYY
-            const matchDate = dateQuery ? convertToDDMMYYYY(dateQuery) === item.ngay : true;
-
-            return matchName && matchDate;
+        const dateQuery = Utils.id("filterDate").value;
+        const compareType = Utils.id("compareType").value;
+        const threshold = parseInt(Utils.id("threshold").value) || 0;
+    
+        // 1. Bước trung gian: Nhóm dữ liệu theo người (theo tên hoặc maso)
+        const stats = {};
+        allDataList.forEach(item => {
+            if (!stats[item.maso]) stats[item.maso] = { ...item, count: 0 };
+            stats[item.maso].count++;
         });
-
+    
+        // 2. Lọc
+        const filtered = allDataList.filter(item => {
+            const matchName = item.hoten.toLowerCase().includes(nameQuery);
+            const matchDate = dateQuery ? convertToDDMMYYYY(dateQuery) === item.ngay : true;
+            
+            // Lọc số buổi
+            let matchCount = true;
+            if (compareType !== "none" && threshold > 0) {
+                const count = stats[item.maso].count;
+                matchCount = (compareType === "duoi") ? count < threshold : count > threshold;
+            }
+    
+            return matchName && matchDate && matchCount;
+        });
+    
         renderData(filtered);
     }
 
@@ -128,11 +141,6 @@ const ReportController = (() => {
         ReportRenderer.renderList(list);
     }
 
-    function convertToDDMMYYYY(dateStr) {
-        const [y, m, d] = dateStr.split('-');
-        return `${d}/${m}/${y}`;
-    }
 
-
-    return { load, startLookup, onScanResult, closeResult, backHome, filter, renderData, convertToDDMMYYYY };
+    return { load, startLookup, onScanResult, closeResult, backHome, filter, renderData };
 })();
