@@ -90,5 +90,49 @@ const ReportController = (() => {
         history.back(); 
     }
 
-    return { load, startLookup, onScanResult, closeResult, backHome };
+    const ReportController = (() => {
+    let allDataList = []; // Lưu danh sách gốc ở đây
+
+    async function load() {
+        try {
+            Renderer.text("reportDate", Utils.formatDate());
+            const data = await ReportService.load();
+            if (!data?.success) return;
+
+            allDataList = data.list || []; // Lưu danh sách gốc
+            renderData(allDataList);
+            ReportRenderer.renderSummary(data);
+        } catch (e) { console.error(e); }
+    }
+
+    // Hàm lọc dữ liệu
+    function filter() {
+        const nameQuery = Utils.id("filterName").value.toLowerCase();
+        const dateQuery = Utils.id("filterDate").value; // Format: YYYY-MM-DD
+
+        const filtered = allDataList.filter(item => {
+            // Lọc theo tên
+            const matchName = item.hoten.toLowerCase().includes(nameQuery);
+            
+            // Lọc theo ngày (item.ngay cần được định dạng khớp với input date)
+            // Giả sử item.ngay có định dạng DD/MM/YYYY
+            const matchDate = dateQuery ? convertToDDMMYYYY(dateQuery) === item.ngay : true;
+
+            return matchName && matchDate;
+        });
+
+        renderData(filtered);
+    }
+
+    function renderData(list) {
+        ReportRenderer.renderList(list);
+    }
+
+    function convertToDDMMYYYY(dateStr) {
+        const [y, m, d] = dateStr.split('-');
+        return `${d}/${m}/${y}`;
+    }
+
+
+    return { load, startLookup, onScanResult, closeResult, backHome, filter, renderData, convertToDDMMYYYY };
 })();
