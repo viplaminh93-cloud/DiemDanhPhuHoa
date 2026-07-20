@@ -79,18 +79,28 @@ const ReportController = (() => {
     }
 
     function filter() {
-        const data = getFilteredData();
-        renderData(data);
+        // 1. Hiển thị thông báo chờ ngay lập tức
+        const listContainer = Utils.id("reportList");
+        listContainer.innerHTML = '<div style="text-align:center; padding:20px;">Đang tải và lọc dữ liệu...</div>';
         
-        // Cập nhật lại Summary dựa trên dữ liệu đã lọc
-        const summary = {
-            tong: data.length,
-            le1: data.filter(i => i.loai === "Lễ 1").length,
-            le2: data.filter(i => i.loai === "Lễ 2").length,
-            leChieu: data.filter(i => i.loai === "Lễ Chiều").length,
-            giaoly: data.filter(i => i.loai === "Giáo lý").length
-        };
-        ReportRenderer.renderSummary(summary); // Hãy cập nhật renderer để hiển thị các con số mới
+        // 2. Sử dụng setTimeout để trình duyệt có thời gian vẽ lại (render) nội dung "Đang tải" trước khi thực hiện tính toán nặng (filter & render)
+        setTimeout(() => {
+            const data = getFilteredData();
+            
+            // 3. Render dữ liệu
+            renderData(data);
+            
+            // 4. Cập nhật lại Summary
+            const summary = {
+                tong: data.length,
+                le1: data.filter(i => i.loai && i.loai.trim() === "Lễ 1").length,
+                le2: data.filter(i => i.loai && i.loai.trim() === "Lễ 2").length,
+                leChieu: data.filter(i => i.loai && i.loai.trim() === "Lễ Chiều").length,
+                giaoly: data.filter(i => i.loai && i.loai.trim() === "Giáo lý").length
+            };
+            
+            ReportRenderer.renderSummary(summary);
+        }, 50); // 50ms là đủ để giao diện cập nhật trạng thái chờ
     }
 
     function renderData(list) {
