@@ -57,27 +57,23 @@
         </div>
 
         <!-- Bộ lọc -->
-        <div class="card" style="margin-bottom: 20px;">
+        <div class="card filter-box">
             <!-- Hàng 1: Tìm kiếm chính -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-                <input type="text" id="filterName" placeholder="Tìm tên..." onkeyup="ReportController.filter()" 
-                       style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
-                <input type="date" id="filterDate" onchange="ReportController.filter()" 
-                       style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
+            <div class="filter-grid">
+                <input type="text" id="filterName" class="filter-input" placeholder="Tìm tên..." onkeyup="ReportController.filter()">
+                <input type="date" id="filterDate" class="filter-input" onchange="ReportController.filter()">
             </div>
             
             <!-- Hàng 2: Bộ lọc điều kiện số buổi -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <select id="compareType" onchange="ReportController.filter()" 
-                        style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; background: #fff;">
+            <div class="filter-grid" style="margin-bottom: 0;">
+                <select id="compareType" class="filter-select" onchange="ReportController.filter()">
                     <option value="none">-- Số buổi --</option>
                     <option value="duoi">Dưới</option>
                     <option value="tren">Trên</option>
                 </select>
-                <input type="number" id="threshold" placeholder="Nhập số buổi" onkeyup="ReportController.filter()" 
-                       style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
-           </div>
-      </div>
+                <input type="number" id="threshold" class="filter-input" placeholder="Nhập số buổi" onkeyup="ReportController.filter()">
+            </div>
+        </div>
 
       <div id="reportList" class="report-list"> </div>
         
