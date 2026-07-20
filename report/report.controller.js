@@ -95,12 +95,28 @@ const ReportController = (() => {
             return;
         }
     
-        // 1. Thêm BOM (\uFEFF) vào đầu chuỗi nội dung để Excel hiểu là UTF-8
-        let content = "\uFEFFMã số\tHọ Tên\tLớp\tLoại\tNgày\tGiờ\n";
+        let htmlContent = `
+            <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+            <head><meta charset="utf-8"></head>
+            <body>
+                <table>
+                    <tr>
+                        <th>Mã số</th><th>Họ Tên</th><th>Lớp</th><th>Loại</th><th>Ngày</th><th>Giờ</th>
+                    </tr>`;
         
-        filtered.forEach(item => {
-            content += `${item.maso}\t${item.hoten}\t${item.lop}\t${item.loai}\t${item.ngay}\t${item.gio}\n`;
-        });
+            filtered.forEach(item => {
+                htmlContent += `
+                    <tr>
+                        <td>${item.maso}</td>
+                        <td>${item.hoten}</td>
+                        <td>${item.lop}</td>
+                        <td>${item.loai}</td>
+                        <td>${item.ngay}</td>
+                        <td>${item.gio}</td>
+                    </tr>`;
+            });
+        
+            htmlContent += `</table></body></html>`;
     
         // 2. Tạo Blob với BOM đã được chèn
         const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
