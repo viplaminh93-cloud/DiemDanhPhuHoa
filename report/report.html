@@ -112,15 +112,30 @@
 <script src="report.controller.js"></script>
 
 <script>
-
-window.addEventListener(
-    "DOMContentLoaded", ()=>{
-        Utils.id("btnRefresh").addEventListener("click", ReportController.load);
-        Utils.id("btnBack").addEventListener("click", ReportController.backHome);
-        ReportController.load();
+    window.addEventListener("DOMContentLoaded", async () => {
+        // 1. Gắn sự kiện trước
+        Utils.id("btnRefresh").addEventListener("click", syncData);
+        Utils.id("btnBack").addEventListener("click", () => { location.href = "../dashboard/dashboard.html"; });
+    
+        // 2. Chạy đồng bộ dữ liệu ngay khi vào trang
+        await syncData();
+    });
+    
+    // Hàm Sync dùng chung cho cả nút Refresh và lúc mới vào trang
+    async function syncData() {
+        const btn = Utils.id("btnRefresh");
+        btn.innerText = "Đang tải...";
+        btn.disabled = true;
+    
+        // Gọi hàm trong ReportService chúng ta vừa sửa
+        await ReportService.syncFromGoogle();
+        
+        // Sau khi sync xong thì mới load danh sách lên màn hình
+        ReportController.load(); 
+        
+        btn.innerText = "Làm mới";
+        btn.disabled = false;
     }
-);
-
 </script>
 
 </body>
