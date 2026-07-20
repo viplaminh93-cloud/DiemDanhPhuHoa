@@ -9,6 +9,10 @@ Auth.requireLogin();
 
 window.addEventListener("load", initStudents);
 
+
+const leCount = myHistory.filter(h => 
+    h.loai === "Lễ 1" || h.loai === "Lễ 2" || h.loai === "Lễ Chiều"
+).length;
 /**
  * Khởi tạo dữ liệu: Dùng ReportService làm nguồn dữ liệu trung tâm
  */
