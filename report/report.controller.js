@@ -6,6 +6,7 @@
 "use strict";
 
 const ReportController = (() => {
+    let processing = false;
     let isLookingUp = false;
 
     async function load() {
