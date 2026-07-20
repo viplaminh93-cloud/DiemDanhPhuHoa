@@ -87,23 +87,11 @@
 <script>
 
 window.addEventListener(
-
-    "DOMContentLoaded",
-
-    ()=>{
-
-        Utils.id("btnRefresh")
-
-            .addEventListener("click", ReportController.load);
-
-        Utils.id("btnBack")
-
-            .addEventListener("click", ()=>history.back());
-
+    "DOMContentLoaded", ()=>{
+        Utils.id("btnRefresh").addEventListener("click", ReportController.load);
+        Utils.id("btnBack").addEventListener("click", ()=>history.back());
         ReportController.load();
-
     }
-
 );
 
 </script>
