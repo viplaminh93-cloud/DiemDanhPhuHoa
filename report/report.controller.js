@@ -95,15 +95,14 @@ const ReportController = (() => {
             return;
         }
     
-        // Tiêu đề cột
-        let content = "Mã số\tHọ Tên\tLớp\tLoại\tNgày\tGiờ\n";
+        // 1. Thêm BOM (\uFEFF) vào đầu chuỗi nội dung để Excel hiểu là UTF-8
+        let content = "\uFEFFMã số\tHọ Tên\tLớp\tLoại\tNgày\tGiờ\n";
         
         filtered.forEach(item => {
-            // Ghi từng dòng, mỗi giá trị cách nhau bằng dấu phẩy
             content += `${item.maso}\t${item.hoten}\t${item.lop}\t${item.loai}\t${item.ngay}\t${item.gio}\n`;
         });
     
-        // Tạo file với đuôi .xls (Excel sẽ nhận diện và mở đúng cột)
+        // 2. Tạo Blob với BOM đã được chèn
         const blob = new Blob([content], { type: 'application/vnd.ms-excel;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         
