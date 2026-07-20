@@ -28,13 +28,14 @@ const ReportController = (() => {
     // --- Tra cứu cá nhân ---
     function startLookup() {
         isLookingUp = true;
-        // Gọi CameraService với callback là hàm onScanResult của chính Controller này
+        Utils.id("resultArea").classList.remove("hidden");
+        // Gọi CameraService
         CameraService.start((maso) => {
-            // Khi quét xong, CameraService gọi callback này
             ReportController.onScanResult(maso);
         }).catch(err => {
             alert("Lỗi camera: " + err.message);
             isLookingUp = false;
+            Utils.id("resultArea").classList.add("hidden");
         });
     }
 
@@ -66,9 +67,11 @@ const ReportController = (() => {
     
     function closeResult() {
         Utils.id("resultArea").classList.add("hidden");
-        if (typeof scanner !== 'undefined' && scanner.isScanning) {
+        CameraController.stop().catch(err => console.error("Lỗi tắt camera:", err));
+                isLookingUp = false;
+/*        if (typeof scanner !== 'undefined' && scanner.isScanning) {
             scanner.stop().catch(err => console.error("Lỗi tắt camera:", err));
-        }
+        }*/
     }
 
     async function backHome() {
