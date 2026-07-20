@@ -74,26 +74,28 @@ const StudentService = (() => {
         await load();
         const students = getAll();
     
-        // Xóa đoạn IF kiểm tra typeof google đi
-        // Ép chạy thẳng vào google.script.run
-        try {
-            const stats = await new Promise((resolve, reject) => {
-                google.script.run
-                    .withSuccessHandler(resolve)
-                    .withFailureHandler(reject)
-                    .getAllAttendanceStats();
-            });
+        return new Promise((resolve) => {
+            if (typeof google === 'undefined' || !google.script) {
+                console.error("LỖI: google.script không tồn tại. Kiểm tra lại việc triển khai (Deploy).");
+                // Trả về danh sách với số 0 để không làm hỏng giao diện
+                return resolve(students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 })));
+            }
     
-            return students.map(s => ({
-                ...s,
-                soBuoiLe: stats[String(s.maso).trim()]?.le || 0,
-                soBuoiGiaoLy: stats[String(s.maso).trim()]?.gl || 0
-            }));
-        } catch (err) {
-            console.error("Lỗi nghiêm trọng khi lấy thống kê từ server:", err);
-            // Nếu lỗi thật sự, lúc này mới trả về 0 để không làm crash giao diện
-            return students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 }));
-        }
+            google.script.run
+                .withSuccessHandler(stats => {
+                    const combined = students.map(s => ({
+                        ...s,
+                        soBuoiLe: stats[String(s.maso).trim()]?.le || 0,
+                        soBuoiGiaoLy: stats[String(s.maso).trim()]?.gl || 0
+                    }));
+                    resolve(combined);
+                })
+                .withFailureHandler(err => {
+                    console.error("Lỗi Google Script:", err);
+                    resolve(students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 })));
+                })
+                .getAllAttendanceStats();
+        });
     }
     
 
