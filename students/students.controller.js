@@ -43,3 +43,15 @@ Utils.id("studentModal").addEventListener("click", e => {
         StudentRenderer.closeModal();
     }
 });
+
+
+async function init() {
+    if (!Auth.requireLogin()) return;
+    loadUser(); // (Nếu có hàm này)
+
+    // Tải dữ liệu học sinh + thống kê song song
+    const list = await StudentService.getStudentsWithStats();
+    
+    // Đẩy dữ liệu sang Renderer
+    StudentRenderer.renderList(list);
+}
