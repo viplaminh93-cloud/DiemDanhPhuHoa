@@ -103,6 +103,14 @@ const ReportController = (() => {
         }, 50); // 50ms là đủ để giao diện cập nhật trạng thái chờ
     }
 
+    function renderSummary(summary) {
+        Utils.id("tongCount").textContent = summary.tong;
+        Utils.id("le1Count").textContent = summary.le1;
+        Utils.id("le2Count").textContent = summary.le2;
+        Utils.id("leChieuCount").textContent = summary.leChieu;
+        Utils.id("glCount").textContent = summary.giaoly;
+    }
+
     function renderData(list) {
         ReportRenderer.renderList(list);
     }
