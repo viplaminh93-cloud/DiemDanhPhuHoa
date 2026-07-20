@@ -36,20 +36,14 @@ const ReportRenderer = (()=>{
                 </div>
             </div>`;});
 
-        if(html===""){html=`
-            <div class="report-row">Chưa có dữ liệu.</div>`;
-                     }
+        if(html===""){html=`<div class="report-row">Chưa có dữ liệu.</div>`;}
 
         Renderer.html("reportList",html);
     }
 
-    function showHome() {
-            Renderer.show("reportBox");
-            Renderer.hide("scannerBox");
-        }
     
     //----------------------------------
 
-    return{renderSummary, renderList, showHome };
+    return{renderSummary, renderList };
 
 })();
