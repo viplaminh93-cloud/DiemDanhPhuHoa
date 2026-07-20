@@ -6,7 +6,7 @@
 "use strict";
 
 const StudentService = (() => {
-
+                                    console.log("Kiểm tra google.script:", typeof google !== 'undefined' ? google.script : "KHÔNG TÌM THẤY");
     // Dữ liệu cache nội bộ
     let students = [];
 
