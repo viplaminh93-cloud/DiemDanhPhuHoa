@@ -74,10 +74,13 @@ const CameraController = (() => {
     
     async function resume() {
         if (scanner && scanning) {
-            scanner.resume();
-            const videoElement = document.querySelector("#reader video");
-            if (videoElement) {
-                videoElement.style.opacity = "1"; // Hiện lại
+            try {
+                await scanner.resume();
+                Debug.write("Camera đã resume");
+            } catch (err) {
+                Debug.write("Lỗi resume:", err);
+                // Nếu resume lỗi, khởi động lại hoàn toàn
+                await restart();
             }
         }
     }
@@ -85,21 +88,19 @@ const CameraController = (() => {
 
     // Xử lý nội dung QR
     async function onScan(qrText) {
-        if (window.daQuet) return;
+        if (window.daQuet) return; // Chặn nếu đang xử lý
         window.daQuet = true;
-    
-        await CameraController.pause(); 
-        Debug.write("Controller", "Camera đã dừng hẳn sau khi quét");
-    
-        if (Utils.vibrate) Utils.vibrate(100);
-    
-        try {
-            await AttendanceController.onQRCode(qrText);
-        } catch (error) {
-            console.error("Lỗi xử lý QR:", error);
-            window.daQuet = false;
-            await CameraController.start();
+        
+        // Tạm dừng camera ngay lập tức
+        if (scanner && scanning) {
+            await scanner.pause(true); // Tham số true để ngắt luồng xử lý video
         }
+        
+        Debug.write("Controller", "Camera đã pause sau khi quét");
+        if (Utils.vibrate) Utils.vibrate(100);
+        
+        // Gọi controller xử lý logic
+        await AttendanceController.onQRCode(qrText);
     }
 
     // Khởi động lại
