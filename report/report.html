@@ -59,6 +59,16 @@
             <button class="btn" onclick="ReportController.closeResult()">Đóng</button>
         </div>
 
+        <!-- Bộ lọc -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="text" id="filterName" placeholder="Tìm tên..." onkeyup="ReportController.filter()" 
+                       style="padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                <input type="date" id="filterDate" onchange="ReportController.filter()" 
+                       style="padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+            </div>
+        </div>
+
     </div>
 
 </div>
