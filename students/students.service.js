@@ -74,27 +74,26 @@ const StudentService = (() => {
         await load();
         const students = getAll();
     
-        // Kiểm tra xem môi trường có hỗ trợ google.script không
-        if (typeof google === 'undefined' || !google.script) {
-            console.warn("Không tìm thấy môi trường Google Apps Script. Đang dùng dữ liệu giả lập.");
+        // Xóa đoạn IF kiểm tra typeof google đi
+        // Ép chạy thẳng vào google.script.run
+        try {
+            const stats = await new Promise((resolve, reject) => {
+                google.script.run
+                    .withSuccessHandler(resolve)
+                    .withFailureHandler(reject)
+                    .getAllAttendanceStats();
+            });
+    
+            return students.map(s => ({
+                ...s,
+                soBuoiLe: stats[String(s.maso).trim()]?.le || 0,
+                soBuoiGiaoLy: stats[String(s.maso).trim()]?.gl || 0
+            }));
+        } catch (err) {
+            console.error("Lỗi nghiêm trọng khi lấy thống kê từ server:", err);
+            // Nếu lỗi thật sự, lúc này mới trả về 0 để không làm crash giao diện
             return students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 }));
         }
-    
-        const stats = await new Promise((resolve) => {
-            google.script.run
-                .withSuccessHandler(resolve)
-                .withFailureHandler(err => {
-                    console.error("Lỗi lấy thống kê:", err);
-                    resolve({});
-                })
-                .getAllAttendanceStats();
-        });
-    
-        return students.map(s => ({
-            ...s,
-            soBuoiLe: stats[s.maso]?.le || 0,
-            soBuoiGiaoLy: stats[s.maso]?.gl || 0
-        }));
     }
     
 
