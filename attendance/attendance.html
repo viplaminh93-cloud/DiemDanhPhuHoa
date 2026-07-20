@@ -27,17 +27,15 @@
     </div>
 
     <!-- Thêm khối chọn lễ này phía trên camera hoặc phần quét -->
-    <div id="selection-layer" style="text-align:center; padding: 20px;">
-        <h3>Chọn loại điểm danh</h3>
-        <button onclick="selectType('Lễ 1')">Lễ 1</button>
-        <button onclick="selectType('Lễ 2')">Lễ 2</button>
-        <button onclick="selectType('Lễ Chiều')">Lễ Chiều</button>
+    <div id="selection-layer" class="card hidden" style="text-align:center; padding: 20px;">
+        <h3>CHỌN LOẠI LỄ</h3>
+        <button onclick="AttendanceController.selectLe('Lễ 1')" class="btn btnBlue">Lễ 1</button>
+        <button onclick="AttendanceController.selectLe('Lễ 2')" class="btn btnBlue">Lễ 2</button>
+        <button onclick="AttendanceController.selectLe('Lễ Chiều')" class="btn btnBlue">Lễ Chiều</button>
     </div>
     
     <!-- Ẩn camera đi ban đầu -->
-    <div id="camera-layer" style="display:none;">
-        <!-- Code camera cũ của bạn ở đây -->
-    </div>
+    <div id="camera-layer" style="display:none;"></div>
 
         <!-- Màn hình quét -->
         <div id="scannerBox" class="card hidden">
