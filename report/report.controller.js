@@ -40,15 +40,21 @@ const ReportController = (() => {
     }
 
     async function onScanResult(maso) {
-        if (!isLookingUp) return; 
-    
+        if (!isLookingUp) return;
+        isLookingUp = false; // Ngăn quét tiếp
+
+        // 1. Dừng camera ngay khi quét được mã
+        await CameraService.stop();
+
+        // 2. Gọi API tìm kiếm
         const res = await Auth.post({ action: "studentHistory", maso: maso });
+        
         if (res?.success && res.list?.length > 0) {
             renderHistory(res.list);
         } else {
-            alert("Không tìm thấy dữ liệu.");
+            alert("Không tìm thấy dữ liệu cho mã: " + maso);
+            closeResult(); 
         }
-        isLookingUp = false;
     }
 
     function renderHistory(list) {
