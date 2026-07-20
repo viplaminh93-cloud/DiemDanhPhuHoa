@@ -8,7 +8,7 @@
 const ReportController = (() => {
     let processing = false;
     let isLookingUp = false;
-    let allDataList = []; // Thêm biến để lưu dữ liệu gốc
+    let allDataList = [];
 
     async function load() {
         try {
@@ -18,30 +18,29 @@ const ReportController = (() => {
                 alert(data?.message || "Không tải được báo cáo.");
                 return;
             }
-            allDataList = data.list || []; // Lưu dữ liệu vào biến toàn cục của module
+            allDataList = data.list || [];
             ReportRenderer.renderSummary(data);
-            renderData(allDataList); // Hiển thị danh sách
+            renderData(allDataList);
         } catch (error) {
             console.error(error);
             alert("Lỗi tải báo cáo.");
         }
     }
 
-    // Hàm lọc dữ liệu
-    function filter() {
+    // Hàm lấy dữ liệu sau khi đã áp dụng tất cả bộ lọc
+    function getFilteredData() {
         const nameQuery = Utils.id("filterName").value.toLowerCase();
-        const dateQuery = Utils.id("filterDate").value; // Format: YYYY-MM-DD
+        const dateQuery = Utils.id("filterDate").value;
         const compareType = Utils.id("compareType").value;
         const threshold = parseInt(Utils.id("threshold").value) || 0;
 
-        // Đếm số buổi của từng người (Dựa trên danh sách hiện tại)
         const stats = {};
         allDataList.forEach(item => {
             if (!stats[item.maso]) stats[item.maso] = 0;
             stats[item.maso]++;
         });
 
-        const filtered = allDataList.filter(item => {
+        return allDataList.filter(item => {
             const matchName = item.hoten.toLowerCase().includes(nameQuery);
             const matchDate = dateQuery ? convertToDDMMYYYY(dateQuery) === item.ngay : true;
             
@@ -50,11 +49,12 @@ const ReportController = (() => {
                 const count = stats[item.maso];
                 matchCount = (compareType === "duoi") ? count < threshold : count > threshold;
             }
-
             return matchName && matchDate && matchCount;
         });
+    }
 
-        renderData(filtered);
+    function filter() {
+        renderData(getFilteredData());
     }
 
     function renderData(list) {
@@ -62,8 +62,33 @@ const ReportController = (() => {
     }
 
     function convertToDDMMYYYY(dateStr) {
+        if (!dateStr) return "";
         const [y, m, d] = dateStr.split('-');
         return `${d}/${m}/${y}`;
+    }
+
+    // --- Xuất Excel ---
+    function exportToExcel() {
+        const filtered = getFilteredData();
+        if (filtered.length === 0) {
+            alert("Không có dữ liệu để xuất!");
+            return;
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+        csvContent += "Họ Tên,Lớp,Loại,Ngày,Giờ\n";
+        
+        filtered.forEach(item => {
+            csvContent += `"${item.hoten}","${item.lop}","${item.loai}","${item.ngay}","${item.gio}"\n`;
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Bao_cao_${Utils.formatDate().replace(/\//g, "-")}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     // --- Tra cứu cá nhân ---
@@ -116,5 +141,5 @@ const ReportController = (() => {
         history.back(); 
     }
 
-    return { load, startLookup, onScanResult, closeResult, backHome, filter };
+    return { load, startLookup, onScanResult, closeResult, backHome, filter, exportToExcel };
 })();
