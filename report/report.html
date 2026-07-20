@@ -55,12 +55,12 @@
             <button class="btn" onclick="ReportController.closeResult()">Đóng</button>
         </div>
 
-<!-- Bộ lọc mới -->
-        <div class="card filter-box">
-            <!-- Nút lọc nhanh -->
-            <div class="filter-grid" style="margin-bottom: 10px;">
-                <button class="btn btnBlue" onclick="ReportController.setFilterType('DỰ LỄ')">Dự Lễ</button>
-                <button class="btn btnBlue" onclick="ReportController.setFilterType('GIÁO LÝ')">Giáo Lý</button>
+            <div class="filter-group">
+                <button class="btn-filter active" onclick="ReportController.setFilterType('TẤT CẢ', this)">TẤT CẢ</button>
+                <button class="btn-filter" onclick="ReportController.setFilterType('Lễ 1', this)">Lễ 1</button>
+                <button class="btn-filter" onclick="ReportController.setFilterType('Lễ 2', this)">Lễ 2</button>
+                <button class="btn-filter" onclick="ReportController.setFilterType('Lễ Chiều', this)">Lễ Chiều</button>
+                <button class="btn-filter" onclick="ReportController.setFilterType('Giáo lý', this)">Giáo lý</button>
             </div>
 
             <!-- Ô tìm kiếm tổng hợp -->
