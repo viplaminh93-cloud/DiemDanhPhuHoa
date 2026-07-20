@@ -26,7 +26,7 @@ const StudentRenderer = (() => {
             card.style.borderLeft = `8px solid ${student.mauKhoi || "#1565C0"}`;
             
             card.innerHTML = `
-                <img class="student-photo" src="${student.hinh || '#ffffff'}">
+                <img class="student-photo" src="${student.hinh || '"/QuanLyTNTT/icons/avatar.png"'}">
                 <div class="student-info">
                     <div class="student-name">${student.hoten}</div>
                     <div class="student-row">Mã số: ${student.maso}</div>
