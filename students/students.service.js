@@ -71,24 +71,29 @@ const StudentService = (() => {
 
     // Hàm đếm số buổi giáo lý và lễ
     async function getStudentsWithStats() {
-        return new Promise((resolve) => {
+        // Đảm bảo dữ liệu học sinh đã có sẵn
+        await load(); 
+
+        // Lấy thống kê từ Backend (từ file attendanceService.gs)
+        const stats = await new Promise((resolve) => {
             google.script.run
-                .withSuccessHandler(async (stats) => {
-                    // Giả sử bạn đã có hàm getAllStudents() trả về list học sinh
-                    const students = await getAllStudents(); 
-                    
-                    const combined = students.map(s => ({
-                        ...s,
-                        soBuoiLe: stats[s.maso]?.le || 0,
-                        soBuoiGiaoLy: stats[s.maso]?.gl || 0
-                    }));
-                    resolve(combined);
+                .withSuccessHandler(resolve)
+                .withFailureHandler(err => {
+                    console.error("Lỗi lấy thống kê:", err);
+                    resolve({}); // Trả về object rỗng nếu lỗi
                 })
                 .getAllAttendanceStats();
         });
+
+        // Gắn số liệu vào danh sách học sinh
+        return _students.map(s => ({
+            ...s,
+            soBuoiLe: stats[s.maso]?.le || 0,
+            soBuoiGiaoLy: stats[s.maso]?.gl || 0
+        }));
     }
     
 
     // Export các phương thức public
-    return { load, getAll, getByCode, search, count };
+    return { load, getAll, getByCode, search, count, getStudentsWithStats };
 })();
