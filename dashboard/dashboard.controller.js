@@ -33,10 +33,9 @@ function init(){
     bindEvents();
     initializePWA(); // Gọi hàm khởi tạo PWA ở đây!
 
-    // Ẩn nút báo cáo nếu là QUET_MA
-    if (role === "QUET_MA") {
-        const reportBtn = Utils.id("btnReport");
-        if (reportBtn) reportBtn.style.display = "none";
+    if (!('beforeinstallprompt' in window)) {
+        const installBtn = Utils.id("installBtn");
+        if (installBtn) installBtn.classList.add("hidden");
     }
 }
 
