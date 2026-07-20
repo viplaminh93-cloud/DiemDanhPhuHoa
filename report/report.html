@@ -74,7 +74,9 @@
                 <input type="number" id="threshold" class="filter-input" placeholder="Nhập số buổi" onkeyup="ReportController.filter()">
             </div>
         </div>
-
+      <button id="btnExport" class="btn" style="background: #28a745; color: #fff; margin-bottom: 20px;" 
+        onclick="ReportController.exportToExcel()"> TẢI XUẤT EXCEL </button>
+        
       <div id="reportList" class="report-list"> </div>
         
     </div>
