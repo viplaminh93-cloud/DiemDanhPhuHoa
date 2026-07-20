@@ -55,29 +55,34 @@
             <button class="btn" onclick="ReportController.closeResult()">Đóng</button>
         </div>
 
-        <!-- Bộ lọc -->
+<!-- Bộ lọc mới -->
         <div class="card filter-box">
-            <!-- Hàng 1: Tìm kiếm chính -->
-            <div class="filter-grid">
-                <input type="text" id="filterName" class="filter-input" placeholder="Nhập tên" onkeyup="ReportController.filter()">
+            <!-- Nút lọc nhanh -->
+            <div class="filter-grid" style="margin-bottom: 10px;">
+                <button class="btn btnBlue" onclick="ReportController.setFilterType('DỰ LỄ')">Dự Lễ</button>
+                <button class="btn btnBlue" onclick="ReportController.setFilterType('GIÁO LÝ')">Giáo Lý</button>
+            </div>
+
+            <!-- Ô tìm kiếm tổng hợp -->
+            <div class="filter-grid" style="margin-bottom: 10px;">
+                <input type="text" id="filterGeneral" class="filter-input" placeholder="Tìm theo tên, mã số hoặc lớp..." onkeyup="ReportController.filter()">
                 <input type="date" id="filterDate" class="filter-input" onchange="ReportController.filter()">
             </div>
             
-            <!-- Hàng 2: Bộ lọc điều kiện số buổi -->
-            <div class="filter-grid" style="margin-bottom: 0;">
+            <!-- Bộ lọc số buổi (giữ lại nếu bạn cần) -->
+            <div class="filter-grid">
                 <select id="compareType" class="filter-select" onchange="ReportController.filter()">
                     <option value="none">-- Số buổi --</option>
                     <option value="duoi">Dưới</option>
                     <option value="tren">Trên</option>
                 </select>
-                <input type="number" id="threshold" class="filter-input" placeholder="Nhập số buổi" onkeyup="ReportController.filter()">
+                <input type="number" id="threshold" class="filter-input" placeholder="Số lượng" onkeyup="ReportController.filter()">
             </div>
         </div>
-      
-      <button id="btnExport" class="btn btnGreen" onclick="ReportController.exportToExcel()"> TẢI XUẤT EXCEL </button>
-        
-      <button id="btnRefresh" class="btn btnBlue"> LÀM MỚI </button>  
-      <div id="reportList" class="report-list"> </div>
+
+        <button id="btnExport" class="btn btnGreen" onclick="ReportController.exportToExcel()"> XUẤT EXCEL </button>
+        <button id="btnRefresh" class="btn btnBlue"> Làm mới </button>  
+        <div id="reportList" class="report-list"> </div>
         
     </div>
 
