@@ -74,22 +74,28 @@ const ReportController = (() => {
             alert("Không có dữ liệu để xuất!");
             return;
         }
-
-        let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-        csvContent += "Mã số,Họ Tên,Lớp,Loại,Ngày,Giờ\n"; 
-        
+    
+        // Tạo nội dung CSV
+        let csvContent = "\uFEFFMã số,Họ Tên,Lớp,Loại,Ngày,Giờ\n";
         filtered.forEach(item => {
-            // Đảm bảo dữ liệu không bị trống
             csvContent += `"${item.maso}","${item.hoten}","${item.lop}","${item.loai}","${item.ngay}","${item.gio}"\n`;
         });
-
-        const encodedUri = encodeURI(csvContent);
+    
+        // Tạo Blob thay vì dùng encodeURI
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        
         const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
+        link.href = url;
         link.setAttribute("download", `Bao_cao_${Utils.formatDate().replace(/\//g, "-")}.csv`);
+        
+        // Thêm vào body và click
         document.body.appendChild(link);
         link.click();
+        
+        // Dọn dẹp
         document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     }
 
     // --- Tra cứu cá nhân ---
