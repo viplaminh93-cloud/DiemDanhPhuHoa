@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
     console.log("=== APP START ==="); 
     console.log(Config.APP.PARISH, Config.APP.NAME, "Version:", Version.VERSION); 
     
-    initializePWA(); // Khởi động đồng bộ offline 
+//    initializePWA(); // Khởi động đồng bộ offline 
     
     if (typeof OfflineService !== "undefined") { 
         OfflineService.renderQueueBadge(); 
