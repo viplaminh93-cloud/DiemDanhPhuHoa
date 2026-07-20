@@ -174,11 +174,3 @@ self.addEventListener("fetch", event => {
         })
     );
 });
-
-
-
-// Ép Service Worker mới chiếm quyền ngay lập tức mà không chờ đợi
-self.addEventListener('controllerchange', () => {
-    // Tùy chọn: Tải lại trang tự động nếu cần, nhưng cẩn thận loop
-    console.log("Service Worker đã cập nhật và chiếm quyền kiểm soát.");
-});
