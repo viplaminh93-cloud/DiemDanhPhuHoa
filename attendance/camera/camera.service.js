@@ -7,11 +7,10 @@
 
 "use strict";
 
-const scanner = new Html5Qrcode("reader");
-
 const CameraService = {
     start: async (onScan) => {
         try {
+            const scanner = new Html5Qrcode("reader");
             // 1. Dừng scanner nếu nó đang chạy (tránh lỗi xung đột)
             if (scanner.isScanning) {
                 await scanner.stop();
