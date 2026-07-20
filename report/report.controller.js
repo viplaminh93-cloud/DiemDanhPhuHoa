@@ -73,9 +73,12 @@ const ReportController = (() => {
 
     async function backHome() {
         processing = false;
-        
-        await CameraController.stop();
-        ReportRenderer.showHome();
+                try {
+            await CameraController.stop();
+        } catch (e) {
+            console.log("Camera đã dừng hoặc không chạy.");
+        }
+        history.back(); 
     }
 
     return { load, startLookup, onScanResult, closeResult, backHome };
