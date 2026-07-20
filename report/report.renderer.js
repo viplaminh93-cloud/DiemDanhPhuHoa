@@ -50,10 +50,6 @@ const ReportRenderer = (()=>{
     
     //----------------------------------
 
-    return{renderSummary, renderList };
+    return{renderSummary, renderList, showHome };
 
 })();
-
-
-
-    let processing = false;
