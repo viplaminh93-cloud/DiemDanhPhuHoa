@@ -31,6 +31,9 @@ const StudentRenderer = (() => {
                     <div class="student-name">${student.hoten}</div>
                     <div class="student-row">Mã số: ${student.maso}</div>
                     <div class="student-row">Lớp: ${student.lop}</div>
+                    <div class="student-row" style="font-size: 0.85em; color: #444;">
+                            Lễ: <b>${student.soBuoiLe}</b> | GL: <b>${student.soBuoiGiaoLy}</b>
+                        </div>
                 </div>`;
 
             card.addEventListener("click", () => openModal(student));
