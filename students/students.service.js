@@ -69,6 +69,26 @@ const StudentService = (() => {
         return students.length;
     }
 
+    // Hàm đếm số buổi giáo lý và lễ
+    async function getStudentsWithStats() {
+        return new Promise((resolve) => {
+            google.script.run
+                .withSuccessHandler(async (stats) => {
+                    // Giả sử bạn đã có hàm getAllStudents() trả về list học sinh
+                    const students = await getAllStudents(); 
+                    
+                    const combined = students.map(s => ({
+                        ...s,
+                        soBuoiLe: stats[s.maso]?.le || 0,
+                        soBuoiGiaoLy: stats[s.maso]?.gl || 0
+                    }));
+                    resolve(combined);
+                })
+                .getAllAttendanceStats();
+        });
+    }
+    
+
     // Export các phương thức public
     return { load, getAll, getByCode, search, count };
 })();
