@@ -12,6 +12,7 @@ const ReportRenderer = (()=>{
     //----------------------------------
 
     function renderSummary(data){
+        console.log("Dữ liệu nhận được:", data); // Kiểm tra xem data có các trường 'le' và 'giaoly' không
         Renderer.text("tongCount", data.total || 0);
         Renderer.text("leCount", data.le || 0);
         Renderer.text("glCount", data.giaoly || 0);
