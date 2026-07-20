@@ -71,22 +71,26 @@ const StudentService = (() => {
 
     // Hàm đếm số buổi giáo lý và lễ
     async function getStudentsWithStats() {
-        // Đảm bảo dữ liệu học sinh đã có sẵn
-        await load(); 
-
-        // Lấy thống kê từ Backend (từ file attendanceService.gs)
+        await load();
+        const students = getAll();
+    
+        // Kiểm tra xem môi trường có hỗ trợ google.script không
+        if (typeof google === 'undefined' || !google.script) {
+            console.warn("Không tìm thấy môi trường Google Apps Script. Đang dùng dữ liệu giả lập.");
+            return students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 }));
+        }
+    
         const stats = await new Promise((resolve) => {
             google.script.run
                 .withSuccessHandler(resolve)
                 .withFailureHandler(err => {
                     console.error("Lỗi lấy thống kê:", err);
-                    resolve({}); // Trả về object rỗng nếu lỗi
+                    resolve({});
                 })
                 .getAllAttendanceStats();
         });
-
-        // Gắn số liệu vào danh sách học sinh
-        return _students.map(s => ({
+    
+        return students.map(s => ({
             ...s,
             soBuoiLe: stats[s.maso]?.le || 0,
             soBuoiGiaoLy: stats[s.maso]?.gl || 0
