@@ -39,7 +39,7 @@ const ReportController = (() => {
         });
     }
 
-    async function onScanResult(maso) {
+/*    async function onScanResult(maso) {
         if (!isLookingUp) return;
         isLookingUp = false; // Ngăn quét tiếp
 
@@ -53,6 +53,28 @@ const ReportController = (() => {
             renderHistory(res.list);
         } else {
             alert("Không tìm thấy dữ liệu cho mã: " + maso);
+            closeResult(); 
+        }
+    }*/
+
+    async function onScanResult(maso) {
+        // Kiểm tra trạng thái lookup
+        if (!isLookingUp) return;
+        isLookingUp = false; 
+
+        // 1. Dừng camera thông qua Service hiện có
+        // Lưu ý: Vẫn cần gọi service để giải phóng phần cứng camera của trình duyệt
+        await CameraService.stop();
+
+        // 2. Gọi API tìm kiếm
+        const res = await Auth.post({ action: "studentHistory", maso: maso });
+        
+        // 3. Xử lý kết quả
+        if (res?.success && res.list?.length > 0) {
+            renderHistory(res.list);
+        } else {
+            alert("Không tìm thấy dữ liệu cho mã: " + maso);
+            // Gọi hàm đóng đã được khai báo cùng cấp
             closeResult(); 
         }
     }
@@ -73,16 +95,13 @@ const ReportController = (() => {
     
     function closeResult() {
         Utils.id("resultArea").classList.add("hidden");
-        CameraController.stop().catch(err => console.error("Lỗi tắt camera:", err));
-                isLookingUp = false;
-/*        if (typeof scanner !== 'undefined' && scanner.isScanning) {
-            scanner.stop().catch(err => console.error("Lỗi tắt camera:", err));
-        }*/
+        CameraService.stop().catch(err => console.error("Lỗi dừng camera:", err));
+        isLookingUp = false;
     }
 
     async function backHome() {
         processing = false;
-                try {
+        try {
             await CameraController.stop();
         } catch (e) {
             console.log("Camera đã dừng hoặc không chạy.");
