@@ -13,6 +13,7 @@ window.addEventListener("load", initStudents);
  * Khởi tạo dữ liệu: Dùng ReportService làm nguồn dữ liệu trung tâm
  */
 async function initStudents() {
+    await ReportService.syncFromGoogle();
     // 1. Lấy dữ liệu từ ReportService (thay vì AttendanceData cũ)
     const history = ReportService.getHistory();
     
