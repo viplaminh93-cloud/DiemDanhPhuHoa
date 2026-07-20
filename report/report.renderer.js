@@ -126,3 +126,7 @@ const ReportRenderer = (()=>{
     };
 
 })();
+
+
+
+    let processing = false;
