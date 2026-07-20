@@ -56,7 +56,7 @@ const ReportController = (() => {
                 item.lop.toLowerCase().includes(query);
                 
             const matchDate = dateQuery ? convertToDDMMYYYY(dateQuery) === item.ngay : true;
-            const matchType = item.loai.toUpperCase() === currentType;
+            const matchType = item.loai.toUpperCase().includes(currentType.toUpperCase());         
             
             let matchCount = true;
             if (compareType !== "none" && threshold > 0) {
@@ -120,7 +120,8 @@ const ReportController = (() => {
             htmlContent += `</table></body></html>`;
     
         // 2. Tạo Blob với BOM đã được chèn
-        const blob = new Blob([htmlContent], { type: 'text/csv;charset=utf-8;' });
+        const BOM = "\uFEFF"; // Ký tự đặc biệt giúp Excel nhận diện UTF-8
+        const blob = new Blob([BOM + htmlContent], { type: 'application/vnd.ms-excel;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         
         const link = document.createElement("a");
