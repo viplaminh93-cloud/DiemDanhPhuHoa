@@ -12,7 +12,7 @@ const ReportService = (() => {
     const STORAGE_KEY = 'attendance_history';
 
     //----------------------------------
-    // API CŨ (Giữ lại để tương thích với các trang cũ)
+    // CÁC HÀM XỬ LÝ (Private)
     //----------------------------------
     async function load() {
         try {
@@ -22,18 +22,10 @@ const ReportService = (() => {
             console.error("Lỗi khi gọi ReportService:", error);
             return { success: false, message: "Không thể kết nối đến máy chủ." };
         }
-    },
+    }
 
-    //----------------------------------
-    // API MỚI (Lịch sử điểm danh toàn cục)
-    //----------------------------------
-    
-    /**
-     * Đồng bộ dữ liệu từ Google Sheets về localStorage
-     */
-    async syncFromGoogle() {
+    async function syncFromGoogle() {
         return new Promise((resolve) => {
-            // Kiểm tra môi trường (tránh lỗi khi test ở máy tính)
             if (typeof google === 'undefined' || !google.script) {
                 console.warn("Đang dùng dữ liệu offline.");
                 resolve(JSON.parse(localStorage.getItem("APP_DATA") || "{}"));
@@ -42,7 +34,6 @@ const ReportService = (() => {
 
             google.script.run
                 .withSuccessHandler(data => {
-                    // data ở đây là object {students: [...], history: [...]}
                     localStorage.setItem("APP_DATA", JSON.stringify(data));
                     resolve(data);
                 })
@@ -52,22 +43,19 @@ const ReportService = (() => {
                 })
                 .getAppData();
         });
-    },
+    }
 
-    getHistory() {
+    function getHistory() {
         const data = JSON.parse(localStorage.getItem("APP_DATA") || "{}");
         return data.history || [];
-    },
+    }
 
-    /**
-     * Xóa dữ liệu cũ (nếu cần Reset)
-     */
-    clearData() {
-        localStorage.removeItem(STORAGE_KEY);
+    function clearData() {
+        localStorage.removeItem("APP_DATA");
     }
 
     //----------------------------------
-    // TRẢ VỀ PUBLIC API
+    // TRẢ VỀ CÁC HÀM CÔNG KHAI (Public API)
     //----------------------------------
     return { 
         load, 
