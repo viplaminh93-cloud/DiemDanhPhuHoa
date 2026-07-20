@@ -39,23 +39,6 @@ const ReportController = (() => {
         });
     }
 
-/*    async function onScanResult(maso) {
-        if (!isLookingUp) return;
-        isLookingUp = false; // Ngăn quét tiếp
-
-        // 1. Dừng camera ngay khi quét được mã
-        await CameraService.stop();
-
-        // 2. Gọi API tìm kiếm
-        const res = await Auth.post({ action: "studentHistory", maso: maso });
-        
-        if (res?.success && res.list?.length > 0) {
-            renderHistory(res.list);
-        } else {
-            alert("Không tìm thấy dữ liệu cho mã: " + maso);
-            closeResult(); 
-        }
-    }*/
 
     async function onScanResult(maso) {
         // Kiểm tra trạng thái lookup
@@ -63,7 +46,6 @@ const ReportController = (() => {
         isLookingUp = false; 
 
         // 1. Dừng camera thông qua Service hiện có
-        // Lưu ý: Vẫn cần gọi service để giải phóng phần cứng camera của trình duyệt
         await CameraService.stop();
 
         // 2. Gọi API tìm kiếm
@@ -74,7 +56,6 @@ const ReportController = (() => {
             renderHistory(res.list);
         } else {
             alert("Không tìm thấy dữ liệu cho mã: " + maso);
-            // Gọi hàm đóng đã được khai báo cùng cấp
             closeResult(); 
         }
     }
