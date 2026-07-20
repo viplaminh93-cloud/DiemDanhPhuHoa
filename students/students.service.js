@@ -74,13 +74,32 @@ const StudentService = (() => {
         await load();
         const students = getAll();
     
-        return new Promise((resolve) => {
-            if (typeof google === 'undefined' || !google.script) {
-                console.error("LỖI: google.script không tồn tại. Kiểm tra lại việc triển khai (Deploy).");
-                // Trả về danh sách với số 0 để không làm hỏng giao diện
-                return resolve(students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 })));
-            }
+        // Hàm đợi an toàn
+        const waitForGoogle = () => {
+            return new Promise((resolve) => {
+                let count = 0;
+                const check = setInterval(() => {
+                    if (typeof google !== 'undefined' && google.script) {
+                        clearInterval(check);
+                        resolve(true);
+                    }
+                    count++;
+                    if (count > 20) { // Đợi tối đa 2 giây
+                        clearInterval(check);
+                        resolve(false);
+                    }
+                }, 100);
+            });
+        };
     
+        const isReady = await waitForGoogle();
+        
+        if (!isReady) {
+            console.error("LỖI: Không tìm thấy google.script sau khi đợi.");
+            return students.map(s => ({ ...s, soBuoiLe: 0, soBuoiGiaoLy: 0 }));
+        }
+    
+        return new Promise((resolve) => {
             google.script.run
                 .withSuccessHandler(stats => {
                     const combined = students.map(s => ({
