@@ -9,6 +9,7 @@ const ReportController = (() => {
     let processing = false;
     let isLookingUp = false;
     let allDataList = [];
+    let currentType = "DỰ LỄ"; // Mặc định là DỰ LỄ
 
     async function load() {
         try {
@@ -25,6 +26,12 @@ const ReportController = (() => {
             console.error(error);
             alert("Lỗi tải báo cáo.");
         }
+    }
+    
+    // Hàm gọi khi nhấn nút lọc
+    function setFilterType(type) {
+        currentType = type;
+        filter();
     }
 
     // Hàm lấy dữ liệu sau khi đã áp dụng tất cả bộ lọc
