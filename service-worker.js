@@ -181,88 +181,27 @@ self.addEventListener(
 // FETCH
 //======================================
 
-self.addEventListener(
+self.addEventListener("fetch", event => {
+    if (event.request.method !== "GET") return;
 
-    "fetch",
+    // Ngoại trừ các file bạn KHÔNG muốn cache (ví dụ: data từ Google Script)
+    if (event.request.url.includes('/exec')) return;
 
-    event=>{
-
-        //----------------------------------
-        // Chỉ cache GET
-        //----------------------------------
-
-        if(
-
-            event.request.method !== "GET"
-
-        ){
-
-            return;
-
-        }
-
-        //----------------------------------
-        // Điều hướng trang
-        //----------------------------------
-
-        if(
-
-            event.request.mode ===
-
-            "navigate"
-
-        ){
-
-            event.respondWith(
-
-                fetch(event.request)
-
-                .catch(()=>{
-
-                    return caches.match(
-
-                        "/QuanLyTNTT/login/login.html"
-
-                    );
-
-                })
-
-            );
-
-            return;
-
-        }
-
-        //----------------------------------
-        // Offline First
-        //----------------------------------
-
-        event.respondWith(
-
-            caches.match(
-
-                event.request
-
-            )
-
-            .then(cache=>{
-
-                if(cache){
-
-                    return cache;
-
+    event.respondWith(
+        caches.match(event.request).then(cachedResponse => {
+            // Lấy từ cache trước
+            const fetchPromise = fetch(event.request).then(networkResponse => {
+                // Nếu fetch thành công, cập nhật cache với bản mới nhất
+                if (networkResponse.ok) {
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, networkResponse.clone());
+                    });
                 }
+                return networkResponse;
+            });
 
-                return fetch(
-
-                    event.request
-
-                );
-
-            })
-
-        );
-
-    }
-
-);
+            // Trả về cache ngay lập tức, nếu không có mới đợi network
+            return cachedResponse || fetchPromise;
+        })
+    );
+});
